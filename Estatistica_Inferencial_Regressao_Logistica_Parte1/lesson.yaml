@@ -1,0 +1,114 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Estatistica_Inferencial_Regressao_Logistica_Parte1
+  Author: Livia Oushiro
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.3
+
+- Class: figure
+  Output: "Nesta lista de exercícios, você vai desenvolver uma análise semelhante à que fizemos na Lição 14, mas agora com outras variáveis previsoras. As questões se encontram no script aberto em Source. As respostas desta lista de exercícios não requerem linhas de comando, mas sim os resultados de análises que você fará à parte. Suas análises devem ser feitas fora do ambiente do swirl. Lembre-se que você pode sair com o comando play() e voltar às questões desta lista com o comando nxt(). Se preferir, resolva primeiro todas as questões no script e depois volte para responder as questões aqui! Você também pode salvar o script em Source com outro nome e em outra pasta de seu computador."
+  Figure: Licao14-IEL-Exercicios-background.R
+  FigureType: new
+
+- Class: text
+  Output: "Primeiro, carregue os dados da planilha DadosRT.csv. Se você não tiver uma cópia, refaça a Lição 1 do curso Introducao a Estatistica para Linguistas. Após carregar o dataframe, cheque sua estrutura, como de praxe. Certifique-se de que 'retroflexo' é o segundo nível da VD, e organize variáveis ordinais em ordem lógica, de menor para maior. Para a variável REGIAO, defina a região central como o primeiro nível."
+
+- Class: mult_question
+  Output: "(1) Faça um modelo de regressão logística para testar se há correlação entre a pronúncia de /r/ em coda (VD) e a posição da sílaba com /r/ na palavra (POSICAO.R). Há correlação significativa?"
+  AnswerChoices: sim;não
+  CorrectAnswer: sim
+  AnswerTests: omnitest(correctVal= 'sim')
+  Hint: Refaça a lição, se necessário!
+
+- Class: mult_question
+  Output: "(2) A qual nível de POSICAO.R se refere o coeficiente linear (Intercept)?"
+  AnswerChoices: posição medial;posição final
+  CorrectAnswer: posição medial
+  AnswerTests: any_of_exprs('posição final', 'posição medial')
+  Hint: Refaça a lição, se necessário!
+
+- Class: mult_question
+  Output: "(3) A probabilidade de empregar retroflexo quando está no meio da palavra é ..."
+  AnswerChoices: menor do que quando está no final da palavra;maior do que quando está no final da palavra
+  CorrectAnswer: menor do que quando está no final da palavra
+  AnswerTests: omnitest(correctVal= 'menor do que quando está no final da palavra')
+  Hint: Refaça a lição, se necessário!
+
+- Class: cmd_question
+  Output: "(4) Qual é o valor de índice C do modelo VD ~ POSICAO.R?"
+  CorrectAnswer: 0.540
+  AnswerTests: omnitest(correctVal=0.540)
+  Hint: Refaça a lição, se necessário!
+
+- Class: mult_question
+  Output: "(5) De acordo com a classificação de Hosmer & Lemeshow (2000, apud Levshina 2015:259), tal índice C tem..."
+  AnswerChoices: pouco poder de discriminação de resultado;poder aceitável de discriminação de resultado;poder excelente de discriminação de resultado;poder notório de discriminação de resultado
+  CorrectAnswer: pouco poder de discriminação de resultado
+  AnswerTests: omnitest(correctVal= 'pouco poder de discriminação de resultado')
+  Hint: Refaça a lição, se necessário!
+
+- Class: mult_question
+  Output: "(6) Faça um modelo para testar se há correlação entre a pronúncia variável de /r/ em coda (VD) e a ESCOLARIDADE do falante. De acordo com o resultado deste modelo, não há diferença significativa entre..."
+  AnswerChoices: falantes com Ens. Fundamental e Ens.Médio;falantes com Ens. Fundamental e Ens.Superior;falantes com Ens. Médio e Ens. Superior
+  CorrectAnswer: falantes com Ens. Fundamental e Ens.Médio
+  AnswerTests: omnitest(correctVal= 'falantes com Ens. Fundamental e Ens.Médio')
+  Hint: Interprete os resultados do modelo e faça também um gráfico de efeitos para visualizar os resultados numéricos.
+
+- Class: mult_question
+  Output: "(7) Em relação aos falantes menos escolarizados, os falantes com nível superior de escolaridade..."
+  AnswerChoices: tendem a empregar menos o retroflexo;tendem a empregar mais o retroflexo
+  CorrectAnswer: tendem a empregar menos o retroflexo
+  AnswerTests: omnitest(correctVal= 'tendem a empregar menos o retroflexo')
+  Hint: Refaça a lição, se necessário!
+
+- Class: mult_question
+  Output: "(8) Transforme a medida de logodds da estimativa de emprego de retroflexo para falantes com nível superior para a medida de probabilidade (= proporção de 0% a 100%). Qual é a probabilidade de emprego de retroflexo para esses falantes?"
+  AnswerChoices: 21.9%;34.1%;50%;22.3%;33.9%
+  CorrectAnswer: 21.9%
+  AnswerTests: omnitest(correctVal= '21.9%')
+  Hint: Calcule a estimativa pelos coeficientes e aplique a função ilogit().
+
+- Class: cmd_question
+  Output: "(9) Faça um modelo para testar se há correlação entre a pronúncia variável de /r/ em coda (VD) e a IDADE do falante. A partir dele, calcule a estimativa, em logodds, de um falante com 50 anos de idade empregar o retroflexo."
+  CorrectAnswer: -1.003364
+  AnswerTests: omnitest(correctVal=-1.003364)
+  Hint: Refaça a lição, se necessário!
+
+- Class: cmd_question
+  Output: "(10) Tranforme o valor de logodds calculado em (9) para um valor de probabilidade."
+  CorrectAnswer: 0.2682805
+  AnswerTests: any_of_exprs('0.2682805', 'ilogit(-1.003364)', 'ilogit(-0.151114 + (50 * -0.017045))')
+  Hint: Coloque a resposta em número decimal, com ponto para representar as casa decimais.
+
+- Class: mult_question
+  Output: "(11) Na lição corresponde a esta lista, verificamos a interação entre FAIXA.ETARIA e REGIAO de residência do falante. A variável IDADE nada mais é do que a variável FAIXA.ETARIA vista de modo contínuo. Faça um modelo para testar a interação entre IDADE e REGIAO quanto ao uso variável de /r/ em coda. Há interação entre essas variáveis?"
+  AnswerChoices: sim;não
+  CorrectAnswer: sim
+  AnswerTests: omnitest(correctVal= 'sim')
+  Hint: Refaça a lição, se necessário!
+
+- Class: cmd_question
+  Output: "(12) Calcule a probabilidade, em logodds, de um falante de 30 anos que mora na região central empregar o retroflexo."
+  CorrectAnswer: -1.345464
+  AnswerTests: omnitest(correctVal = -1.345464)
+  Hint: Refaça a lição, se necessário!
+
+- Class: cmd_question
+  Output: "(13) Calcule a probabilidade, em logodds, de um falante de 30 anos que mora na região periférica empregar o retroflexo."
+  CorrectAnswer: -0.168866
+  AnswerTests: omnitest(correctVal = -0.168866)
+  Hint: Coloque todos os coeficientes pertinentes na função define o modelo!
+
+- Class: cmd_question
+  Output: "(14) Transforme esta última medida de logodds em probabilidade."
+  CorrectAnswer: 0.4578835
+  AnswerTests: any_of_exprs('0.4578835', 'ilogit(-0.168866)')
+  Hint: Coloque a resposta em número decimal, com ponto para representar as casa decimais.
+
+- Class: mult_question
+  Output: "Este é o fim da lista de exercícios 14. Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em \"Enviar\" no link que abrir. Se não, basta fechar a janela que se abrir."
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!

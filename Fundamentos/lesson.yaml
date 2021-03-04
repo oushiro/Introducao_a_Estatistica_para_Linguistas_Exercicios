@@ -1,0 +1,174 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Fundamentos
+  Author: Livia Oushiro
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.2
+  
+- Class: text
+  Output: Os exercícios neste curso acompanham as lições do tutorial Introdução à Estatística para Linguistas. Caso não o tenha instalado, instale-o antes de prosseguir! 
+
+- Class: text
+  Output: Para todas as listas de exercício, é recomendável que você crie um novo script para guardar as linhas de comando. Você pode criar um novo script clicando sobre File > New File > R Script, e salvando-o com Save. As respostas devem ser enviadas à Livia via Google Forms ao final de cada lição. 
+
+- Class: cmd_question
+  Output: Crie um vetor chamado numeros1 que contém os números 1, 3 e 5.
+  CorrectAnswer: numeros1 <- c(1, 3, 5)
+  AnswerTests: omnitest(correctExpr='numeros1 <- c(1, 3, 5)')
+  Hint: Digite numeros1 <- c(1, 3, 5) e pressione CTRL + ENTER.
+
+- Class: cmd_question
+  Output: Agora crie um vetor chamado numeros2 que contém os números 11, 13 e 15.
+  CorrectAnswer: numeros2 <- c(11, 13, 15)
+  AnswerTests: omnitest(correctExpr='numeros2 <- c(11, 13, 15)')
+  Hint: Digite numeros2 <- c(11, 13, 15) e pressione CTRL + ENTER.
+
+- Class: cmd_question
+  Output: Crie um vetor chamado classe_morfologica que contém os termos "substantivo", "adjetivo", "adverbio", "pronome" e "verbo".
+  CorrectAnswer: classe_morfologica <- c("substantivo", "adjetivo", "adverbio", "pronome", "verbo")
+  AnswerTests: omnitest(correctExpr='classe_morfologica <- c("substantivo", "adjetivo", "adverbio", "pronome", "verbo")')
+  Hint: Não se esqueça de usar as aspas para cada termo e de não usar diacríticos, como o acento agudo. 
+
+- Class: cmd_question
+  Output: Guarde o caminho do atual diretório de trabalho em uma variável chamada dir_antigo.
+  CorrectAnswer: dir_antigo <- getwd()
+  AnswerTests: omnitest(correctExpr='dir_antigo <- getwd()')
+  Hint: Use a função getwd() e o operador de atribuição. 
+
+- Class: cmd_question
+  Output: Defina como diretório de trabalho a pasta em que se localiza a planilha DadosRT.csv. 
+  CorrectAnswer: setwd("~/Dropbox/_R/swirl/testes")
+  AnswerTests: expr_uses_func('setwd')
+  Hint: Use a função setwd().
+
+- Class: cmd_question
+  Output: Cheque se o novo diretório de trabalho está correto. 
+  CorrectAnswer: getwd()
+  AnswerTests: omnitest(correctExpr='getwd()')
+  Hint: Use a função getwd().
+
+- Class: cmd_question
+  Output: Instale o pacote lme4. Ele será usado em lições futuras para criar modelos de efeitos mistos.
+  CorrectAnswer: install.packages("lme4")
+  AnswerTests: omnitest(correctExpr='install.packages("lme4")')
+  Hint: Use a função install.packages().
+  
+- Class: cmd_question
+  Output: Carregue o pacote tidyverse. 
+  CorrectAnswer: library(tidyverse)
+  AnswerTests: omnitest(correctExpr='library(tidyverse)')
+  Hint: Use a função library().
+
+- Class: cmd_question
+  Output: Carregue a planilha DadosRT.csv em um objeto chamado `dadosR`. Use a função read_csv() para isso. 
+  CorrectAnswer: dadosR <- read_csv("DadosRT.csv", col_types = cols(.default = col_factor(), cont.precedente = col_character(), ocorrencia = col_character(), cont.seguinte = col_character(), IDADE = col_integer(), INDICE.SOCIO = col_double(), FREQUENCIA = col_double()))
+  AnswerTests: expr_uses_func('read_csv')
+  Hint: Use a função read_csv().
+
+- Class: cmd_question
+  Output: Inspecione os elementos do vetor numeros1.
+  CorrectAnswer: numeros1
+  AnswerTests: omnitest(correctExpr='numeros1')
+  Hint: Digite o nome do vetor e pressione CTRL + ENTER.
+
+- Class: mult_question
+  Output: Se somarmos os vetores numeros1 e numeros2, qual será o resultado?
+  AnswerChoices: Um vetor de três elementos;Um vetor de um elemento;Um erro
+  CorrectAnswer: Um vetor de três elementos
+  AnswerTests: omnitest(correctVal= 'Um vetor de três elementos')
+  Hint: Tente achar a resposta!
+
+- Class: cmd_question
+  Output: Some os vetores numeros1 e numeros2 e cheque a resposta.
+  CorrectAnswer: numeros1 + numeros2
+  AnswerTests: omnitest(correctExpr='numeros1 + numeros2')
+  Hint: Digite numeros1 + numeros2.
+
+- Class: text
+  Output: Quando somamos numeros1 e numeros2, o R pegou o primeiro elemento de numeros1 (1) e somou ao primeiro elemento de numeros2 (11); o segundo elemento de numeros1 (3) e somou ao segundo elemento de numeros2 (13) etc. 
+  
+- Class: mult_question
+  Output: Se multiplicarmos o vetor numeros1 por 2, qual será o resultado?
+  AnswerChoices: Um vetor de três elementos;Um vetor de um elemento;Um erro
+  CorrectAnswer: Um vetor de três elementos
+  AnswerTests: omnitest(correctVal= 'Um vetor de três elementos')
+  Hint: Tente achar a resposta!
+
+- Class: cmd_question
+  Output: Multiple o vetor numeros1 por 2. O sinal de multiplicação no R é o asterisco *. 
+  CorrectAnswer: numeros1 * 2
+  AnswerTests: omnitest(correctExpr='numeros1 * 2')
+  Hint: Digite numeros1 * 2 e pressione CTRL + ENTER.
+
+- Class: text
+  Output: Ao multiplicar o vetor numeros1 por 2, o R `recicla` o vetor com menor número de elementos (o valor `2`) quantas vezes for necessária. 
+
+- Class: cmd_question
+  Output: Inspecione os valores do vetor classe_morfologica.
+  CorrectAnswer: classe_morfologica
+  AnswerTests: omnitest(correctExpr='classe_morfologica')
+  Hint: Digite o nome do vetor e pressione CTRL + ENTER.
+
+- Class: mult_question
+  Output: Se somarmos o vetor classe_morfologica com 2, qual será o resultado?
+  AnswerChoices: Um vetor de três elementos;Um vetor de um elemento;Um erro
+  CorrectAnswer: Um erro
+  AnswerTests: omnitest(correctVal= 'Um erro')
+  Hint: Lembre-se do que vimos na aula Fundamentos!
+
+- Class: cmd_question
+  Output: A função length() informa quantos elementos há dentro de um objeto do R. Veja a descrição dessa função por meio da Ajuda.
+  CorrectAnswer: ?length
+  AnswerTests: any_of_exprs('?length', 'help(length)')
+  Hint: Use ? e o nome da função, sem os parênteses.
+
+- Class: mult_question
+  Output: Escolha a linha de comando correta para aplicar a função length() no vetor classe_morfologica.
+  AnswerChoices: length(classe_morfologica);length("classe_morfologica");classe_morfologica <- length()
+  CorrectAnswer: length(classe_morfologica)
+  AnswerTests: omnitest(correctVal= 'length(classe_morfologica)')
+  Hint: Leia a ajuda da função length(). 
+
+- Class: cmd_question
+  Output: Aplique a função length() no vetor classe_morfologica.
+  CorrectAnswer: length(classe_morfologica)
+  AnswerTests: omnitest(correctExpr='length(classe_morfologica)')
+  Hint: Digite length(classe_morfologica) e pressione CTRL + ENTER.
+
+- Class: cmd_question
+  Output: Aplique a função length() no vetor numeros2 e atribua o resultado a uma variável chamada N.numeros2.
+  CorrectAnswer: N.numeros2 <- length(numeros2)
+  AnswerTests: omnitest(correctExpr='N.numeros2 <- length(numeros2)')
+  Hint: Digite N.numeros2 <- length(numeros2) e pressione CTRL + ENTER.
+  
+- Class: mult_question
+  Output: Qual é o conteúdo do vetor N.numeros2?
+  AnswerChoices: Um vetor de 1 elemento;Um vetor de 3 elementos;Um erro
+  CorrectAnswer: Um vetor de 1 elemento
+  AnswerTests: omnitest(correctVal= 'Um vetor de 1 elemento')
+  Hint: Você pode dar uma olhada na aba Environment para achar a resposta...
+
+- Class: mult_question
+  Output: Qual é o valor contido no vetor N.numeros2?
+  AnswerChoices: 3;1;5
+  CorrectAnswer: 3
+  AnswerTests: omnitest(correctVal= '3')
+  Hint: Pense o que foi computado quando se criou o vetor N.numeros2 <- length(numeros2).
+
+- Class: cmd_question
+  Output: Defina o antigo diretório de trabalho novamente como o diretório de trabalho atual. Use a função setwd() e a variável dir_antigo para isso. 
+  CorrectAnswer: setwd(dir_antigo)
+  AnswerTests: omnitest(correctExpr='setwd(dir_antigo)')
+  Hint: Digite setwd(dir_antigo) e pressione CTRL + ENTER. 
+
+- Class: text
+  Output: Este é o fim da lista de exercícios da Lição 1 - Fundamentos. Se quiser praticar mais, recomendo que você faça as lições 1 ('Basic Building Blocks') e 2 ('Workspace and Files') do curso R Programming, do swirl. 
+
+- Class: mult_question
+  Output: Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em "Enviar" no link que abrir. Se não, basta fechar a janela que se abrir.
+  AnswerChoices: Sim;Não
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!
+

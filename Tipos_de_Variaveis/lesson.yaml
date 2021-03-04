@@ -1,0 +1,189 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Tipos de Variaveis
+  Author: Livia Oushiro
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.3
+
+- Class: text
+  Output: A planilha de dados é normalmente preparada fora do ambiente do R, em programas como o Excel ou o Calc. O modo como cada variável é codificada na planilha e importada ao R depende de escolhas do pesquisador e da natureza das variáveis sob análise. Com isso em mente, responda as questões abaixo.
+
+- Class: mult_question
+  Output: Qual é o melhor modo de codificar a variável IDADE, a ser lida pelo R como uma variável como numérica/int?
+  AnswerChoices: 20, 21, 22...;vinte, vinte e um, vinte e dois...;20 anos, 21 anos, 22 anos...
+  CorrectAnswer: 20, 21, 22...
+  AnswerTests: omnitest(correctVal= '20, 21, 22...')
+  Hint: Se há caracteres, o R lerá como character.
+
+- Class: mult_question
+  Output: Caso um pesquisador codifique a variável CLASSE.SOCIAL como baixa, media.baixa, media etc., como a função read_csv() vai ler essa coluna, sem qualquer especificação adicional?
+  AnswerChoices: como character;como num;como int
+  CorrectAnswer: como character
+  AnswerTests: omnitest(correctVal= 'como character')
+  Hint: Tente novamente!
+    
+- Class: mult_question
+  Output: Como a variável CLASSE.SOCIAL codificada como baixa, media.baixa, media etc. deve ser especificada em col_types(), dentro de read_csv()?
+  AnswerChoices: col_factor();col_integer();col_double();col_character()
+  CorrectAnswer: col_factor()
+  AnswerTests: omnitest(correctVal= 'col_factor()')
+  Hint: Pense mais um pouco!
+    
+- Class: mult_question
+  Output: Qual é a ordem em que read_csv(), do pacote tidyverse, colocará os níveis de CLASSE.SOCIAL, se codificada como baixa, media.baixa, media, media.alta, alta?
+  AnswerChoices: na ordem em que aparecem na planilha;na ordem lógica -- baixa, media.baixa, media, media.alta, alta;na ordem alfabética -- alta, baixa, media, media.alta, media.baixa
+  CorrectAnswer: na ordem em que aparecem na planilha
+  AnswerTests: omnitest(correctVal= 'na ordem em que aparecem na planilha')
+  Hint: Relembre a aula!
+
+- Class: cmd_question
+  Output: Deixei disponível na memória do R um fator chamado CLASSE.SOCIAL. Visualize-o agora. 
+  CorrectAnswer: CLASSE.SOCIAL
+  AnswerTests: omnitest(correctExpr='CLASSE.SOCIAL')
+  Hint: Digite o nome do vetor e pressione CTRL + ENTER.
+  
+- Class: cmd_question
+  Output: Reorganize os níveis da variável CLASSE.SOCIAL numa ordem 'lógica', de classe mais baixa para classe mais alta. Use a função fct_relevel(). Não é necessário guardar o resultado.
+  CorrectAnswer: fct_relevel(CLASSE.SOCIAL, "baixa", "media_baixa", "media", "media_alta", "alta")
+  AnswerTests: omnitest(correctExpr='fct_relevel(CLASSE.SOCIAL, "baixa", "media_baixa", "media", "media_alta", "alta")')
+  Hint: Essa é uma linha de comando longa! Faça com calma, com especial atenção à ordem dos fatores.
+  
+- Class: cmd_question
+  Output: Reorganize os níveis da variável CLASSE.SOCIAL, juntando os fatores relativos à classe média (media_baixa, media e media_alta) em um único fator chamado 'media'. Guarde o resultado em um vetor chamado CLASSE.SOCIAL2.
+  CorrectAnswer: CLASSE.SOCIAL2 <- fct_collapse(CLASSE.SOCIAL, media = c("media_baixa", "media", "media_alta"))
+  AnswerTests: any_of_exprs('CLASSE.SOCIAL2 <- fct_collapse(CLASSE.SOCIAL, media = c("media_baixa", "media", "media_alta"))', 'CLASSE.SOCIAL2 <- fct_collapse(CLASSE.SOCIAL, media = c("media_baixa", "media_alta", "media"))', 'CLASSE.SOCIAL2 <- fct_collapse(CLASSE.SOCIAL, media = c("media", "media_baixa", "media_alta"))', 'CLASSE.SOCIAL2 <- fct_collapse(CLASSE.SOCIAL, media = c("media", "media_alta", "media_baixa"))', 'CLASSE.SOCIAL2 <- fct_collapse(CLASSE.SOCIAL, media = c("media_alta", "media", "media_baixa"))', 'CLASSE.SOCIAL2 <- fct_collapse(CLASSE.SOCIAL, media = c("media_alta", "media_baixa", "media"))', 'CLASSE.SOCIAL2 <- fct_collapse(CLASSE.SOCIAL, baixa = "baixa", media = c("media_baixa", "media", "media_alta"), alta = "alta")', 'CLASSE.SOCIAL2 <- fct_collapse(CLASSE.SOCIAL, baixa = "baixa", alta = "alta", media = c("media_baixa", "media", "media_alta"))', 'CLASSE.SOCIAL2 <- fct_collapse(CLASSE.SOCIAL, media = c("media_baixa", "media", "media_alta"), baixa = "baixa", alta = "alta")', 'CLASSE.SOCIAL2 <- fct_collapse(CLASSE.SOCIAL, media = c("media_baixa", "media", "media_alta"), alta = "alta", baixa = "baixa")', 'CLASSE.SOCIAL2 <- fct_collapse(CLASSE.SOCIAL, alta = "alta", baixa = "baixa", media = c("media_baixa", "media", "media_alta"))', 'CLASSE.SOCIAL2 <- fct_collapse(CLASSE.SOCIAL, alta = "alta", media = c("media_baixa", "media", "media_alta"), baixa = "baixa")')
+  Hint: Reveja a lição, se necessário.
+
+- Class: cmd_question
+  Output: "Reorganize os níveis da variável CLASSE.SOCIAL2 na ordem lógica ascendente: baixa, media e alta. Não é necessário guardar o resultado."
+  CorrectAnswer: fct_relevel(CLASSE.SOCIAL2, "baixa", "media", "alta")
+  AnswerTests: omnitest(correctExpr='fct_relevel(CLASSE.SOCIAL2, "baixa", "media", "alta")')
+  Hint: Reveja a lição, se necessário.
+  
+- Class: mult_question
+  Output: "Costuma-se classificar variáveis em 3 tipos: nominais (ou categóricas); ordinais; e numéricas (Gries 2013: 16). O R as classifica de modo diferente (int, num, double, factor), mas há uma relação entre elas. Escolha a opção que NÃO faz uma relação correta."
+  AnswerChoices: categórica -- num;categórica -- factor;numérica -- int;numérica -- num;ordinal -- factor, int ou num;numérica -- double
+  CorrectAnswer: categórica -- num
+  AnswerTests: omnitest(correctVal= 'categórica -- num')
+  Hint: Tente novamente!
+
+- Class: mult_question
+  Output: Que tipo de variável é CLASSE.MORFOLOGICA (codificada como "substantivo", "adjetivo", "verbo" etc.)?
+  AnswerChoices: nominal;numérica;ordinal
+  CorrectAnswer: nominal
+  AnswerTests: omnitest(correctVal= 'nominal')
+  Hint: Tente novamente!
+    
+- Class: mult_question
+  Output: Como a variável CLASSE.MORFOLOGICA (codificada como substantivo, adjetivo, verbo etc.) deve ser especificada em col_types(), dentro de read_csv()?
+  AnswerChoices: col_factor();col_integer();col_double();col_character()
+  CorrectAnswer: col_factor()
+  AnswerTests: omnitest(correctVal= 'col_factor()')
+  Hint: Pense mais um pouco!
+
+- Class: mult_question
+  Output: Qual das categorizações abaixo não se aplica a FREQUENCIA.LEXICAL, codificada como muito.frequente, frequente, pouco.frequente, infrequente?
+  AnswerChoices: ordinal;numérica;nominal;categórica
+  CorrectAnswer: numérica
+  AnswerTests: omnitest(correctVal= 'numérica')
+  Hint: O segredo está nos fatores, não na variável!
+
+- Class: mult_question
+  Output: Como a variável FREQUENCIA.LEXICAL (codificada como muito.frequente, frequente, pouco.frequente, infrequente) deve ser especificada em col_types(), dentro de read_csv()?
+  AnswerChoices: col_factor();col_integer();col_double();col_character()
+  CorrectAnswer: col_factor()
+  AnswerTests: omnitest(correctVal= 'col_factor()')
+  Hint: Pense mais um pouco!
+    
+- Class: mult_question
+  Output: Qual das categorizações abaixo não se aplica a FREQUENCIA.LEXICAL, codificada como o número de ocorrências por mil palavras (0.01, 0.02, 0.03, 0.5, 1.0 etc.)?
+  AnswerChoices: numérica;ordinal;nominal
+  CorrectAnswer: nominal
+  AnswerTests: omnitest(correctVal= 'nominal')
+  Hint: O segredo está nos fatores, não na variável!
+
+- Class: mult_question
+  Output: Como a variável FREQUENCIA.LEXICAL, codificada como o número de ocorrências por mil palavras (0.01, 0.02, 0.03, 0.5, 1.0 etc.) deve ser especificada em col_types(), dentro de read_csv()?
+  AnswerChoices: col_factor();col_integer();col_double();col_character()
+  CorrectAnswer: col_double()
+  AnswerTests: omnitest(correctVal= 'col_double()')
+  Hint: Pense mais um pouco!
+    
+- Class: mult_question
+  Output: Qual das categorizações abaixo não se aplica a F1, codificada como as medições de F1 em Hertz de diferentes vogais (300, 325, 450 etc.)?
+  AnswerChoices: numérica;ordinal;nominal
+  CorrectAnswer: nominal
+  AnswerTests: omnitest(correctVal= 'nominal')
+  Hint: O segredo está nos fatores, não na variável!
+
+- Class: mult_question
+  Output: Como a variável F1, codificada como as medições de F1 em Hertz de diferentes vogais (300, 325, 450 etc.), deve ser especificada em col_types(), dentro de read_csv()?
+  AnswerChoices: col_factor();col_integer();col_character()
+  CorrectAnswer: col_integer()
+  AnswerTests: omnitest(correctVal= 'col_integer()')
+  Hint: Pense mais um pouco!
+    
+- Class: cmd_question
+  Output: Defina como diretório de trabalho aquele que contém a planilha DadosRT.csv em seu computador.
+  CorrectAnswer: setwd("~/Dropbox/_R/swirl/Introducao_a_Estatistica_para_Linguistas/data")
+  AnswerTests: expr_uses_func('setwd')
+  Hint: Reveja as lições anteriores, se necessário.
+  
+- Class: cmd_question
+  Output: Carregue o pacote tidyverse.
+  CorrectAnswer: library(tidyverse)
+  AnswerTests: omnitest(correctExpr='library(tidyverse)')
+  Hint: Essa é fácil, vai?
+  
+- Class: cmd_question
+  Output: "Use a função read_csv() para carregar a planilha DadosRT.csv em um dataframe chamado `dadosRT`. Ao importar os dados: (i) especifique o default das variáveis como col_factor(); (ii) especifique a variável IDADE como col_integer(); (iii) especifique as variáveis INDICE.SOCIO e FREQUENCIA como col_double(); e defina a ordem dos níveis da variável CONT.FON.PREC como \"i\", \"e\", \"3\", \"a\", \"0\", \"o\" e \"u\"."
+  CorrectAnswer: dadosRT <- read_csv("DadosRT.csv", col_types = cols(.default = col_factor(), IDADE = col_integer(), INDICE.SOCIO = col_double(), FREQUENCIA = col_double(), CONT.FON.PREC = col_factor(levels = c("i", "e", "3", "a", "0", "o", "u"))))
+  AnswerTests: omnitest(correctExpr='dadosRT <- read_csv("DadosRT.csv", col_types = cols(.default = col_factor(), IDADE = col_integer(), INDICE.SOCIO = col_double(), FREQUENCIA = col_double(), CONT.FON.PREC = col_factor(levels = c("i", "e", "3", "a", "0", "o", "u"))))')
+  Hint: Use o script da lição para encontrar os modelos!
+    
+- Class: cmd_question
+  Output: Aplique a função levels() para visualizar os níveis da variável POSICAO.R do dataframe dadosRT.
+  CorrectAnswer: levels(dadosRT$POSICAO.R)
+  AnswerTests: omnitest(correctExpr='levels(dadosRT$POSICAO.R)')
+  Hint: Digite levels(dadosRT$POSICAO.R) e pressione CTRL + ENTER.
+  
+- Class: cmd_question
+  Output: Reorganize os níveis da variável POSICAO.R na ordem "final" e "medial". Não é necessário guardar o resultado.
+  CorrectAnswer: fct_relevel(dadosRT$POSICAO.R, "final")
+  AnswerTests: any_of_exprs('fct_relevel(dadosRT$POSICAO.R, "final")', 'fct_relevel(dadosRT$POSICAO.R, sort)', 'fct_relevel(dadosRT$POSICAO.R, "final", "medial")')
+  Hint: Reveja a lição, se necessário!
+    
+- Class: cmd_question
+  Output: Aplique a função levels() para visualizar os níveis da variável TONICIDADE do dataframe dadosRT.
+  CorrectAnswer: levels(dadosRT$TONICIDADE)
+  AnswerTests: omnitest(correctExpr='levels(dadosRT$TONICIDADE)')
+  Hint: Digite levels(dadosRT$TONICIDADE) e pressione CTRL + ENTER.
+  
+- Class: cmd_question
+  Output: Reorganize os níveis da variável TONICIDADE na ordem "atona" e "tonica". Não é necessário guardar o resultado.
+  CorrectAnswer: fct_relevel(dadosRT$TONICIDADE, "atona")
+  AnswerTests: any_of_exprs('fct_relevel(dadosRT$TONICIDADE, "atona")', 'fct_relevel(dadosRT$TONICIDADE, sort)', 'fct_relevel(dadosRT$TONICIDADE, "atona", "tonica")')
+  Hint: Reveja a lição, se necessário!
+    
+- Class: cmd_question
+  Output: Aplique a função levels() para visualizar os níveis da variável ORIGEM.PAIS do dataframe dadosRT.
+  CorrectAnswer: levels(dadosRT$ORIGEM.PAIS)
+  AnswerTests: omnitest(correctExpr='levels(dadosRT$ORIGEM.PAIS)')
+  Hint: Digite levels(dadosRT$ORIGEM.PAIS) e pressione CTRL + ENTER.
+  
+- Class: cmd_question
+  Output: "Reorganize os níveis da variável ORIGEM.PAIS na ordem de maior para menor proximidade da cidade de São Paulo, com o nível \"mista\" (= pai e mãe nascidos em locais distintos) por último. Não é necessário guardar o resultado."
+  CorrectAnswer: fct_relevel(dadosRT$ORIGEM.PAIS, "atona")
+  AnswerTests: any_of_exprs('fct_relevel(dadosRT$ORIGEM.PAIS, "SPcapital", "interior", "nordeste", "estrangeira", "mista")')
+  Hint: Reveja a lição, se necessário!
+    
+- Class: text
+  Output: Este é o fim da lista de exercícios da Lição 3 - Tipos de Variáveis.  
+
+- Class: mult_question
+  Output: Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em "Enviar" no link que abrir. Se não, basta fechar a janela que se abrir.
+  AnswerChoices: Sim;Não
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!

@@ -1,0 +1,213 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Estatistica Inferencial Teste-t
+  Author: Livia Oushiro
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.3
+
+- Class: cmd_question
+  Output: "Para estes exercícios, vou fazer uma cópia de uma nova planilha em seu computador. Defina uma pasta de sua escolha para ser o diretório de trabalho. Se preferir, crie uma nova pasta antes."
+  CorrectAnswer: setwd("~/Dropbox/_R/swirl/arquivosDados")
+  AnswerTests: expr_uses_func('setwd')
+  Hint: Use a função setwd().
+  
+- Class: figure
+  Output: O arquivo DadosRT-Percepcao.csv foi copiado para o atual diretório de trabalho. 
+  Figure: copiarDadosPercepcao.R
+  FigureType: new
+
+- Class: cmd_question
+  Output: "Carregue esses dados em um dataframe chamado `dados`. Defina as colunas VARIANTE.OUVIDA e FALANTE como factor."
+  CorrectAnswer: dados <- read_csv("DadosRT-percepcao.csv", col_types = cols(VARIANTE.OUVIDA = col_factor(), FALANTE = col_factor()))
+  AnswerTests: omnitest(correctExpr='dados <- read_csv("DadosRT-percepcao.csv", col_types = cols(VARIANTE.OUVIDA = col_factor(), FALANTE = col_factor()))')
+  Hint: Use a função read_csv().
+
+- Class: cmd_question
+  Output: "Cheque a estrutura dos dados para ver se foram carregados corretamente."
+  CorrectAnswer: str(dados)
+  AnswerTests: omnitest(correctExpr='str(dados)')
+  Hint: Qual função usamos para inspecionar a estrutura de um objeto?
+
+- Class: text
+  Output: "Os dados da planilha DadosRT-percepcao.csv foram adaptados de um experimento de percepções sociolinguísticas sobre a pronúncia variável de /r/ em coda silábica como tepe ou como retroflexo. Todos os participantes eram habitantes da cidade de São Paulo (nativos e não nativos). A eles foram tocados quatro pequenos excertos de áudio, em que ouviam uma pessoa falando; sua tarefa era a de imaginar quem era o falante e responder um questionário sobre as características que imaginaram. Sete dessas características deveriam ser assinaladas dentro de uma escala de dez pontos, em que um extremo significa \"pouco\" e o outro extremo significa \"muito\": extrovertido; escolarizado; inteligente; formal; amigável; paulistano; ter sotaque. Havia também outra escala, em que um extremo significava morar num bairro mais periférico e o outro significava morar num bairro mais central. Os participantes foram divididos em dois grupos. Metade dos participantes ouviram os falantes Antonio e Luisa usando o retroflexo, e Daniela e Paulo usando o tepe. A outra metade ouviu os falantes Antonio e Luisa usando o tepe, e Daniela e Paulo usando o retroflexo. O interesse geral da pesquisa foi o de verificar se as percepções sobre um mesmo falante seriam alteradas ao serem ouvidos com o tepe ou com o retroflexo. Para mais detalhes, ver Oushiro (2015)."
+
+- Class: cmd_question
+  Output: "Aplique a função View() para visualizar a planilha de dados e se familiarizar com ela. Note, em especial, as colunas de variáveis numéricas: EXTROVERSAO, ESCOLARIZACAO, INTELIGENCIA etc. A planilha também contém variáveis que identificam a variante que foi ouvida, quem era o falante, e características sociais dos ouvintes/participantes."
+  CorrectAnswer: View(dados)
+  AnswerTests: omnitest(correctExpr='View(dados)')
+  Hint: Aplique a função View() aos dados.
+  
+- Class: cmd_question
+  Output: Carregue o pacote tidyverse.
+  CorrectAnswer: library(tidyverse)
+  AnswerTests: omnitest(correctExpr='library(tidyverse)')
+  Hint: Não precisa de dica, né?
+
+- Class: cmd_question
+  Output: "Faça um subconjunto de dados chamado dados_R para quando se ouviu a variante retroflexa. Veja o resultado de str() e de View() para saber como foram nomeadas a variável e a variante."
+  CorrectAnswer: dados_R <- dados %>% filter(VARIANTE.OUVIDA == "R")
+  AnswerTests: any_of_exprs('dados_R <- dados %>% filter(VARIANTE.OUVIDA == "R")', 'dados_R <- filter(dados, VARIANTE.OUVIDA == "R")')
+  Hint: Veja o resultado de str() e View() e, se necessário, refaça a Lição 2.
+
+- Class: cmd_question
+  Output: "Faça um subconjunto de dados chamado dados_T para quando se ouviu a variante tepe. Veja o resultado de str() e de View() para saber como foram nomeadas a variável e a variante."
+  CorrectAnswer: dados_T <- dados %>% filter(VARIANTE.OUVIDA == "T")
+  AnswerTests: any_of_exprs('dados_T <- dados %>% filter(VARIANTE.OUVIDA == "T")', 'dados_T <- filter(dados, VARIANTE.OUVIDA == "T")')
+  Hint: Veja o resultado de str() e View() e, se necessário, refaça a Lição 2.
+
+- Class: cmd_question
+  Output: "Faça um gráfico com dois histogramas da distribuição de \"graus de paulistanidade\" (PAULISTANIDADE) atribuídos aos falantes quando se ouviu o retroflexo e quando se ouviu o tepe. Para tanto, a partir do dataframe `dados`, (i) defina o parâmetro estético para x; (ii) use a geometria para histogramas com bindwidth = 1, alpha = 0.7 e cor das bordas das barras \"gray\"; e (iii) use facet_grid(), de modo que um histograma fique em cima do outro."
+  CorrectAnswer: ggplot(dados, aes(x = PAULISTANIDADE)) + geom_histogram(binwidth = 1, alpha = 0.7, color = "gray") + facet_grid(VARIANTE.OUVIDA ~ .)
+  AnswerTests: omnitest(correctExpr='ggplot(dados, aes(x = PAULISTANIDADE)) + geom_histogram(binwidth = 1, alpha = 0.7, color = "gray") + facet_grid(VARIANTE.OUVIDA ~ .)')
+  Hint: Refaça a Lição 7, se necessário, para lembrar como se plota um histograma.
+
+- Class: mult_question
+  Output: "Examine os histogramas plotados. Em média, foram atribuídas maiores notas de PAULISTANIDADE quando se ouviu qual variante?"
+  AnswerChoices: tepe;retroflexo
+  CorrectAnswer: tepe
+  AnswerTests: omnitest(correctVal= 'tepe')
+  Hint: Interprete a figura!
+
+- Class: cmd_question
+  Output: "Os dados de PAULISTANIDADE quando se ouviu o retroflexo parecem seguir uma distribuição normal? Aplique o teste de Shapiro sobre esses dados."
+  CorrectAnswer: shapiro.test(dados_R$PAULISTANIDADE)
+  AnswerTests: omnitest(correctExpr='shapiro.test(dados_R$PAULISTANIDADE)')
+  Hint: Refaça a aula correspondente, se necessário!
+
+- Class: mult_question
+  Output: "De acordo com o teste acima, a distribuição das notas de PAULISTANIDADE quando se ouviu o retroflexo seguem uma distribuição normal?"
+  AnswerChoices: não;sim
+  CorrectAnswer: não
+  AnswerTests: omnitest(correctVal= 'não')
+  Hint: Refaça a aula correspondente, se necessário!
+
+- Class: cmd_question
+  Output: "Aplique o teste de Shapiro aos dados de PAULISTANIDADE quando se ouviu o tepe." 
+  CorrectAnswer: shapiro.test(dados_T$PAULISTANIDADE)
+  AnswerTests: omnitest(correctExpr='shapiro.test(dados_T$PAULISTANIDADE)')
+  Hint: Refaça a aula correspondente, se necessário!
+
+- Class: mult_question
+  Output: "De acordo com o teste acima, a distribuição das notas de PAULISTANIDADE quando se ouviu o tepe seguem uma distribuição normal?"
+  AnswerChoices: não;sim
+  CorrectAnswer: não
+  AnswerTests: omnitest(correctVal= 'não')
+  Hint: Refaça a aula correspondente, se necessário!
+
+- Class: cmd_question
+  Output: "Com ggplot(), faça boxplots simples da distribuição dos dados de PAULISTANIDADE por VARIANTE.OUVIDA. Use o conjunto geral de dados e notch = T."
+  CorrectAnswer: ggplot(dados, aes(x = VARIANTE.OUVIDA, y = PAULISTANIDADE)) + geom_boxplot(notch = T)
+  AnswerTests: any_of_exprs('ggplot(dados, aes(x = VARIANTE.OUVIDA, y = PAULISTANIDADE)) + geom_boxplot(notch = T)', 'ggplot(dados, aes(x = VARIANTE.OUVIDA, y = PAULISTANIDADE)) + geom_boxplot(notch = TRUE)')
+  Hint: Refaça a Lição 7, se necessário, para lembrar como se plota um boxplot. Aplique apenas os argumentos necessários.
+
+- Class: cmd_question
+  Output: "Calcule a média de notas atribuídas na escala de PAULISTANIDADE por VARIANTE.OUVIDA. Nomeie a coluna da medida como `media`. "
+  CorrectAnswer: dados %>% group_by(VARIANTE.OUVIDA) %>% summarize(media = mean(PAULISTANIDADE))
+  AnswerTests: any_of_exprs('dados %>% group_by(VARIANTE.OUVIDA) %>% summarize(media = mean(PAULISTANIDADE))', 'group_by(dados, VARIANTE.OUVIDA) %>% summarize(media = mean(PAULISTANIDADE))')
+  Hint: Use as funções group_by() e summarize().
+
+- Class: cmd_question
+  Output: "Faça um teste estatístico para testar a hipótese nula de que a média da nota atribuída na escala de PAULISTANIDADE quando se ouviu o retroflexo é 5. Escolha o teste apropriado, segundo o resultado do teste de Shapiro, bem como o conjunto de dados. Estabeleça conf.int = T."
+  CorrectAnswer: wilcox.test(dados_R$PAULISTANIDADE, mu = 5, conf.int = T)
+  AnswerTests: omnitest(correctExpr='wilcox.test(dados_R$PAULISTANIDADE, mu =5, conf.int = T)')
+  Hint: Refaça a lição correspondente, se necessário.
+
+- Class: mult_question
+  Output: "De acordo com o teste acima, qual deve ser a decisão do pesquisador?"
+  AnswerChoices: Rejeitar a hipótese alternativa e acatar a hipótese nula.;Rejeitar a hipótese nula e acatar a hipótese alternativa.;Refazer o teste.
+  CorrectAnswer: Rejeitar a hipótese alternativa e acatar a hipótese nula.
+  AnswerTests: omnitest(correctVal= 'Rejeitar a hipótese alternativa e acatar a hipótese nula.')
+  Hint: Refaça a lição correspondente, se necessário.
+
+- Class: cmd_question
+  Output: "Faça um teste estatístico para testar a hipótese nula de que média da nota atribuída na escala de PAULISTANIDADE é a mesma para quando se ouviu o tepe ou o retroflexo. Escolha o teste apropriado, segundo o resultado do teste de Shapiro, bem como o conjunto de dados. Estabeleça conf.int = T."
+  CorrectAnswer: wilcox.test(PAULISTANIDADE ~ VARIANTE.OUVIDA, data = dados, conf.int = T)
+  AnswerTests: omnitest(correctExpr='wilcox.test(PAULISTANIDADE ~ VARIANTE.OUVIDA, data = dados, conf.int = T)')
+  Hint: Refaça a lição correspondente, se necessário.
+
+- Class: mult_question
+  Output: "De acordo com o teste acima, a diferença entre as médias de PAULISTANIDADE para quando se ouviu tepe ou retroflexo é zero?"
+  AnswerChoices: não;sim
+  CorrectAnswer: não
+  AnswerTests: omnitest(correctVal= 'não')
+  Hint: Refaça a lição correspondente, se necessário.
+
+- Class: mult_question
+  Output: "Qual é a diferença estimada entre as médias?"
+  AnswerChoices: 1.599976;1.900033;1.199951;0;9.664e-15
+  CorrectAnswer: 1.599976
+  AnswerTests: omnitest(correctVal= '1.599976')
+  Hint: Refaça a lição correspondente, se necessário.
+
+- Class: cmd_question
+  Output: "Com ggplot(), faça boxplots da distribuição das notas atribuídas ao grau de SOTAQUE por VARIANTE.OUVIDA e FALANTE. Para tanto, (i) escolha o dataframe apropriado; (ii) defina os parâmetros gráficos x e y; (iii) use a geometria de boxplots com notch = T; e (iv) use facet_grid() de modo que os falantes apareçam em facetas lado a lado no gráfico."
+  CorrectAnswer: ggplot(dados, aes(x = VARIANTE.OUVIDA, y = SOTAQUE)) + geom_boxplot(notch = T) + facet_grid(. ~ FALANTE)
+  AnswerTests: any_of_exprs('ggplot(dados, aes(x = VARIANTE.OUVIDA, y = SOTAQUE)) + geom_boxplot(notch = T) + facet_grid(. ~ FALANTE)', 'ggplot(dados, aes(x = VARIANTE.OUVIDA, y = SOTAQUE)) + geom_boxplot(notch = T) + facet_grid( ~ FALANTE)')
+  Hint: Refaça a lição correspondente, se necessário. Use apenas os argumentos especificados.
+
+- Class: mult_question
+  Output: "A figura permite comparar as notas atribuídas ao grau de SOTAQUE quando se ouviu o tepe ou o retroflexo para cada um dos quatro falantes. Para qual dos quatro falantes parece realmente não haver uma diferença significativa entre a nota atribuída a SOTAQUE para retroflexo ou tepe?"
+  AnswerChoices: Antonio;Daniela;Luisa;Paulo
+  CorrectAnswer: Antonio
+  AnswerTests: omnitest(correctVal= 'Antonio')
+  Hint: Leia e interprete a figura!
+
+- Class: mult_question
+  Output: "Na sequência, faremos quatro testes para analisar se a diferença entre as notas atribuídas ao grau de SOTAQUE é significativa a depender da VARIANTE.OUVIDA, para cada um dos quatro falantes. Como o teste se repetirá quatro vezes, é importante antes tomar uma importante medida. Qual é ela?"
+  AnswerChoices: fazer a correção de Bonferroni, ajustando o valor-p para 0.05/4;fazer o teste-t para verificar se os dados seguem a distribuição normal;fazer o teste de qui-quadrado para determinar os graus de liberdade
+  CorrectAnswer: fazer a correção de Bonferroni, ajustando o valor-p para 0.05/4
+  AnswerTests: omnitest(correctVal= 'fazer a correção de Bonferroni, ajustando o valor-p para 0.05/4')
+  Hint: Refaça a Lição 8, se necessário.
+
+- Class: exact_question
+  Output: "Calcule qual deve ser o valor-p para repetir o teste quatro vezes."
+  CorrectAnswer: 0.05/4
+  AnswerTests: omnitest(correctVal=0.0125)
+  Hint: Refaça a Lição 8, se necessário. Use o ponto final para indicar casa decimais.
+
+- Class: exact_question
+  Output: "De acordo o valor-p determinado acima, qual deve ser o nível de confiança?"
+  CorrectAnswer: 1 - 0.0125
+  AnswerTests: omnitest(correctVal=0.9875)
+  Hint: Refaça a Lição 8, se necessário. Use o ponto final para indicar casa decimais.
+
+- Class: cmd_question
+  Output: "Faça um teste de Wilcoxon para testar a diferença entre as notas atribuídas ao grau de SOTAQUE a depender da VARIANTE.OUVIDA, apenas para o falante Antonio. Para tanto, com auxílio do pipe e a partir do dataframe `dados`, (i) crie um subconjunto apenas dos dados do falante Antonio; e (ii) aplique o teste de Wilcoxon com a fórmula SOTAQUE ~ VARIANTE.OUVIDA e data = . (o ponto final, que indica o conjunto de dados criado à esquerda do pipe). Estabeleça o nível de confiança igual ao valor que você calculou na questão acima."
+  CorrectAnswer: dados %>% filter(FALANTE == "Antonio") %>% wilcox.test(SOTAQUE ~ VARIANTE.OUVIDA, data = ., conf.level = 0.9875)
+  AnswerTests: any_of_exprs('dados %>% filter(FALANTE == "Antonio") %>% wilcox.test(SOTAQUE ~ VARIANTE.OUVIDA, data = ., conf.level = 0.9875)', 'filter(dados, FALANTE == "Antonio") %>% wilcox.test(SOTAQUE ~ VARIANTE.OUVIDA, data = ., conf.level = 0.9875)')
+  Hint: Refaça a lição correspondente, se necessário.
+
+- Class: cmd_question
+  Output: "Faça o mesmo teste acima para a falante Daniela."
+  CorrectAnswer: dados %>% filter(FALANTE == "Daniela") %>% wilcox.test(SOTAQUE ~ VARIANTE.OUVIDA, data = ., conf.level = 0.9875)
+  AnswerTests: any_of_exprs('dados %>% filter(FALANTE == "Daniela") %>% wilcox.test(SOTAQUE ~ VARIANTE.OUVIDA, data = ., conf.level = 0.9875)', 'filter(dados, FALANTE == "Daniela") %>% wilcox.test(SOTAQUE ~ VARIANTE.OUVIDA, data = ., conf.level = 0.9875)')
+  Hint: Refaça a lição correspondente, se necessário.
+
+- Class: cmd_question
+  Output: "Faça o mesmo teste acima para o falante Paulo."
+  CorrectAnswer: dados %>% filter(FALANTE == "Paulo") %>% wilcox.test(SOTAQUE ~ VARIANTE.OUVIDA, data = ., conf.level = 0.9875)
+  AnswerTests: any_of_exprs('dados %>% filter(FALANTE == "Paulo") %>% wilcox.test(SOTAQUE ~ VARIANTE.OUVIDA, data = ., conf.level = 0.9875)', 'filter(dados, FALANTE == "Paulo") %>% wilcox.test(SOTAQUE ~ VARIANTE.OUVIDA, data = ., conf.level = 0.9875)')
+  Hint: Refaça a lição correspondente, se necessário.
+
+- Class: cmd_question
+  Output: "Faça o mesmo teste acima para a falante Luisa."
+  CorrectAnswer: dados %>% filter(FALANTE == "Luisa") %>% wilcox.test(SOTAQUE ~ VARIANTE.OUVIDA, data = ., conf.level = 0.9875)
+  AnswerTests: any_of_exprs('dados %>% filter(FALANTE == "Luisa") %>% wilcox.test(SOTAQUE ~ VARIANTE.OUVIDA, data = ., conf.level = 0.9875)', 'filter(dados, FALANTE == "Luisa") %>% wilcox.test(SOTAQUE ~ VARIANTE.OUVIDA, data = ., conf.level = 0.9875)')
+  Hint: Refaça a lição correspondente, se necessário.
+
+- Class: text_question
+  Output: "De acordo com os quatro testes acima, para qual ou quais falantes não há diferença significativa para o grau de SOTAQUE atribuído a depender da VARIANTE.OUVIDA? Se houver mais de um falante, separe o nome dos falantes por vírgula."
+  CorrectAnswer: Antonio
+  AnswerTests: val_matches('[A|a]nt[ô|o]nio')
+  Hint: Interprete os resultados dos quatro testes acima!
+
+- Class: text
+  Output: "Isso conclui a lista de exercícios! Se quiser praticar mais, use os dados pretonicas ou os dados desta aula para elaborar novos testes. Para as pretônicas, por exemplo, você pode fazer e interpretar os testes para a vogal /o/. Para os dados do teste de percepções sociolinguísticas, você pode testar os efeitos de tepe/retroflexo sobre outras variáveis (ESCOLARIZACAO, CENTRALIDADE.BAIRRO etc.)."
+
+- Class: mult_question
+  Output: "Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em \"Enviar\" no link que abrir. Se não, basta fechar a janela que se abrir." 
+  AnswerChoices: Sim;Não
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!

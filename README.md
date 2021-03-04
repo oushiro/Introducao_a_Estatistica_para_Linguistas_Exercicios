@@ -1,0 +1,2 @@
+# Introducao_a_Estatistica_para_Linguistas_Exercicios
+ 

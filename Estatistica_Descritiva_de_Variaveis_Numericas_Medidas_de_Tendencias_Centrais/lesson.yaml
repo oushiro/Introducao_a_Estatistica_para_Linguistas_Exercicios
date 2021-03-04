@@ -1,0 +1,173 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Estatistica Descritiva de Variaveis Numericas Medidas de Tendencias Centrais
+  Author: Livia Oushiro
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.2
+
+- Class: text
+  Output: "Para estes exercícios, usaremos novamente o conjunto de dados de vogais pretônicas. "
+  
+- Class: cmd_question
+  Output: Carregue o pacote tidyverse.
+  CorrectAnswer: library(tidyverse)
+  AnswerTests: omnitest(correctExpr='library(tidyverse)')
+  Hint: Você já fez isso várias vezes!
+    
+- Class: cmd_question
+  Output: Defina como diretório de trabalho aquele que, em seu computador, contém a planilha Pretonicas.csv.
+  CorrectAnswer: setwd("~/Dropbox/_R/swirl/arquivosDados")
+  AnswerTests: expr_uses_func('setwd')
+  Hint: Use a função setwd().
+  
+- Class: cmd_question
+  Output: Importe a planilha Pretonicas.csv em um dataframe chamado `pretonicas`. Defina a variável AMOSTRA como factor, com os níveis "PBSP" e "SP2010"; a variável VOGAL como factor, com os níveis "i", "e", "a", "o" e "u"; e a variável PARTICIPANTE também como factor (sem necessidade de definir a ordem dos níveis).
+  CorrectAnswer: pretonicas <- read_csv("Pretonicas.csv", col_types = cols(AMOSTRA = col_factor(levels = c("PBSP", "SP2010")), VOGAL = col_factor(levels = c("i", "e", "a", "o", "u")), PARTICIPANTE = col_factor()))
+  AnswerTests: omnitest(correctExpr='pretonicas <- read_csv("Pretonicas.csv", col_types = cols(AMOSTRA = col_factor(levels = c("PBSP", "SP2010")), VOGAL = col_factor(levels = c("i", "e", "a", "o", "u")), PARTICIPANTE = col_factor()))')
+  Hint: Use como modelo a linha de comando da lição.
+
+- Class: cmd_question
+  Output: Inspecione o dataframe `pretonicas`com a função str(). 
+  CorrectAnswer: str(pretonicas)
+  AnswerTests: omnitest(correctExpr='str(pretonicas)')
+  Hint: Aplique a função str() ao dataframe `pretonicas`.
+
+- Class: cmd_question
+  Output: "As variáveis F1.NORM e F2.NORM contêm valores dos formantes normalizados pelo método de Lobanov. A normalização é um procedimento padrão em análises acústicas para minimizar a variação em medições de formantes por conta de diferenças anatômicas entre falantes (p.ex., mulheres tendem a medidas mais altas de formantes do que os homens). Visualize os 6 primeiros elementos da coluna F1.NORM." 
+  CorrectAnswer: head(pretonicas$F1.NORM)
+  AnswerTests: any_of_exprs('head(pretonicas$F1.NORM)', 'head(pretonicas[,"F1.NORM"])', 'head(pretonicas[,6])', 'pretonicas$F1.NORM[1:6,6]')
+  Hint: Você pode usar a função head().
+
+- Class: cmd_question
+  Output: Calcule a mediana de F1.NORM por VOGAL e por AMOSTRA (nessa ordem). Use o pipe e as funções group_by() e summarize(), nomeando a coluna para as medianas como `mediana_F1.NORM`.
+  CorrectAnswer: pretonicas %>% group_by(VOGAL, AMOSTRA) %>% summarize(mediana_F1.NORM = median(F1.NORM))
+  AnswerTests: any_of_exprs('pretonicas %>% group_by(VOGAL, AMOSTRA) %>% summarize(mediana_F1.NORM = median(F1.NORM))', 'group_by(pretonicas, VOGAL, AMOSTRA) %>% summarize(mediana_F1.NORM = median(F1.NORM))')
+  Hint: Use como modelo a linha de comando da lição.
+
+- Class: cmd_question
+  Output: Calcule a média de F1.NORM por VOGAL e por AMOSTRA (nessa ordem). Nomeie a coluna para as médias como `media_F1.NORM`.
+  CorrectAnswer: pretonicas %>% group_by(VOGAL, AMOSTRA) %>% summarize(media_F1.NORM = mean(F1.NORM))
+  AnswerTests: any_of_exprs('pretonicas %>% group_by(VOGAL, AMOSTRA) %>% summarize(media_F1.NORM = mean(F1.NORM))', 'group_by(pretonicas, VOGAL, AMOSTRA) %>% summarize(media_F1.NORM = mean(F1.NORM))')
+  Hint: Use como modelo a linha de comando da lição.
+
+- Class: mult_question
+  Output: "No cálculo da média de F1 com vogais não normalizadas, na lição correspondente a esta aula, havíamos visto que as medidas de F1 para paraibanos eram maiores para todas as vogais. Esse resultado se mantém com as vogais normalizadas?" 
+  AnswerChoices: Não;Sim;Não sei!
+  CorrectAnswer: Não
+  AnswerTests: omnitest(correctVal= 'Não')
+  Hint: Na pior das hipóteses, chute! Você tem 30% de chance de acertar!
+
+- Class: mult_question
+  Output: "No cálculo da média de F1 com vogais normalizadas (F1.NORM), quais vogais têm medidas de F1 maiores (= vogais mais baixas) para paraibanos do que para paulistanos?"
+  AnswerChoices: /e/ e /o/;/a/ e /o/;/i/ e /u/;/i/ e /e/;/i/ e /o/
+  CorrectAnswer: /e/ e /o/
+  AnswerTests: omnitest(correctVal= '/e/ e /o/')
+  Hint: Veja os resultados do cálculo de média. 
+
+- Class: cmd_question
+  Output: "Se quisermos olhar apenas para as vogais /e/ e /o/, podemos criar um subconjunto de dados com a função filter(). Aplique esta função para criar o subconjunto de dados de vogais médias. Guarde esse subconjunto num dataframe chamado `medias_pretonicas`."
+  CorrectAnswer: medias_pretonicas <- pretonicas %>% filter(VOGAL == "e" | VOGAL == "o")
+  AnswerTests: any_of_exprs('medias_pretonicas <- pretonicas %>% filter(VOGAL == "e" | VOGAL == "o")', 'medias_pretonicas <- filter(pretonicas, VOGAL == "e" | VOGAL == "o")')
+  Hint: Aplique a função filter() e guarde o resultado com ajuda do operador de atribuição `<-`. Você precisará de um dos operadores lógicos vistos na Lição 2.
+
+- Class: cmd_question
+  Output: "Normalmente se verifica bastante variação entre diferentes indivíduos. Um dos interesses em comparar o padrão de paulistanos e migrantes paraibanos é tentar descobrir quais dos migrantes mais se acomodaram ao padrão paulistano (ao menos quanto às vogais médias pretônicas). Para observar o padrão individual, calcule a média de F1.NORM por AMOSTRA e por PARTICIPANTE, inicialmente apenas para a vogal 'e'. Nomeie a coluna com as médias como `media_F1.NORM_e`. Use como conjunto de dados o dataframe recém-criado medias_pretonicas." 
+  CorrectAnswer: medias_pretonicas %>% filter(VOGAL == "e") %>% group_by(AMOSTRA, PARTICIPANTE) %>% summarize(media_F1.NORM_e = mean(F1.NORM)) 
+  AnswerTests: any_of_exprs('medias_pretonicas %>% filter(VOGAL == "e") %>% group_by(AMOSTRA, PARTICIPANTE) %>% summarize(media_F1.NORM_e = mean(F1.NORM))', 'filter(medias_pretonicas, VOGAL == "e") %>% group_by(AMOSTRA, PARTICIPANTE) %>% summarize(media_F1.NORM_e = mean(F1.NORM))')
+  Hint: Aplique as funções filter(), group_by() e summarize(), nesta ordem, junto ao pipe.
+
+- Class: mult_question
+  Output: "Inspecionando o resultado da linha de comando anterior, responda: qual dos paraibanos mais se distancia da média de F1.NORM da vogal /e/ dos paulistanos (= 423 Hz, como calculado mais acima)?"
+  AnswerChoices: HenriqueA;JoaoS;JosaneV;JosueO;MarinalvaS;MartaS;PedroC
+  CorrectAnswer: HenriqueA
+  AnswerTests: omnitest(correctVal= 'HenriqueA')
+  Hint: Veja o resultado da linha de comando anterior.
+  
+- Class: mult_question
+  Output: "Inspecionando o mesmo dataframe, responda: qual dos paraibanos tem uma média de F1.NORM mais próxima da média paulistana para a vogal /e/ (= 423 Hz)?"
+  AnswerChoices: HenriqueA;JoaoS;JosaneV;JosueO;MarinalvaS;MartaS;PedroC
+  CorrectAnswer: PedroC
+  AnswerTests: omnitest(correctVal= 'PedroC')
+  Hint: Examine o dataframe.
+  
+- Class: cmd_question
+  Output: "Calcule agora a média de F1.NORM por AMOSTRA e por PARTICIPANTE apenas para a vogal 'o'. Nomeie a coluna com as médias como `media_F1.NORM_o`. Use como conjunto de dados o dataframe medias_pretonicas." 
+  CorrectAnswer: medias_pretonicas %>% filter(VOGAL == "o") %>% group_by(AMOSTRA, PARTICIPANTE) %>% summarize(media_F1.NORM_o = mean(F1.NORM))
+  AnswerTests: any_of_exprs('medias_pretonicas %>% filter(VOGAL == "o") %>% group_by(AMOSTRA, PARTICIPANTE) %>% summarize(media_F1.NORM_o = mean(F1.NORM))', 'filter(medias_pretonicas, VOGAL == "o") %>% group_by(AMOSTRA, PARTICIPANTE) %>% summarize(media_F1.NORM_o = mean(F1.NORM))')
+  Hint: Aplique as funções filter(), group_by() e summarize(), nesta ordem, junto ao pipe.
+
+- Class: mult_question
+  Output: "Inspecionando o dataframe gerado pela última linha de comando, responda: qual dos paraibanos tem uma média de F1.NORM mais próxima da média paulistana para a vogal /o/ (= 435 Hz)?"
+  AnswerChoices: JosaneV;HenriqueA;JoaoS;JosueO;MarinalvaS;PedroC
+  CorrectAnswer: JosaneV
+  AnswerTests: omnitest(correctVal= 'JosaneV')
+  Hint: Veja o resultado da linha de comando anterior.
+  
+- Class: mult_question
+  Output: "Qual dos paraibanos tem uma média de F1.NORM mais distante da média paulistana para a vogal /o/ (= 435 Hz)?"
+  AnswerChoices: PedroC;JosaneV;HenriqueA;JoaoS;JosueO;MarinalvaS;MartaS
+  CorrectAnswer: PedroC
+  AnswerTests: omnitest(correctVal= 'PedroC')
+  Hint: Examine o dataframe.
+  
+- Class: cmd_question
+  Output: A partir do dataframe medias_pretonicas, crie um dataframe chamado medidas_medias_pretonicas, com o cálculo da média, da mediana, do desvio padrão e do erro padrão de F1.NORM por VOGAL, AMOSTRA e PARTICIPANTE (nessa ordem). Nomeie as colunas das medições, respectivamente, como `media_F1.NORM`, `mediana_F1.NORM`, `sd_F1.NORM` e `ep_F1.NORM`.
+  CorrectAnswer: medidas_medias_pretonicas <- medias_pretonicas %>% group_by(VOGAL, AMOSTRA, PARTICIPANTE) %>% summarize(media_F1.NORM = mean(F1.NORM), mediana_F1.NORM = median(F1.NORM), sd_F1.NORM = sd(F1.NORM), ep_F1.NORM = sd(F1.NORM) / sqrt(length(F1.NORM)))
+  AnswerTests: any_of_exprs('medidas_medias_pretonicas <- medias_pretonicas %>% group_by(VOGAL, AMOSTRA, PARTICIPANTE) %>% summarize(media_F1.NORM = mean(F1.NORM), mediana_F1.NORM = median(F1.NORM), sd_F1.NORM = sd(F1.NORM), ep_F1.NORM = sd(F1.NORM) / sqrt(length(F1.NORM)))', 'medidas_medias_pretonicas <- group_by(medias_pretonicas, VOGAL, AMOSTRA, PARTICIPANTE) %>% summarize(media_F1.NORM = mean(F1.NORM), mediana_F1.NORM = median(F1.NORM), sd_F1.NORM = sd(F1.NORM), ep_F1.NORM = sd(F1.NORM) / sqrt(length(F1.NORM)))')
+  Hint: Releia as instruções com calma para produzir cada passo da tarefa. 
+  
+- Class: cmd_question
+  Output: Aplique a função View() ao dataframe medidas_medias_pretonicas.
+  CorrectAnswer: View(medidas_medias_pretonicas)
+  AnswerTests: omnitest(correctExpr='View(medidas_medias_pretonicas)')
+  Hint: Tente de novo.
+  
+- Class: cmd_question
+  Output: "Acima, aplicamos a função View(), pois não é possível visualizar todas as linhas do dataframe por meio do formato tibble. No entanto, o dplyr tem outras funções que permitem rearranjar os dados de modo a facilitar certas visualizações. A função arrange() reorganiza os dados a partir de certas colunas. Para visualizar as medidas de F1.NORM dos paraibanos em ordem crescente, siga os seguintes passos, usando pipe: a partir de medidas_medias_pretonicas, filtre os dados da vogal \"e\" e aplique a função arrange() a AMOSTRA e media_F1.NORM."
+  CorrectAnswer: medidas_medias_pretonicas %>% filter(VOGAL == "e") %>% arrange(AMOSTRA, media_F1.NORM)
+  AnswerTests: omnitest(correctExpr='medidas_medias_pretonicas %>% filter(VOGAL == "e") %>% arrange(AMOSTRA, media_F1.NORM)')
+  Hint: Leia as instruções com calma!
+    
+- Class: mult_question
+  Output: Quem é @ paulistan@ com vogais /e/ pretônicas relativamente mais baixas? 
+  AnswerChoices: RenataC;AliceC;MauricioB;LucianoT;RobsonF;NelsonF;AnaS
+  CorrectAnswer: RenataC
+  AnswerTests: omnitest(correctVal= 'RenataC')
+  Hint: Examine o dataframe gerado pela última linha de comando.
+    
+- Class: cmd_question
+  Output: Visualize agora o dataframe na ordem crescente das medidas de desvio padrão da vogal "o", com os dados dos paraibanos antes dos dados dos paulistanos. 
+  CorrectAnswer: medidas_medias_pretonicas %>% filter(VOGAL == "o") %>% arrange(AMOSTRA, sd_F1.NORM)
+  AnswerTests: omnitest(correctExpr='medidas_medias_pretonicas %>% filter(VOGAL == "o") %>% arrange(AMOSTRA, sd_F1.NORM)')
+  Hint: Leia as instruções com calma. Use a linha de comando anterior como modelo.
+  
+- Class: mult_question
+  Output: Quem é @ paraiban@ com maior dispersão de medidas da altura de vogais /o/ pretônicas?
+  AnswerChoices: JoaoS;PedroC;JosueO;MartaS;MarinalvaS;JosaneV;HenriqueA
+  CorrectAnswer: JoaoS
+  AnswerTests: omnitest(correctVal= 'JoaoS')
+  Hint: Examine o dataframe gerado pela última linha de comando.
+  
+- Class: cmd_question
+  Output: Visualize o dataframe na ordem crescente das medidas de desvio padrão da vogal "e", sem ordenar as amostras. 
+  CorrectAnswer: medidas_medias_pretonicas %>% filter(VOGAL == "e") %>% arrange(sd_F1.NORM) 
+  AnswerTests: omnitest(correctExpr='medidas_medias_pretonicas %>% filter(VOGAL == "e") %>% arrange(sd_F1.NORM)')
+  Hint: Leia as instruções com calma. Use as linhas de comando anteriores como modelo.
+  
+- Class: mult_question
+  Output: Comparando as medidas de desvio padrão de F1.NORM entre paulistan@s e paraiban@s, em qual dos grupos há mais dispersão?
+  AnswerChoices: PBSP;SP2010;Não sei!
+  CorrectAnswer: PBSP
+  AnswerTests: omnitest(correctVal= 'PBSP')
+  Hint: Examine o dataframe gerado pela última linha de comando.
+
+- Class: text
+  Output: "Este é o fim da lista de exercícios da Lição 6 - Estatística Descritiva de Variáveis Numéricas - Medidas de Tendências Centrais. Se quiser praticar mais, tente aplicar a função summarize() para calcular medidas de média, mediana, desvio padrão etc. de acordo com outros agrupamentos de dados. Pratique também o emprego da função arrange()." 
+
+- Class: mult_question
+  Output: Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em "Enviar" no link que abrir. Se não, basta fechar a janela que se abrir.
+  AnswerChoices: Sim;Não
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!

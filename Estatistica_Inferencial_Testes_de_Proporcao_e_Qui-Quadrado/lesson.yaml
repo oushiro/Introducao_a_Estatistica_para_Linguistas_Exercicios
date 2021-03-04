@@ -1,0 +1,191 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Estatistica Inferencial Testes de Proporcao e Qui-Quadrado
+  Author: Livia Oushiro
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.3
+
+- Class: cmd_question
+  Output: Carregue o pacote tidyverse.
+  CorrectAnswer: library(tidyverse)
+  AnswerTests: omnitest(correctExpr='library(tidyverse)')
+  Hint: Digite library(tidyverse) e pressione CTRL + ENTER.
+  
+- Class: cmd_question
+  Output: Defina como diretório de trabalho aquele que contém a planilha DadosRT.csv. Caso não tenha uma cópia, refaça a Lição 1 do curso Introducao a Estatistica para Linguistas.
+  CorrectAnswer: setwd("~/Dropbox/_R/swirl/arquivosDados")
+  AnswerTests: expr_uses_func('setwd')
+  Hint: Use a função setwd().
+
+- Class: cmd_question
+  Output: "Carregue os dados da planilha DadosRT.csv num objeto chamado `dados` com a função read_csv(). Para tanto, defina as variáveis como factor, exceto IDADE (definida como integer), e INDICE.SOCIO e FREQUENCIA (definidas como double). "
+  CorrectAnswer: dados <- read_csv("DadosRT.csv", col_types = cols(.default = col_factor(), IDADE = col_integer(), INDICE.SOCIO = col_double(), FREQUENCIA = col_double()))
+  AnswerTests: omnitest(correctExpr='dados <- read_csv("DadosRT.csv", col_types = cols(.default = col_factor(), IDADE = col_integer(), INDICE.SOCIO = col_double(), FREQUENCIA = col_double()))')
+  Hint: Use a função read_csv(). Use scripts de lições anteriores como modelo!
+  
+- Class: cmd_question
+  Output: Reorganize os níveis da variável ORIGEM.PAIS, colocando "SPcapital" como primeiro nível. Não se esqueça de guardar o resultado no mesmo vetor.
+  CorrectAnswer: dados$ORIGEM.PAIS <- fct_relevel(dados$ORIGEM.PAIS, "SPcapital")
+  AnswerTests: omnitest(correctExpr='dados$ORIGEM.PAIS <- fct_relevel(dados$ORIGEM.PAIS, "SPcapital")')
+  Hint: Revise a Lição 3, se necessário.
+  
+- Class: cmd_question
+  Output: Cheque os níveis da variável ORIGEM.PAIS.
+  CorrectAnswer: levels(dados$ORIGEM.PAIS)
+  AnswerTests: omnitest(correctExpr='levels(dados$ORIGEM.PAIS)')
+  Hint: Digite levels(dados$ORIGEM.PAIS) e pressione CTRL + ENTER.
+
+- Class: cmd_question
+  Output: "Cheque a estrutura de dados para verificar se foram carregados corretamente."
+  CorrectAnswer: str(dados)
+  AnswerTests: omnitest(correctExpr='str(dados)')
+  Hint: Use a função str().
+
+- Class: cmd_question
+  Output: "A planilha DadosRT.csv contém dados sobre a variação na pronúncia de /r/ em coda silábica (como em 'porta' e 'mulher') na fala de 118 paulistanos. Foram excluídos os dados de apagamento de /r/ e mantidos os dados das variantes retroflexa e tepe. Aplique a função View() sobre o dataframe e dedique um tempo para se familiarizar com o conjunto de dados."
+  CorrectAnswer: View(dados)
+  AnswerTests: omnitest(correctExpr='View(dados)')
+  Hint: Aplique a função View() ao dataframe criado.
+
+- Class: cmd_question
+  Output: "No R, ao criar um objeto, é possível visualizá-lo imediatamente colocando-se parênteses () em volta de toda a expressão. Faça uma tabela de frequência da variável dependente (VD), usando as funções da instalação base do R, e guarde-a num objeto chamado tab.RT. Em seguida, coloque parênteses em volta de toda a linha de comando para visualizar o conteúdo de tab.RT."
+  CorrectAnswer: (tab.RT <- with(dados, table(VD)))
+  AnswerTests: any_of_exprs('(tab.RT <- with(dados, table(VD)))', '(tab.RT <- table(dados$VD))')
+  Hint: Refaça a Lição 4, se necessário, para saber como criar a tabela, e não se esqueça de envolver a linha de comando com parênteses. 
+
+- Class: cmd_question
+  Output: Faça uma tabela de proporções chamada prop.RT com as proporções da variável dependente, usando a função da instalação base do R. Envolva a linha de comando com parênteses para visualizar o conteúdo de prop.RT.
+  CorrectAnswer: (prop.RT <- prop.table(tab.RT))
+  AnswerTests: omnitest(correctExpr='(prop.RT <- prop.table(tab.RT))')
+  Hint: Refaça a Lição 4, se necessário, para saber como criar uma tabela de proporções, e não se esqueça de envolver a linha de comando com parênteses. 
+
+- Class: cmd_question
+  Output: "Faça um teste de proporções dos dados de VD sob a hipótese nula de que a proporção de TEPES é igual a 80%."
+  CorrectAnswer: prop.test(tab.RT, p = 0.2)
+  AnswerTests: omnitest(correctExpr='prop.test(tab.RT, p = 0.2)')
+  Hint: Consulte o resultado de str() para verificar a ordem dos níveis de VD.
+
+- Class: cmd_question
+  Output: "Faça uma tabela de frequências dos dados da variável SEXO.GENERO por VD, usando as funções da instalação base do R. Guarde-a num objeto chamado tab.sexo. Visualize o conteúdo de tab.sexo imediatamente."
+  CorrectAnswer: (tab.sexo <- with(dados, table(SEXO.GENERO, VD)))
+  AnswerTests: any_of_exprs('(tab.sexo <- with(dados, table(SEXO.GENERO, VD)))', '(tab.sexo <- table(dados$SEXO.GENERO, dados$VD))')
+  Hint: Refaça a Lição 4, se necessário, para saber como criar a tabela, e não se esqueça de envolver a linha de comando com parênteses. 
+
+- Class: cmd_question
+  Output: "Faça uma tabela de proporções por linha dos dados da variável SEXO.GENERO por VD, usando a função da instalação base do R, e guarde-a num objeto chamado prop.sexo. Visualize o conteúdo de prop.sexo imediatamente."
+  CorrectAnswer: (prop.sexo <- prop.table(tab.sexo, 1))
+  AnswerTests: omnitest(correctExpr='(prop.sexo <- prop.table(tab.sexo, 1))')
+  Hint: Refaça a Lição 4, se necessário, e não se esqueça de envolver a linha de comando com parênteses.
+
+- Class: cmd_question
+  Output: "Com uso das funções do tidyverse, faça um gráfico de barras das proporções de uso de retroflexo e de tepe por parte de homens e mulheres, e que contenha uma linha horizontal que representa a proporção de tepes na comunidade como um todo. Para tanto, com auxílio do pipe e a partir do dataframe `dados`, (i) compute as frequências da VD pela VI; (ii) agrupe os dados pela variável SEXO.GENERO; (iii) compute as proporções de retroflexo e de tepe por sexo do falante, nomeando a coluna de proporções como `prop`; (iv) defina os parâmetros estéticos x, y e fill dentro da função ggplot(); (v) use a geometria de barras apenas com o argumento stat = \"identity\"; e (vi) adicione a função geom_hline(), com argumento yintercept = 0.72. "
+  CorrectAnswer: dados %>% count(SEXO.GENERO, VD) %>% group_by(SEXO.GENERO) %>% mutate(prop = prop.table(n)) %>% ggplot(., aes(x = SEXO.GENERO, y = prop, fill = VD)) + geom_bar(stat = "identity") + geom_hline(yintercept = 0.72)
+  AnswerTests: omnitest(correctExpr='dados %>% count(SEXO.GENERO, VD) %>% group_by(SEXO.GENERO) %>% mutate(prop = prop.table(n)) %>% ggplot(., aes(x = SEXO.GENERO, y = prop, fill = VD)) + geom_bar(stat = "identity") + geom_hline(yintercept = 0.72)')
+  Hint: Refaça as Lições 5 e 9, se necessário.
+
+- Class: cmd_question
+  Output: "Faça um teste de qui-quadrado para verificar se a diferença no uso de retroflexo entre homens e mulheres é significativa. Guarde os resultados do teste num objeto chamado x2.sexo."
+  CorrectAnswer: x2.sexo <- chisq.test(tab.sexo)
+  AnswerTests: omnitest(correctExpr='x2.sexo <- chisq.test(tab.sexo)')
+  Hint: x2.sexo <- chisq.test(tab.sexo)
+
+- Class: cmd_question
+  Output: "Visualize o resultado do teste de qui-quadrado feito acima."
+  CorrectAnswer: x2.sexo
+  AnswerTests: omnitest(correctExpr='x2.sexo')
+  Hint: Refaça a lição correspondente, se necessário.
+
+- Class: cmd_question
+  Output: "Qual é o valor de qui-quadrado?"
+  CorrectAnswer: 89.292
+  AnswerTests: omnitest(correctVal=89.292)
+  Hint: "Digite o valor de qui-quadrado fornecido no teste."
+
+- Class: mult_question
+  Output: "O que significada `df`?"
+  AnswerChoices: degrees of freedom;degrees of fame;degrees of force;degrees of fashion
+  CorrectAnswer: degrees of freedom
+  AnswerTests: omnitest(correctVal= 'degrees of freedom')
+  Hint: Refaça a lição correspondente, se necessário.
+
+- Class: mult_question
+  Output: "Qual é o valor de significância calculado para este teste?"
+  AnswerChoices: p < 0.001;p > 0.1;0.05 > p > 0.01;0.001 < p < 0.01
+  CorrectAnswer: p < 0.001
+  AnswerTests: omnitest(correctVal= 'p < 0.001')
+  Hint: Estabeleça qual é o valor de 2.2e-16.
+
+- Class: mult_question
+  Output: "A qual conclusão o pesquisador NÃO pode chegar diante desse resultado?"
+  AnswerChoices: a diferença entre homens e mulheres no uso de retroflexo não é significativa;homens paulistanos tendem a usar retroflexos mais frequentemente do que as mulheres paulistanas;o uso de retroflexos por parte de mulheres paulistanas é significativamente mais baixo que o dos homens paulistanos;homens e mulheres da cidade de São Paulo empregam o retroflexo em proporções diferentes
+  CorrectAnswer: a diferença entre homens e mulheres no uso de retroflexo não é significativa
+  AnswerTests: omnitest(correctVal= 'a diferença entre homens e mulheres no uso de retroflexo não é significativa')
+  Hint: Tente achar a resposta!
+
+- Class: cmd_question
+  Output: "Faça uma tabela de frequências dos dados da variável ORIGEM.PAIS por VD, usando as funções da instalação base do R, e guarde-a num objeto chamado tab.origem. Visualize a tabela."
+  CorrectAnswer: (tab.origem <- with(dados, table(ORIGEM.PAIS, VD)))
+  AnswerTests: any_of_exprs('(tab.origem <- with(dados, table(ORIGEM.PAIS, VD)))', '(tab.origem <- table(dados$ORIGEM.PAIS, dados$VD))')
+  Hint: Refaça a Lição 4, se necessário, para saber como criar a tabela, e não se esqueça de envolver a linha de comando com parênteses.
+
+- Class: cmd_question
+  Output: "Nesta distribuição, há quantos graus de liberdade?"
+  CorrectAnswer: 4
+  AnswerTests: omnitest(correctVal=4)
+  Hint: Refaça a lição correspondente, se necessário.
+
+- Class: cmd_question
+  Output: "Faça uma tabela de proporções por linha dos dados da variável ORIGEM.PAIS por VD, usando a função da instalação base do R, e guarde-a num objeto chamado prop.origem. Visualize a tabela."
+  CorrectAnswer: (prop.origem <- prop.table(tab.origem, 1))
+  AnswerTests: omnitest(correctExpr='(prop.origem <- prop.table(tab.origem, 1))')
+  Hint: Use a função prop.table().
+
+- Class: cmd_question
+  Output: "Usando as funções do tidyverse, faça um gráfico de barras das proporções de uso de retroflexo e de tepe, de acordo com a origem dos pais, com as mesmas especificações do gráfico plotado para a variável SEXO.GENERO."
+  CorrectAnswer: dados %>% count(ORIGEM.PAIS, VD) %>% group_by(ORIGEM.PAIS) %>% mutate(prop = prop.table(n)) %>% ggplot(., aes(x = ORIGEM.PAIS, y = prop, fill = VD)) + geom_bar(stat = "identity") + geom_hline(yintercept = 0.72)
+  AnswerTests: omnitest(correctExpr='dados %>% count(ORIGEM.PAIS, VD) %>% group_by(ORIGEM.PAIS) %>% mutate(prop = prop.table(n)) %>% ggplot(., aes(x = ORIGEM.PAIS, y = prop, fill = VD)) + geom_bar(stat = "identity") + geom_hline(yintercept = 0.72)')
+  Hint: Leia as instruções com calma! Se você fez o primeiro gráfico, este é fácil.
+
+- Class: mult_question
+  Output: "Da figura, quais falantes mais usam retroflexo?"
+  AnswerChoices: paulistanos filhos de nordestinos;paulistanos filhos de interioranos;paulistanos filhos de paulistanos;paulistanos filhos de estrangeiros;paulistanos filhos de pais de origem mista
+  CorrectAnswer: paulistanos filhos de nordestinos
+  AnswerTests: omnitest(correctVal= 'paulistanos filhos de nordestinos')
+  Hint: Veja a figura em Plots.
+
+- Class: cmd_question
+  Output: "Faça um teste de qui-quadrado sobre os dados de ORIGEM.PAIS por VD, e guarde os resultados num objeto chamado `x2.origem`. Visualize os resultados."
+  CorrectAnswer: (x2.origem <- chisq.test(tab.origem))
+  AnswerTests: omnitest(correctExpr='(x2.origem <- chisq.test(tab.origem))')
+  Hint: Use tab.origem para fazer o teste de qui-quadrado, e não se esqueça de envolver a linha de comando com parênteses.
+
+- Class: mult_question
+  Output: "A qual conclusão um pesquisador pode chegar a partir do gráfico de barras e do resultado do teste acima?"
+  AnswerChoices: a variação na pronúncia de /r/ em coda, por parte de paulistanos, correlaciona-se com a origem dos pais;paulistanos cujos pais vieram do interior são os que usam o retroflexo mais frequentemente;a diferença entre o uso de retroflexo por parte de filhos de interioranos e filhos de paulistanos é significativa;a proporção de uso do retroflexo por parte de filhos de estrangeiros é acima da média dos paulistanos
+  CorrectAnswer: a variação na pronúncia de /r/ em coda, por parte de paulistanos, correlaciona-se com a origem dos pais
+  AnswerTests: omnitest(correctVal= 'a variação na pronúncia de /r/ em coda, por parte de paulistanos, correlaciona-se com a origem dos pais')
+  Hint: Tente achar a resposta!
+
+- Class: cmd_question
+  Output: "Da figura, percebe-se que as barras de proporção para paulistanos cujos pais são de origem mista e de origem paulistana são bastante próximas. Faça um teste de qui-quadrado para verificar se tal diferença é significativa. Não se preocupe em guardar o resultado."
+  CorrectAnswer: chisq.test(tab.origem[c(1,2),])
+  AnswerTests: omnitest(correctExpr='chisq.test(tab.origem[c(1,2),])')
+  Hint: Determine quais linhas de tab.origem têm os dados de paulistanos cujos pais são de origem mista e de origem paulistana.
+
+- Class: mult_question
+  Output: "A diferença das proporções de retroflexos entre os dois grupos (paulistanos cujos pais são de origem mista e paulistana) é significativa?"
+  AnswerChoices: não;sim
+  CorrectAnswer: não
+  AnswerTests: omnitest(correctVal= 'não')
+  Hint: Você tem 50% de chance de acertar chutando!
+
+- Class: text
+  Output: "Para praticar mais, você pode fazer tabelas de frequência, gráficos e testes de qui-quadrado quanto às demais variáveis nominais de DadosRT.csv: FAIXA.ETARIA, ESCOLARIDADE, REGIAO, CONT.FON.PREC, TONICIDADE etc. Para variáveis com 3 ou mais fatores, procure determinar entre quais níveis de fato há diferenças significativas."
+
+- Class: mult_question
+  Output: Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em "Enviar" no link que abrir. Se não, basta fechar a janela que se abrir.
+  AnswerChoices: Sim;Não
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!

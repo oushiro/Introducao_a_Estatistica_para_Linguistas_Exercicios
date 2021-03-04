@@ -1,0 +1,177 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Estatistica Inferencial Correlacao e Regressao
+  Author: Livia Oushiro
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.3
+
+- Class: figure
+  Output: "Observe os gráficos em Plots para responder as questões abaixo."
+  Figure: Licao11ex-background.R
+  FigureType: new
+
+- Class: mult_question
+  Output: "Quais são os valores dos coeficientes linear e angular na figura (a)?"
+  AnswerChoices: 0, 1;0, 2;4, 2;0, 0
+  CorrectAnswer: 0, 1
+  AnswerTests: omnitest(correctVal= '0, 1')
+  Hint: Interprete a figura (a)!
+
+- Class: exact_question
+  Output: "Qual é o coeficiente angular da figura (b)?"
+  CorrectAnswer: 3
+  AnswerTests: omnitest(correctVal=3)
+  Hint: Interprete a figura (b)!
+
+- Class: exact_question
+  Output: "Qual é o coeficiente angular da figura (c)?"
+  CorrectAnswer: -0.5
+  AnswerTests: omnitest(correctVal=-0.5)
+  Hint: Interprete a figura (c)!
+
+- Class: exact_question
+  Output: "Qual é o coeficiente linear da figura (d)? "
+  CorrectAnswer: 4
+  AnswerTests: omnitest(correctVal=4)
+  Hint: Interprete a figura (d)!
+    
+- Class: cmd_question
+  Output: Carregue o pacote tidyverse.
+  CorrectAnswer: library(tidyverse)
+  AnswerTests: omnitest(correctExpr='library(tidyverse)')
+  Hint: Essa você sabe!
+
+- Class: cmd_question
+  Output: "As próximas questões se baseiam nos dados de vogais médias pretônicas. Defina como diretório de trabalho a pasta que, em seu computador, tem o arquivo Pretonicas.csv. Caso não tenha este arquivo, refaça a Lição 6 do curso Introducao a Estatistica para Linguistas."
+  CorrectAnswer: setwd("~/Dropbox/_R/swirl/arquivosDados")
+  AnswerTests: expr_uses_func('setwd')
+  Hint: Use a função setwd().
+
+- Class: cmd_question
+  Output: "Carregue os dados num dataframe chamado `pretonicas`. Defina a variável VOGAL como factor."
+  CorrectAnswer: pretonicas <- read_csv("Pretonicas.csv", col_types = cols(VOGAL = col_factor()))
+  AnswerTests: omnitest(correctExpr='pretonicas <- read_csv("Pretonicas.csv", col_types = cols(VOGAL = col_factor()))')
+  Hint: Use a função read_csv().
+
+- Class: cmd_question
+  Output: "Cheque a estrutura do dataframe pretonicas."
+  CorrectAnswer: str(pretonicas)
+  AnswerTests: omnitest(correctExpr='str(pretonicas)')
+  Hint: Use a função str().
+
+- Class: cmd_question
+  Output: "Crie um subconjunto de dados da VOGAL \"o\" da AMOSTRA \"PBSP\", e guarde-o num dataframe chamado PBSP_o."
+  CorrectAnswer: PBSP_o <- pretonicas %>% filter(VOGAL == "o" & AMOSTRA == "PBSP")
+  AnswerTests: any_of_exprs('PBSP_o <- pretonicas %>% filter(VOGAL == "o" & AMOSTRA == "PBSP")', 'PBSP_o <- filter(pretonicas,  VOGAL == "o"  & AMOSTRA == "PBSP")')
+  Hint: Refaça a Lição 2, se necessário!
+
+- Class: mult_question
+  Output: "O abaixamento de vogais médias pretônicas, em palavras como \"relógio\" e \"romã\", é descrito como um fenômeno de harmonia vocálica: a vogal pretônica abaixa quando a vogal da sílaba seguinte é baixa [\u025B, a, \u0254]. Você tem interesse em testar a hipótese de que a altura da vogal /o/, de acordo com a medida de F1 normalizada (a variável F1.NORM), correlaciona-se com a altura da vogal da sílaba seguinte (a variável F1.SEG.NORM). O primeiro passo é plotar o gráfico de dispersão. Qual das duas variáveis deve ser colocada no eixo x?"
+  AnswerChoices: F1.SEG.NORM;F1.NORM;tanto faz!
+  CorrectAnswer: F1.SEG.NORM
+  AnswerTests: omnitest(correctVal= 'F1.SEG.NORM')
+  Hint: Determine qual é a variável dependente e qual é a independente para tomar essa decisão.
+
+- Class: cmd_question
+  Output: "Plote um gráfico simples de dispersão das medidas de F1.NORM e F1.SEG.NORM da vogal /o/ na fala de paraibanos com os eixos x e y devidamente especificados. Adicione a função geom_smooth(), com argumento method = \"lm\", para já plotar uma linha de regressão. "
+  CorrectAnswer: ggplot(PBSP_o, aes(x = F1.SEG.NORM, y = F1.NORM)) + geom_point() + geom_smooth(method = "lm")
+  AnswerTests: any_of_exprs('ggplot(PBSP_o, aes(x = F1.SEG.NORM, y = F1.NORM)) + geom_point() + geom_smooth(method = "lm")', 'PBSP_o %>% ggplot(., aes(x = F1.SEG.NORM, y = F1.NORM)) + geom_point() + geom_smooth(method = "lm")')
+  Hint: Refaça a lição correspondente, se necessário! Não inclua nada que não seja requerido no exercício.
+
+- Class: mult_question
+  Output: "Você quer fazer um teste de correlação. Para decidir qual teste aplicar, o que deve fazer antes?"
+  AnswerChoices: aplicar o teste de Shapiro para verificar se as variáveis seguem a distribuição normal;aplicar o teste-t para ver se as variáveis podem ser correlacionadas;aplicar o teste de correlação de Pearson para determinar o r
+  CorrectAnswer: aplicar o teste de Shapiro para verificar se as variáveis seguem a distribuição normal
+  AnswerTests: omnitest(correctVal= 'aplicar o teste de Shapiro para verificar se as variáveis seguem a distribuição normal')
+  Hint: Refaça a lição correspondente, se necessário! 
+
+- Class: cmd_question
+  Output: "Aplique o teste de Shapiro no vetor com as medidas de F1.NORM da vogal /o/."
+  CorrectAnswer: shapiro.test(PBSP_o$F1.NORM)
+  AnswerTests: omnitest(correctExpr='shapiro.test(PBSP_o$F1.NORM)')
+  Hint: Refaça a lição correspondente, se necessário! Lembre-se também que você não tem os vetores separados, mas dentro do dataframe.
+
+- Class: cmd_question
+  Output: "Aplique o teste de Shapiro no vetor com as medidas de F1.SEG.NORM da vogal /o/."
+  CorrectAnswer: shapiro.test(PBSP_o$F1.SEG.NORM)
+  AnswerTests: omnitest(correctExpr='shapiro.test(PBSP_o$F1.SEG.NORM)')
+  Hint: Refaça a lição correspondente, se necessário! Lembre-se também que você não tem os vetores separados, mas dentro do dataframe.
+
+- Class: mult_question
+  Output: "Pelo resultado dos testes de Shapiro acima, qual teste é mais adequado para se aplicar aos dados?"
+  AnswerChoices: teste de correlação de Pearson;teste de correlação de Spearman;teste-t;teste de qui-quadrado
+  CorrectAnswer: teste de correlação de Pearson
+  AnswerTests: omnitest(correctVal= 'teste de correlação de Pearson')
+  Hint: Refaça a lição correspondente, se necessário! 
+
+- Class: cmd_question
+  Output: "Aplique o teste de correlação de Pearson para testar a hipótese de que as medidas de F1 da vogal pretônica e da vogal da sílaba seguinte se correlacionam."
+  CorrectAnswer: cor.test(PBSP_o$F1.NORM, PBSP_o$F1.SEG.NORM)
+  AnswerTests: any_of_exprs('cor.test(PBSP_o$F1.NORM, PBSP_o$F1.SEG.NORM)', 'cor.test(PBSP_o$F1.SEG.NORM, PBSP_o$F1.NORM)')
+  Hint: Refaça a lição correspondente, se necessário! 
+
+- Class: mult_question
+  Output: "A que conclusão o pesquisador pode chegar a partir do teste acima?"
+  AnswerChoices: há correlação significativa entre F1.NORM e F1.SEG.NORM, com r = 0.27.;não há correlação significativa entre F1.NORM e F1.SEG.NORM, com r = 0.27.;há correlação significativa entre F1.NORM e F1.SEG.NORM, com r = 4.69.;não há correlação significativa entre F1.NORM e F1.SEG.NORM, com r = 4.07.
+  CorrectAnswer: há correlação significativa entre F1.NORM e F1.SEG.NORM, com r = 0.27.
+  AnswerTests: omnitest(correctVal= 'há correlação significativa entre F1.NORM e F1.SEG.NORM, com r = 0.27.')
+  Hint: Refaça a lição correspondente, se necessário! 
+
+- Class: cmd_question
+  Output: "Crie um modelo linear, chamado `modelo`, para testar se há correlação entre F1.NORM e F1.SEG.NORM nos dados da vogal /o/ na fala de paraibanos."
+  CorrectAnswer: modelo <- lm(F1.NORM ~ F1.SEG.NORM, data = PBSP_o)
+  AnswerTests: omnitest(correctExpr='modelo <- lm(F1.NORM ~ F1.SEG.NORM, data = PBSP_o)')
+  Hint: Refaça a lição correspondente, se necessário, para ver os argumentos da função. 
+
+- Class: cmd_question
+  Output: "Visualize o resumo dos resultados do modelo gerado."
+  CorrectAnswer: summary(modelo)
+  AnswerTests: omnitest(correctExpr='summary(modelo)')
+  Hint: Refaça a lição correspondente, se necessário. 
+
+- Class: mult_question
+  Output: "De acordo com os resultados do modelo, qual afirmação seguinte não é verdadeira?"
+  AnswerChoices: A significância da estimativa de F1.SEG.NORM está entre 0,01 e 0,05.;A variável F1.SEG.NORM explica 6,7% da variação nos valores de F1.NORM da vogal /o/.;Quando F1.SEG.NORM é igual a zero, a estimativa do valor de F1.NORM é 355,7 Hz.;A cada unidade de F1.SEG.NORM, o valor de F1.NORM cresce 0,23 Hz.;A distribuição dos resíduos, neste modelo, não segue uma distribuição normal.;A variável F1.SEG.NORM se correlaciona significativamente com a variável F1.NORM.
+  CorrectAnswer: A significância da estimativa de F1.SEG.NORM está entre 0,01 e 0,05.
+  AnswerTests: omnitest(correctVal= 'A significância da estimativa de F1.SEG.NORM está entre 0,01 e 0,05.')
+  Hint: Refaça a lição correspondente, se necessário.
+  
+- Class: cmd_question
+  Output: Qual é o valor do coeficiente linear nesse modelo?
+  CorrectAnswer: 355.86578
+  AnswerTests: omnitest(correctVal=355.86578)
+  Hint: Interprete e extraia os dados do resultado de summary(modelo.)
+
+- Class: cmd_question
+  Output: Qual é o valor do coeficiente angular nesse modelo?
+  CorrectAnswer: 0.23362
+  AnswerTests: omnitest(correctVal=0.23362)
+  Hint: Interprete e extraia os dados do resultado de summary(modelo.)
+
+- Class: mult_question
+  Output: O que significa o valor-p = 4.08e-06 para F1.SEG.NORM?
+  AnswerChoices: é baixa a probabilidade de que a verdadeira estimativa seja zero;é baixa a probabilidade de que a diferença seja significativa;é baixa a probabilidade que F1.SEG.NORM correlacione-se com F1.NORM
+  CorrectAnswer: é baixa a probabilidade de que a verdadeira estimativa seja zero
+  AnswerTests: omnitest(correctVal= 'é baixa a probabilidade de que a verdadeira estimativa seja zero')
+  Hint: Revise as lições, se necessário.
+
+- Class: cmd_question
+  Output: Aplique o teste de Shapiro aos resíduos do modelo para verificar a normalidade ou não da distribuição. 
+  CorrectAnswer: shapiro.test(modelo$residuals)
+  AnswerTests: omnitest(correctExpr='shapiro.test(modelo$residuals)')
+  Hint: Revise a lição, se necessário.
+
+- Class: mult_question
+  Output: O que informa o teste de Shapiro sobre os resíduos do modelo? 
+  AnswerChoices: a distribuição não é normal;a distribuição é normal;não sei!
+  CorrectAnswer: a distribuição não é normal
+  AnswerTests: omnitest(correctVal= 'a distribuição não é normal')
+  Hint: Revise a lição, se necessário.
+
+- Class: mult_question
+  Output: "Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em \"Enviar\" no link que abrir. Se não, basta fechar a janela que se abrir."
+  AnswerChoices: Sim;Não
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!

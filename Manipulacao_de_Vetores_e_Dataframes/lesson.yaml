@@ -1,0 +1,216 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Manipulacao de Vetores e Dataframes
+  Author: Livia
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.2
+
+- Class: text
+  Output: Embora não seja estritamente necessário, recomendo que você crie um novo script para digitar e salvar os comandos desta lista de exercícios! 
+  
+- Class: cmd_question
+  Output: Carregue o pacote tidyverse na memória do R.
+  CorrectAnswer: library(tidyverse)
+  AnswerTests: omnitest(correctExpr='library(tidyverse)')
+  Hint: Use a função library(). 
+
+- Class: cmd_question
+  Output: Defina o diretório de trabalho como aquele em que se encontra a planilha DadosRT.csv.
+  CorrectAnswer: setwd("~/Dropbox/_R/swirl/Introducao_a_Estatistica_para_Linguistas-v2.0/data")
+  AnswerTests: expr_uses_func('setwd')
+  Hint: Use a função setwd() com o caminho completo para o diretório, ou use os botões na aba Files. 
+
+- Class: cmd_question
+  Output: Carregue o conjunto de dados da planilha DadosRT num dataframe chamado `dadosR`. Use a função read_csv() para isso, e especifique as colunas como "factor", exceto IDADE, que deve ser especificada como "integer", e INDICE.SOCIO e FREQUENCIA, que devem ser especificadas como "double". 
+  CorrectAnswer: dadosR <- read_csv("DadosRT.csv", col_types = cols(.default = col_factor(), IDADE = col_integer(),INDICE.SOCIO = col_double(),FREQUENCIA = col_double()))
+  AnswerTests: omnitest(correctExpr='dadosR <- read_csv("DadosRT.csv", col_types = cols(.default = col_factor(), IDADE = col_integer(),INDICE.SOCIO = col_double(),FREQUENCIA = col_double()))')
+  Hint: Reveja o script da Lição 01. Não é necessário definir as colunas cont.precedente, ocorrencia e cont.seguinte como character.
+
+- Class: cmd_question
+  Output: Inspecione a estrutura do dataframe `dadosR` com a função str(). 
+  CorrectAnswer: str(dadosR)
+  AnswerTests: omnitest(correctExpr='str(dadosR)')
+  Hint: Releia as instruções com calma.
+
+- Class: exact_question
+  Output: A função str() fornece uma visão global das propriedades de um dataframe e, como tal, permite checar rapidamente se um conjunto de dados foi corretamente carregado e se sua planilha não tem problemas. Qual é o número de linhas no dataframe `dadosR`?
+  CorrectAnswer: 9226
+  AnswerTests: omnitest(correctVal=9226)
+  Hint: Veja o número de observações.
+
+- Class: exact_question
+  Output: Qual é o número de colunas no dataframe `dadosR`?
+  CorrectAnswer: 20
+  AnswerTests: omnitest(correctVal=20)
+  Hint: Veja o número de variáveis.
+
+- Class: mult_question
+  Output: Quantos fatores têm as variáveis FAIXA.ETARIA e ORIGEM.PAIS, respectivamente?
+  AnswerChoices: 3 e 5;2 e 105;7 e 15
+  CorrectAnswer: 3 e 5
+  AnswerTests: omnitest(correctVal= '3 e 5')
+  Hint: "Veja o que segue o nome dessas variáveis: Factor with..."
+
+- Class: mult_question
+  Output: Que tipo de variável é IDADE?
+  AnswerChoices: int;Factor;num
+  CorrectAnswer: int
+  AnswerTests: omnitest(correctVal= 'int')
+  Hint: Veja o que segue o nome dessa variável.
+
+- Class: cmd_question
+  Output: As três últimas colunas de `dadosR` mostram a ocorrência da palavra com /r/ em coda com algumas palavras do contexto precedente e seguinte. Elas servem como base para a codificação das demais colunas, mas não são variáveis em si. Crie um novo dataframe, chamado `dadosR2`, com a exclusão dessas três colunas.
+  CorrectAnswer: dadosR2 <- dadosR[, -c(18:20)]
+  AnswerTests: any_of_exprs('dadosR2 <- dadosR[, -c(18:20)]', 'dadosR2<-dadosR[,c(1:17)]', 'dadosR2 <- dadosR[,-c(18,19,20)]', 'dadosR2 <- select(dadosR, VD:ITEM.LEXICAL)', 'dadosR2 <- select(dadosR, VD, INFORMANTE, SEXO.GENERO, IDADE, FAIXA.ETARIA, ESCOLARIDADE, REGIAO, INDICE.SOCIO, ORIGEM.PAIS, CONT.FON.PREC, CONT.FON.SEG, TONICIDADE, POSICAO.R, CLASSE.MORFOLOGICA, FREQUENCIA, ESTILO, ITEM.LEXICAL)', 'dadosR2 <- dadosR %>% select(VD, INFORMANTE, SEXO.GENERO, IDADE, FAIXA.ETARIA, ESCOLARIDADE, REGIAO, INDICE.SOCIO, ORIGEM.PAIS, CONT.FON.PREC, CONT.FON.SEG, TONICIDADE, POSICAO.R, CLASSE.MORFOLOGICA, FREQUENCIA, ESTILO, ITEM.LEXICAL)', 'dadosR2 <- dadosR %>% select(VD:ITEM.LEXICAL)')
+  Hint: Há várias maneiras de responder esta questão!
+
+- Class: cmd_question
+  Output: As funções head() e tail() mostram as primeiras e as últimas ocorrências de um objeto. Elas admitem mais um argumento, que é o número de elementos que se deseja visualizar. Veja a documentação da função head() em Ajuda com uso de `?`.
+  CorrectAnswer: ?head
+  AnswerTests: omnitest(correctExpr='?head')
+  Hint: Digite `?` seguido do nome da função, sem os parênteses.
+
+- Class: cmd_question
+  Output: O número default da função head() é 6, mas caso você queira visualizar as 15 primeiras linhas, basta incluir 15 como segundo argumento da função. Aplique a função head() a `dadosR2` para visualizar as 15 primeiras linhas desse dataframe.
+  CorrectAnswer: head(dadosR2, 15)
+  AnswerTests: omnitest(correctExpr='head(dadosR2, 15)')
+  Hint: Digite head(dados2, 15) e pressione CTRL + ENTER.
+
+- Class: cmd_question
+  Output: Visualize o elemento que está na 45a. linha da 10a. coluna de `dadosR2`. 
+  CorrectAnswer: dadosR2[45, 10]
+  AnswerTests: omnitest(correctExpr='dadosR2[45, 10]')
+  Hint: Use a estrutura conj.dados[linha, coluna].
+
+- Class: cmd_question
+  Output: Visualize os dados da 5a. coluna de `dadosR2`.
+  CorrectAnswer: dadosR2[, 5]
+  AnswerTests: any_of_exprs('dadosR2[, 5]', 'dadosR2$FAIXA.ETARIA')
+  Hint: Use a estrutura conj.dados[, coluna].
+
+- Class: cmd_question
+  Output: Visualize os dados da variável TONICIDADE de `dadosR2`.
+  CorrectAnswer: dadosR2$TONICIDADE
+  AnswerTests: any_of_exprs('dadosR2$TONICIDADE', 'dadosR2[,12]', 'dadosR2[, "TONICIDADE"]')
+  Hint: Use o símbolo `$`.
+
+- Class: cmd_question
+  Output: Visualize os 6 primeiros dados da variável TONICIDADE de `dadosR2`.
+  CorrectAnswer: head(dadosR2$TONICIDADE)
+  AnswerTests: any_of_exprs('head(dadosR2$TONICIDADE)', 'head(dadosR2[,12])', 'head(dadosR2[, "TONICIDADE"])', 'dadosR2$TONICIDADE[1:6]')
+  Hint: Aplique a função head().
+
+- Class: cmd_question
+  Output: Visualize os 20 primeiros dados da variável TONICIDADE de `dadosR2`.
+  CorrectAnswer: head(dadosR2$TONICIDADE, 20)
+  AnswerTests: any_of_exprs('head(dadosR2$TONICIDADE, 20)', 'dadosR2$TONICIDADE[1:20]', 'dadosR2[1:20,12]')
+  Hint: Aplique a função head() e especifique o número de linhas a visualizar.
+
+- Class: cmd_question
+  Output: Guarde os 20 primeiros dados da variável TONICIDADE de dadosR2 em um objeto chamado tonicidade20.
+  CorrectAnswer: tonicidade20 <- dadosR2$TONICIDADE[1:20]
+  AnswerTests: any_of_exprs('tonicidade20 <- head(dadosR2$TONICIDADE, 20)', 'tonicidade20 <- dadosR2$TONICIDADE[1:20]', 'tonicidade20 <- dadosR2[1:20,12]')
+  Hint: Há várias maneiras de fazer isso. Uma delas envolve a função head() com dois argumentos.
+
+- Class: mult_question
+  Output: Que tipo de estrutura de dado é tonicidade20?
+  AnswerChoices: Um vetor;Um dataframe;Um vetor e um dataframe
+  CorrectAnswer: Um vetor
+  AnswerTests: omnitest(correctVal= 'Um vetor')
+  Hint: tonicidade20 é uma estrutura unidimensional. 
+
+- Class: cmd_question
+  Output: Acesse o 10o elemento do vetor tonicidade20.
+  CorrectAnswer: tonicidade20[10]
+  AnswerTests: omnitest(correctExpr='tonicidade20[10]')
+  Hint: "Use o operador de indexação para vetores [ ]"
+
+- Class: cmd_question
+  Output: Acesse o 5o. e o 3o. elementos do vetor tonicidade20.
+  CorrectAnswer: tonicidade20[c(5, 3)]
+  AnswerTests: omnitest(correctExpr='tonicidade20[c(5, 3)]')
+  Hint: "Use o operador de indexação para vetores [ ] e a função c()"
+
+- Class: cmd_question
+  Output: Acesse o intervalo do 5o. ao 10. elementos do vetor tonicidade20.
+  CorrectAnswer: tonicidade20[5:10]
+  AnswerTests: any_of_exprs('tonicidade20[5:10]', 'tonicidade20[c(5:10)]')
+  Hint: Use o símbolo `:` para indicar o intervalo.
+
+- Class: cmd_question
+  Output: Aplique a função length() para saber quantos dados há na coluna CONT.FON.SEG de `dadosR2`.
+  CorrectAnswer: length(dadosR2$CONT.FON.SEG)
+  AnswerTests: any_of_exprs('length(dadosR2$CONT.FON.SEG)', 'length(dadosR2[,11])')
+  Hint: Pense primeiro em como acessar esse vetor e, em seguida, aplique length() a ele.
+
+- Class: mult_question
+  Output: Na prática, a função length() aplicada a uma coluna de um dataframe fornece o número de observações/linhas, uma vez que todas as colunas de um dataframe têm a mesma extensão. Quais outras funções também informam o número de observações/linhas de um dataframe?
+  AnswerChoices: nrow() e str();nrow() e summary();str() e summary();head() e str()
+  CorrectAnswer: nrow() e str()
+  AnswerTests: omnitest(correctVal= 'nrow() e str()')
+  Hint: Tente de novo! Reveja a aula base se necessário.
+
+- Class: cmd_question
+  Output: Na sequência, serão criados vários subconjuntos de dados com a função filter(). Use o dataframe `dadosR2` em todos os casos. Crie um novo dataframe chamado `dados_1a` que contém todos os dados dos falantes de 1a. faixa etária. A variável relevante se chama FAIXA.ETARIA e a variante é "1a". 
+  CorrectAnswer: dados_1a <- filter(dadosR2, FAIXA.ETARIA == "1a")
+  AnswerTests: any_of_exprs('dados_1a <- filter(dadosR2, FAIXA.ETARIA == "1a")', 'dados_1a <- dadosR2 %>% filter(FAIXA.ETARIA == "1a")')
+  Hint: Esta é uma linha de comando longa. Preste atenção nos detalhes.
+
+- Class: cmd_question
+  Output: Crie um subconjunto de dados chamado `dados_1a2a` que contém todos os dados dos falantes de 1a. e 2a. faixa etária. Use um operador lógico nessa linha de comando.
+  CorrectAnswer: dados_1a2a <- filter(dadosR2, FAIXA.ETARIA == "1a" | FAIXA.ETARIA == "2a")
+  AnswerTests: any_of_exprs('dados_1a2a <- filter(dadosR2, FAIXA.ETARIA %in% c("1a", "2a"))', 'dados_1a2a <- filter(dadosR2, FAIXA.ETARIA == "1a" | FAIXA.ETARIA == "2a")', 'dados_1a2a <- dadosR2 %>% filter(FAIXA.ETARIA %in% c("1a", "2a"))', 'dados_1a2a <- dadosR2 %>% filter(FAIXA.ETARIA == "1a" | FAIXA.ETARIA == "2a")')
+  Hint: Esta é uma linha de comando longa. Preste atenção nos detalhes.
+
+- Class: cmd_question
+  Output: Crie um subconjunto de dados chamado `dados_menor45` com os dados dos falantes que têm menos de 45 anos. (Lembre-se que, a qualquer momento, você pode sair do swirl com a função play(). Se precisar olhar o conjunto de dados, use a função View() ou str() FORA do ambiente swirl para visualizar os nomes relevantes de variáveis e variantes.)
+  CorrectAnswer: dados_menor45 <- filter(dadosR2, IDADE < 45)
+  AnswerTests: any_of_exprs('dados_menor45 <- filter(dadosR2, IDADE < 45)', 'dados_menor45 <- dadosR2 %>% filter(IDADE < 45)')
+  Hint: Esta é uma linha de comando longa. Preste atenção nos detalhes.
+
+- Class: cmd_question
+  Output: Crie um subconjunto de dados chamado `dados_menor_igual45` com os dados dos falante que têm 45 anos ou menos. 
+  CorrectAnswer: dados_menor_igual45 <- filter(dadosR2, IDADE <= 45)
+  AnswerTests: any_of_exprs('dados_menor_igual45 <- filter(dadosR2, IDADE <= 45)', 'dados_menor_igual45 <- dadosR2 %>% filter(IDADE <= 45)')
+  Hint: Esta é uma linha de comando longa. Preste atenção nos detalhes.
+
+- Class: cmd_question
+  Output: Crie um subconjunto de dados chamado `dados_maior_igual46` com os dados dos falantes que têm 46 anos ou mais. 
+  CorrectAnswer: dados_maior_igual46 <- filter(dadosR2, IDADE >= 46)
+  AnswerTests: any_of_exprs('dados_maior_igual46 <- filter(dadosR2, IDADE >= 46)', 'dados_maior_igual46 <- dadosR2 %>% filter(IDADE >= 46)')
+  Hint: Esta é uma linha de comando longa. Preste atenção nos detalhes.
+
+- Class: cmd_question
+  Output: Crie um subconjunto de dados chamado `dados_1a_central` com os dados dos falantes de primeira faixa etária e que vivem na região central da cidade. 
+  CorrectAnswer: dados_1a_central <- filter(dadosR2, FAIXA.ETARIA == "1a" & REGIAO == "central")
+  AnswerTests: any_of_exprs('dados_1a_central <- filter(dadosR2, FAIXA.ETARIA == "1a" & REGIAO == "central")', 'dados_1a_central <- filter(dadosR2, REGIAO == "central" & FAIXA.ETARIA == "1a")', 'dados_1a_central <- dadosR2 %>% filter(FAIXA.ETARIA == "1a" & REGIAO == "central")', 'dados_1a_central <- dadosR2 %>% filter(REGIAO == "central" & FAIXA.ETARIA == "1a")', 'dados_1a_central <- filter(dadosR2, FAIXA.ETARIA == "1a", REGIAO == "central")', 'dados_1a_central <- filter(dadosR2, REGIAO == "central", FAIXA.ETARIA == "1a")', 'dados_1a_central <- dadosR2 %>% filter(FAIXA.ETARIA == "1a", REGIAO == "central")', 'dados_1a_central <- dadosR2 %>% filter(REGIAO == "central", FAIXA.ETARIA == "1a")')
+  Hint: Esta é uma linha de comando longa. Preste atenção nos detalhes.
+
+- Class: cmd_question
+  Output: Crie um subconjunto de dados chamado `dados_1a_ou_central` com os dados dos falantes de primeira faixa etária OU que vivem na região central da cidade.
+  CorrectAnswer: dados_1a_ou_central <- filter(dadosR2, FAIXA.ETARIA == "1a" | REGIAO == "central")
+  AnswerTests: any_of_exprs('dados_1a_ou_central <- filter(dadosR2, FAIXA.ETARIA == "1a" | REGIAO == "central")', 'dados_1a_ou_central <- filter(dadosR2, REGIAO == "central" | FAIXA.ETARIA == "1a")', 'dados_1a_ou_central <- dadosR2 %>% filter(FAIXA.ETARIA == "1a" | REGIAO == "central")', 'dados_1a_ou_central <- dadosR2 %>% filter(REGIAO == "central" | FAIXA.ETARIA == "1a")')
+  Hint: Esta é uma linha de comando longa. Preste atenção nos detalhes.
+
+- Class: cmd_question
+  Output: Crie um subconjunto de dados com os critérios que desejar e guarde-o em um objeto. Use a função filter() para isso. Cheque na aba Environment se o objeto foi criado corretamente. 
+  CorrectAnswer: novo.conjunto <- filter(dadosR2, FAIXA.ETARIA == "3a")
+  AnswerTests: expr_uses_func('filter')
+  Hint: Use a função filter().
+  
+- Class: cmd_question
+  Output: Crie um novo dataframe chamado dadosR2_varsociais, que contém as colunas VD, PARTICIPANTE, SEXO.GENERO, IDADE, FAIXA.ETARIA, ESCOLARIDADE, REGIAO, INDICE.SOCIO e ORIGEM.PAIS.
+  CorrectAnswer: dadosR2_varsociais <- select(dadosR2, VD:ORIGEM.PAIS)
+  AnswerTests: any_of_exprs('dadosR2_varsociais <- select(dadosR2, VD:ORIGEM.PAIS)', 'dadosR2_varsociais <- dadosR2 %>% select(VD:ORIGEM.PAIS)', 'dadosR2_varsociais <- select(dadosR2, VD, PARTICIPANTE, SEXO.GENERO, IDADE, FAIXA.ETARIA, ESCOLARIDADE, REGIAO, INDICE.SOCIO, ORIGEM.PAIS)', 'dadosR2_varsociais <- dadosR2 %>% select(VD, PARTICIPANTE, SEXO.GENERO, IDADE, FAIXA.ETARIA, ESCOLARIDADE, REGIAO, INDICE.SOCIO, ORIGEM.PAIS)')
+  Hint: Use a função select().
+
+- Class: text
+  Output: Este é o fim da lista de exercícios da Lição 2 - Manipulação de Vetores e Dataframes. Se quiser praticar mais, recomendo que você faça as lições 3 ('Sequences of Numbers'), 4 ('Vectors'), 6 ('Subsetting Vectors') e 7 ('Matrices and Data Frames') do curso R Programming, do swirl. 
+
+- Class: mult_question
+  Output: Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em "Enviar" no link que abrir. Se não, basta fechar a janela que se abrir.
+  AnswerChoices: Sim;Não
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!

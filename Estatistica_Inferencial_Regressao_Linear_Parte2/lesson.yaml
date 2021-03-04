@@ -1,0 +1,103 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Estatistica_Inferencial_Regressao_Linear_Parte2
+  Author: Livia Oushiro
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.3
+
+- Class: figure
+  Output: "Nesta lista de exercícios, você vai desenvolver uma análise semelhante à que fizemos na Lição 13, mas agora sobre a vogal /o/ pretônica. As questões se encontram no script aberto em Source. As respostas desta lista de exercícios não requerem linhas de comando, mas sim os resultados de análises que você fará à parte. Suas análises devem ser feitas fora do ambiente do swirl. Lembre-se que você pode sair com o comando play() e voltar às questões desta lista com o comando nxt(). Se preferir, resolva primeiro todas as questões no script e depois volte para responder as questões aqui! Você também pode salvar o script em Source com outro nome e em outra pasta de seu computador."
+  Figure: Licao13-IEL-Exercicios-background.R
+  FigureType: new
+
+- Class: text
+  Output: "Primeiro, carregue os dados da planilha Pretonicas.csv e crie um subconjunto de dados da vogal /o/ pretônica. Recodifique as variáveis CONT.PREC e CONT.SEG com os mesmos critérios empregados na recodificação dessas variáveis para a vogal /e/ pretônica."
+
+- Class: text
+  Output: "Imagine que você tenha levantado a hipótese de que a altura da vogal /o/ pretônica (F1.NORM) depende das variáveis AMOSTRA, SEXO, CONT.PREC, CONT.SEG, F1.SEG.NORM, ESTR.SIL.PRET. A última variável ainda não foi apresentada: ESTR.SIL.PRET codifica a estrutura da sílaba em que se encontra a vogal pretônica (CV; CCV; CVr; CVs -- em que C = consoante, V = vogal, r = /r/ em coda, s = /s/ em coda)."
+
+- Class: mult_question
+  Output: "(1) Entre quais pares de variáveis há colinearidade? Considere: (i) AMOSTRA; (ii) SEXO; (iii) CONT.PREC; (iv) CONT.SEG; (v) F1.SEG.NORM; (vi) ESTR.SIL.PRET."
+  AnswerChoices: entre (iii)-(vi) e entre (iv)-(vi);entre (i)-(v) e entre (v)-(vi);entre (iii)-(iv) e entre (iii)-(vi);entre (iv)-(v) e entre (ii)-(v)
+  CorrectAnswer: entre (iii)-(vi) e entre (iv)-(vi)
+  AnswerTests: omnitest(correctVal= 'entre (iii)-(vi) e entre (iv)-(vi)')
+  Hint: Crie um modelo e aplique a função vif(), do pacote car.
+
+- Class: mult_question
+  Output: "(2) Entre qual par de variáveis há interação? Considere: (i) AMOSTRA; (ii) SEXO; (iii) CONT.PREC; (iv) CONT.SEG; (v) F1.SEG.NORM; (vi) ESTR.SIL.PRET."
+  AnswerChoices: entre (iii) e (iv);entre (i) e (ii);entre (i) e (v);entre (ii) e (vi);entre (iv) e (v)
+  CorrectAnswer: entre (iii) e (iv)
+  AnswerTests: omnitest(correctVal= 'entre (iii) e (iv)')
+  Hint: Crie modelos lineares com as interações indicadas.
+
+- Class: mult_question
+  Output: "(3) A partir dos dados da vogal /o/ pretônica, crie um modelo com F1.NORM como variável resposta e com todas as variáveis previsoras acima, exceto aquela que é colinear a duas outras variáveis. Inclua a interação identificada na questão (2). Quanto da variação em F1.NORM é explicada por esse modelo?"
+  AnswerChoices: 22.9%;24.7%;8.6%
+  CorrectAnswer: 22.9%
+  AnswerTests: omnitest(correctVal= '22.9%')
+  Hint: Procure a resposta no resultado do modelo criado.
+
+- Class: mult_question
+  Output: "(4) Qual variável não apresenta correlação significativa com F1.NORM?"
+  AnswerChoices: SEXO;CONT.PREC;CONT.SEG;F1.SEG.NORM;AMOSTRA;nenhuma;todas;ESTR.SIL.PRET
+  CorrectAnswer: SEXO
+  AnswerTests: omnitest(correctVal= 'SEXO')
+  Hint: Leia a tabela de coeficientes gerada no modelo.
+
+- Class: exact_question
+  Output: "(5) Calcule a estimativa de F1.NORM na fala de paraibanas quando a vogal /o/ pretônica é precedida de consoante velar e seguida de consoante palatal-sibilante (p.ex., no item lexical 'gostaria'."
+  CorrectAnswer: 328.0931
+  AnswerTests: any_of_exprs=c('328.0931', '337.53078 + 20.64567 -9.14278 -20.94054')
+  Hint: Calcule a estimativa a partir dos coeficientes reportados na tabela.
+
+- Class: mult_question
+  Output: "(6) Use as funções step() e drop1() para checar se as variáveis do modelo criado acima devem ser mantidas. Os testes com step() e drop1() concordam quanto às variáveis que devem ser mantidas?"
+  AnswerChoices: não;sim
+  CorrectAnswer: não
+  AnswerTests: omnitest(correctVal= 'não')
+  Hint: Aplique as funções step() e drop1() ao modelo.
+
+- Class: mult_question
+  Output: "(7) Os testes 'forward', 'backward' e 'both' concordam quanto às variáveis que devem ser mantidas?" 
+  AnswerChoices: sim;não
+  CorrectAnswer: sim
+  AnswerTests: omnitest(correctVal= 'sim')
+  Hint: Aplique a função step() nas direções 'forward', 'backward' e 'both'.
+
+- Class: text
+  Output: "Veja que os testes com step() e drop1() nem sempre concordam. Isso porque eles se baseiam em diferentes critérios (AIC para step() e estatística-F ou qui-quadrado para drop1()). Cabe a você decidir se manterá a variável no modelo ou não!"
+
+- Class: text
+  Output: "A função crPlot(), do pacote car, infelizmente não se aplica a modelos com interação. Crie um novo modelo com a inclusão das mesmas variáveis do último teste, mas sem a inclusão de interação entre variáveis. Escolha se você vai manter a variável excluída por drop1() ou não. Em seguida, aplique a função crPlot() para testar se há linearidade entre a variável resposta e variável previsora numérica do modelo."
+
+- Class: mult_question
+  Output: "(8) Em qual intervalo da variável previsora há menor concordância entre os valores previstos e os valores observados?"
+  AnswerChoices: entre 450 Hz e 500 Hz;entre 300 Hz e 350 Hz;entre 350 Hz e 400 Hz;entre 400 hz e 450 Hz
+  CorrectAnswer: entre 450 Hz e 500 Hz
+  AnswerTests: omnitest(correctVal= 'entre 450 Hz e 500 Hz')
+  Hint: Crie um novo modelo sem interação e aplique a função crPlot() a ele. Veja e interprete a figura em Plots!
+
+- Class: text
+  Output: "Crie um modelo de efeitos mistos, com as variáveis aleatórias PARTICIPANTE e PALAVRA, e com a inclusão das mesmas variáveis do penúltimo teste -- ou seja, com a interação entre as duas variáveis identificada na questão (2). Não se assuste pois o R mostrará alguns avisos de que certas combinações entre fatores de variáveis não existem."
+
+- Class: mult_question
+  Output: "(9) Qual variável abaixo não apresenta correlação significativa com F1.NORM no modelo de efeitos mistos?"
+  AnswerChoices: todas as variáveis são significativamente correlacionadas;CONT.PREC;CONT.SEG;F1.SEG.NORM;AMOSTRA;interação CONT.PREC:CONT.SEG
+  CorrectAnswer: todas as variáveis são significativamente correlacionadas
+  AnswerTests: omnitest(correctVal= 'todas as variáveis são significativamente correlacionadas')
+  Hint: Leia e interprete a tabela de coeficientes.
+
+- Class: exact_question
+  Output: "(10) Calcule a estimativa da altura da vogal /o/ pretônica (F1.NORM) quando o F1 da vogal da sílaba seguinte é 450 Hz. "
+  CorrectAnswer: 445.8873
+  AnswerTests: any_of_exprs=c('445.8873', '337.21676 + (450*0.24149)')
+  Hint: Calcule a estimativa a partir dos coeficientes reportados na tabela.
+  
+- Class: mult_question
+  Output: "Este é o fim da lista de exercícios 13. Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em 
+\"Enviar\" no link que abrir. Se não, basta fechar a janela que se abrir."
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!

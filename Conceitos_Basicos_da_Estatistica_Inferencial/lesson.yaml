@@ -1,0 +1,134 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Conceitos_Basicos_da_Estatistica_Inferencial
+  Author: Livia
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.3
+
+- Class: mult_question
+  Output: "Qual das afirmações abaixo é uma hipótese (H1) bem formulada?"
+  AnswerChoices: A medida média de F1 em Hz da vogal pretônica /e/ na fala de paraibanos é mais alta do que na fala de paulistanos.;O apagamento de /r/ pós-vocálico na fala de novaiorquinos possivelmente é mais frequente entre funcionários da Macy's do que os da Saks.;O próximo sintagma nominal plural a ser falado por mim será na forma padrão do português.
+  CorrectAnswer: A medida média de F1 em Hz da vogal pretônica /e/ na fala de paraibanos é mais alta do que na fala de paulistanos.
+  AnswerTests: omnitest(correctVal= 'A medida média de F1 em Hz da vogal pretônica /e/ na fala de paraibanos é mais alta do que na fala de paulistanos.')
+  Hint: Lembre-se que hipóteses devem ser formuladas de forma categórica e devem se referir a mais de um evento.
+
+- Class: mult_question
+  Output: "Qual é a H0 correspondente à H1 bem formulada acima?"
+  AnswerChoices: A medida média de F1 em Hz da vogal pretônica /e/ na fala de paraibanos não é mais alta do que na fala de paulistanos.;O apagamento de /r/ pós-vocálico na fala de novaiorquinos possivelmente não é mais frequente entre funcionários da Macy's do que os da Saks;O próximo sintagma nominal plural a ser falado por mim não será na forma padrão do português.
+  CorrectAnswer: A medida média de F1 em Hz da vogal pretônica /e/ na fala de paraibanos não é mais alta do que na fala de paulistanos.
+  AnswerTests: omnitest(correctVal= 'A medida média de F1 em Hz da vogal pretônica /e/ na fala de paraibanos não é mais alta do que na fala de paulistanos.')
+  Hint: Se você acertou a questão acima, não é difícil acertar esta!
+
+- Class: mult_question
+  Output: "Na lição correspondente, vimos o conceito de significância. Qual é nível alfa normalmente adotado como limite de significância?"
+  AnswerChoices: 5%;1%;10%;0.1%;0.05%
+  CorrectAnswer: 5%
+  AnswerTests: omnitest(correctVal= '5%')
+  Hint: "Não há um nível alfa \"correto\", mas há sim uma convenção!"
+
+- Class: mult_question
+  Output: "Qual é a definição de significância?"
+  AnswerChoices: a probabilidade de se observar determinada distribuição em caso de a hipótese nula ser verdadeira;a probabilidade de a hipótese nula ser verdadeira;a possibilidade de que se chegou a uma conclusão errônea quando a hipótese nula é verdadeira;a possibilidade de rejeitar H1 equivocadamente em caso de a hipótese nula ser verdadeira
+  CorrectAnswer: a probabilidade de se observar determinada distribuição em caso de a hipótese nula ser verdadeira
+  AnswerTests: omnitest(correctVal= 'a probabilidade de se observar determinada distribuição em caso de a hipótese nula ser verdadeira')
+  Hint: Refaça a aula correspondente, se necessário!
+
+- Class: cmd_question
+  Output: "Numa rolada de dado, qual é a probabilidade de se ter o número 5, considerando-se que o dado não é viciado?"
+  CorrectAnswer: 1/6
+  AnswerTests: omnitest(correctVal=1/6)
+  Hint: Para a moeda, a probabilidade é 1/2 = 0.5. O dado tem 6 faces.
+
+- Class: cmd_question
+  Output: "Numa rolada de dado, qual é a probabilidade de se ter um número ímpar, considerando-se que o dado não é viciado?"
+  CorrectAnswer: 3/6
+  AnswerTests: omnitest(correctVal=3/6)
+  Hint: Some todas as possibilidades de resultado ímpar, e divida pelo total de resultados possíveis.
+
+- Class: mult_question
+  Output: "A probabilidade de obter três caras em três jogadas de moeda é 1/8 = 0.125. Qual é a probabilidade de ter três números ímpares em três roladas de um dado, considerando-se que o dado não é viciado?"
+  AnswerChoices: 0.125;0.50;0.375;0.05
+  CorrectAnswer: 0.125
+  AnswerTests: omnitest(correctVal= '0.125')
+  Hint: Considere a resposta da questão acima e compare com a probabilidade de cara ou coroa na moeda.
+
+- Class: cmd_question
+  Output: "Calcule a probabilidade de saírem 75 caras, em 100 jogadas de moeda, considerando-se que a moeda é honesta. Use a função dbinom() para seu cálculo."
+  CorrectAnswer: dbinom(75, 100, 0.5)
+  AnswerTests: omnitest(correctExpr='dbinom(75, 100, 0.5)')
+  Hint: "A função dbinom() toma como argumentos: (i) o número de sucessos de uma variável binária; (ii) o número de tentativas; (iii) a probabilidade de se ter aquele resultado em uma tentativa."
+
+- Class: mult_question
+  Output: "Qual é o resultado da soma das probabilidades de todos os resultados possíveis em 1000 jogadas de moeda?"
+  AnswerChoices: 1;100;0.5;É impossível calcular
+  CorrectAnswer: 1
+  AnswerTests: omnitest(correctVal= '1')
+  Hint: Refaça a aula correspondente, se necessário!
+
+- Class: cmd_question
+  Output: "Calcule a soma das probabilidades de todos os resultados possíveis em 1000 jogadas de moeda. Para isso, use as funções sum() e dbinom()."
+  CorrectAnswer: sum(dbinom(0:1000, 1000, 0.5))
+  AnswerTests: omnitest(correctExpr='sum(dbinom(0:1000, 1000, 0.5))')
+  Hint: Refaça a aula correspondente, se necessário!
+
+- Class: cmd_question
+  Output: "Qual é a notação decimal para o número em notação `e` 2e+05?"
+  CorrectAnswer: 200000
+  AnswerTests: omnitest(correctVal=200000)
+  Hint: Refaça a aula correspondente, se necessário!
+
+- Class: cmd_question
+  Output: "Qual é a notação decimal para o número em notação `e` 1.45e-03?"
+  CorrectAnswer: 0.00145
+  AnswerTests: omnitest(correctVal=0.00145)
+  Hint: Use o ponto final para indicar os decimais.
+  
+- Class: mult_question
+  Output: Qual não é outro nome para a forma da distribuição normal?
+  AnswerChoices: curva em forma de Gauss;curva em forma de sino;distribuição gaussiana
+  CorrectAnswer: curva em forma de Gauss
+  AnswerTests: omnitest(correctVal= 'curva em forma de Gauss')
+  Hint: Reveja a aula, se necessário!
+
+- Class: mult_question
+  Output: "Se se estabelece um nível alfa de 1% e se observa um valor de significância igual a 2e-02, o pesquisador deve..."
+  AnswerChoices: rejeitar a hipótese alternativa e acatar a hipótese nula;rejeitar a hipótese nula e acatar a hipótese alternativa;realizar o teste estatístico novamente;ahn?
+  CorrectAnswer: rejeitar a hipótese alternativa e acatar a hipótese nula
+  AnswerTests: omnitest(correctVal= 'rejeitar a hipótese alternativa e acatar a hipótese nula')
+  Hint: Primeiro determine que número é 2e-02, e depois compare-o com o nível alfa.
+  
+- Class: mult_question
+  Output: Quando um teste estatístico gera um p < 0.05,... 
+  AnswerChoices: deve-se acatar a hipótese alternativa;tem-se confirmação de que a hipótese está correta;pode-se ter certeza da veracidade da hipótese alternativa
+  CorrectAnswer: deve-se acatar a hipótese alternativa
+  AnswerTests: omnitest(correctVal= 'deve-se acatar a hipótese alternativa')
+  Hint: Pense mais um pouco!
+
+- Class: mult_question
+  Output: "Rejeitar equivocadamente a hipótese nula é um..."
+  AnswerChoices: Erro do Tipo I;Erro do Tipo II;Erro do Tipo III
+  CorrectAnswer: Erro do Tipo I
+  AnswerTests: omnitest(correctVal= 'Erro do Tipo I')
+  Hint: Refaça a aula correspondente, se necessário!
+
+- Class: mult_question
+  Output: "Erros do Tipo I e do Tipo II ocorrem..."
+  AnswerChoices: porque a medida de significância se refere a uma probabilidade e sempre há chance de erro;porque certos cuidados não foram tomados no momento da escolha do teste estatístico;quando não se aplica a correção de Bonferroni na realização de múltiplos testes estatísticos
+  CorrectAnswer: porque a medida de significância se refere a uma probabilidade e sempre há chance de erro
+  AnswerTests: omnitest(correctVal= 'porque a medida de significância se refere a uma probabilidade e sempre há chance de erro')
+  Hint: Refaça a aula correspondente, se necessário!
+
+- Class: mult_question
+  Output: "O intervalo de confiança..."
+  AnswerChoices: estabelece um valor mínimo e um valor máximo dentre os quais há maior probabilidade de estar o verdadeiro parâmetro da população;estabelece o valor com maior probabilidade de ser o verdadeiro parâmetro da população;estabelece um valor mínimo e um valor máximo do verdadeiro parâmetro da população;estabelece o valor que tem 95% de probabilidade de ser o verdadeiro parâmetro da população
+  CorrectAnswer: estabelece um valor mínimo e um valor máximo dentre os quais há maior probabilidade de estar o verdadeiro parâmetro da população
+  AnswerTests: omnitest(correctVal= 'estabelece um valor mínimo e um valor máximo dentre os quais há maior probabilidade de estar o verdadeiro parâmetro da população')
+  Hint: Refaça a aula correspondente, se necessário!
+
+- Class: mult_question
+  Output: Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em "Enviar" no link que abrir. Se não, basta fechar a janela que se abrir.
+  AnswerChoices: Sim;Não
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!

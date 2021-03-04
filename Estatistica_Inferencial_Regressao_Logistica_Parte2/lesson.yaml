@@ -1,0 +1,92 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Estatistica_Inferencial_Regressao_Logistica_Parte2
+  Author: Livia Oushiro
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.3
+
+- Class: figure
+  Output: "Nesta lista, vamos trabalhar sobre os dados da realização de /r/ em lojas de Departamento em Nova Iorque, de Labov. As questões se encontram no script aberto em Source. As respostas desta lista de exercícios não requerem linhas de comando, mas sim os resultados de análises que você fará à parte. Suas análises devem ser feitas fora do ambiente do swirl. Lembre-se que você pode sair com o comando play() e voltar às questões desta lista com o comando nxt(). Se preferir, resolva primeiro todas as questões no script e depois volte para responder as questões aqui! Você também pode salvar o script em Source com outro nome e em outra pasta de seu computador."
+  Figure: Licao15-IEL-Exercicios-background.R
+  FigureType: new
+
+- Class: text
+  Output: "Primeiro, carregue os dados da planilha LabovDS.csv. Se você não tiver uma cópia, refaça a Lição 4 do curso Introducao a Estatistica para Linguistas. Após carregar o dataframe, cheque sua estrutura, como de praxe. Exclua os dados de `d` da variável `r`. Certifique-se de que o nível de referência é r1 -- para que os resultados de regressão logística sejam lidos em referência ao apagamento de /r/ (r0). Reorganize os níveis da variável store de acordo com o prestígio das lojas: Klein, Macys e Saks."
+
+- Class: text
+  Output: "Essa planilha contém os dados da realização de /r/ (r0 - apagado; r1 - realizado) por parte de funcionários de três lojas de departamento em Nova Iorque. As variáveis previsoras são store (Kleins, Macy's, Saks), emphasis (casual ou emphasic) e word (fourth ou floor). Verifique se há interações entre essas três variáveis em modelos simples de regressão logística, que incluem apenas uma interação."
+
+- Class: mult_question
+  Output: "(1) Entre qual par de variáveis há interação?"
+  AnswerChoices: nenhum;store e emphasis;store e word;emphasis e word
+  CorrectAnswer: nenhum
+  AnswerTests: omnitest(correctVal= 'nenhum')
+  Hint: Crie diferentes modelos com interações e interprete os resultados.
+
+- Class: mult_question
+  Output: "(2) Crie um modelo com todas as variáveis. Inclua a interação, se houver. Qual variável não apresenta correlação significativa com a pronúncia de /r/?"
+  AnswerChoices: emphasis;store;word;todas têm correlação significativa
+  CorrectAnswer: emphasis
+  AnswerTests: omnitest(correctVal= 'emphasis')
+  Hint: Crie o modelo com todas as variáveis previsoras e interprete os resultados!
+
+- Class: exact_question
+  Output: "(3) Qual é o índice C deste modelo?"
+  CorrectAnswer: 0.742
+  AnswerTests: omnitest(correctVal=0.742)
+  Hint: Digite o número e use o ponto final para indicar casas decimais.
+
+- Class: exact_question
+  Output: "(4) Qual é o valor de R^2 deste modelo?"
+  CorrectAnswer: 0.212
+  AnswerTests: omnitest(correctVal=0.212)
+  Hint: Digite o número e use o ponto final para indicar casas decimais.
+
+- Class: mult_question
+  Output: "(5) Este modelo, como um todo, é significativo?"
+  AnswerChoices: sim;não;impossível dizer
+  CorrectAnswer: sim
+  AnswerTests: omnitest(correctVal= 'sim')
+  Hint: Interprete os resultados de um modelo lrm().
+
+- Class: mult_question
+  Output: "(6) Os funcionários de qual loja mais favorecem o apagamento de /r/?"
+  AnswerChoices: Kleins;Macy's;Saks
+  CorrectAnswer: Kleins
+  AnswerTests: omnitest(correctVal= 'Kleins')
+  Hint: Interprete os resultados da tabela de coeficientes.
+
+- Class: mult_question
+  Output: "(7) Qual item lexical mais favorece o apagamento de /r/?"
+  AnswerChoices: fourth;floor
+  CorrectAnswer: fourth
+  AnswerTests: omnitest(correctVal= 'fourth')
+  Hint: Interprete os resultados da tabela de coeficientes.
+
+- Class: exact_question
+  Output: "(8) Calcule a probabilidade (de 0% a 100%) de se realizar o apagamento de /r/ na palavra `fourth`. Reporte o resultado em número decimal."
+  CorrectAnswer: 0.9497171
+  AnswerTests: any_of_exprs('0.9497171', 'ilogit(1.9473 + 0.9912)', 'ilogit(2.9385)')
+  Hint: Calcule a estimativa pelos coeficientes do modelo e aplique a função ilogit() para transformar logodds em probabilidade. Coloque o resultado em número decimal, com o ponto para representar os décimos.
+
+- Class: mult_question
+  Output: "(9) Acima se testou se há interações. Teste se há colinearidade entre as variáveis previsoras."
+  AnswerChoices: não há;há entre store e emphasis;há entre store e word;há entre emphasis e word
+  CorrectAnswer: não há
+  AnswerTests: omnitest(correctVal= 'não há')
+  Hint: Aplique a função específica para isso. Carregue o pacote do qual ela faz parte. 
+
+- Class: mult_question
+  Output: "(10) Neste conjunto de dados, que tipo de variável é word?"
+  AnswerChoices: variável fixa;variável aleatória
+  CorrectAnswer: variável fixa
+  AnswerTests: omnitest(correctVal= 'variável fixa')
+  Hint: Reveja a definição de variáveis fixas e aleatórias na Lição 13!
+
+- Class: mult_question
+  Output: "Este é o fim da lista de exercícios 15. Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em \"Enviar\" no link que abrir. Se não, basta fechar a janela que se abrir."
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!

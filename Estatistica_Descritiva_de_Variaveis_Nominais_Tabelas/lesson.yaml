@@ -1,0 +1,179 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Estatistica Descritiva de Variaveis Nominais Tabelas
+  Author: Livia Oushiro
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.2
+
+- Class: text
+  Output: "Para esta lição, vamos usar o arquivo de dados LabovDS.csv, com a exclusão de dados 'd'."
+
+- Class: cmd_question
+  Output: Defina como diretório de trabalho aquele que, em seu computador, contém a planilha LabovDS.csv.
+  CorrectAnswer: setwd("~/Dropbox/_R/swirl/Introducao_a_Estatistica_para_Linguistas/data")
+  AnswerTests: expr_uses_func('setwd')
+  Hint: Use a função setwd() com o caminho completo para o diretório. 
+  
+- Class: cmd_question
+  Output: Carregue o pacote tidyverse.
+  CorrectAnswer: library(tidyverse)
+  AnswerTests: omnitest(correctExpr='library(tidyverse)')
+  Hint: Reveja as lições, se necessário.
+
+- Class: cmd_question
+  Output: Carregue os dados da planilha em um dataframe chamado ds, especificando que todas as colunas são do tipo factor. 
+  CorrectAnswer: ds <- read_csv("LabovDS.csv", col_types = cols(.default = col_factor()))
+  AnswerTests: omnitest(correctExpr='ds <- read_csv("LabovDS.csv", col_types = cols(.default = col_factor()))')
+  Hint: Use a função read_csv().
+
+- Class: cmd_question
+  Output: Cheque o dataframe ds por meio da função str().
+  CorrectAnswer: str(ds)
+  AnswerTests: omnitest(correctExpr='str(ds)')
+  Hint: Use a função str() sobre ds.
+
+- Class: cmd_question
+  Output: Exclua os dados 'd' por meio da função filter(). Guarde o novo dataframe em um objeto chamado ds2 e exclua o nível 'd' do dataframe.
+  CorrectAnswer: ds2 <- ds %>% filter(r != "d") %>% droplevels()
+  AnswerTests: omnitest(correctExpr='ds2 <- ds %>% filter(r != "d") %>% droplevels()')
+  Hint: Use a função filter() e droplevels().
+  
+- Class: cmd_question
+  Output: Visualize os níveis da variável store do dataframe ds2.
+  CorrectAnswer: levels(ds2$store)
+  AnswerTests: omnitest(correctExpr='levels(ds2$store)')
+  Hint: Tente de novo!
+    
+- Class: cmd_question
+  Output: "Reorganize os níveis da variável store em ordem inversa: Klein, Macys, Saks. Guarde o resultado na coluna correspondente do dataframe."
+  CorrectAnswer: ds2$store <- fct_relevel(ds2$store,"Klein", "Macys", "Saks")
+  AnswerTests: any_of_exprs('ds2$store <- fct_relevel(ds2$store,"Klein", "Macys", "Saks")', 'ds2$store <- fct_relevel(ds2$store, rev)')
+  Hint: Revise a Lição 3, se necessário.
+
+- Class: cmd_question
+  Output: A partir de ds2, faça uma tabela de frequências da variável 'emphasis' pela variável dependente 'r' com as funções da instalação base do R. NÃO se preocupe em guardar o resultado em um objeto. 
+  CorrectAnswer: with(ds2, table(emphasis, r))
+  AnswerTests: any_of_exprs('table(ds2$emphasis, ds2$r)', 'with(ds2, table(emphasis, r))')
+  Hint: Use a função table() com dois argumentos.
+
+- Class: cmd_question
+  Output: A partir de ds2, faça a tabela de frequências da variável 'word' pela variável dependente 'r' com as funções da instalação base do R. NÃO se preocupe em guardar o resultado em um objeto.
+  CorrectAnswer: with(ds2, table(word, r))
+  AnswerTests: any_of_exprs('with(ds2, table(word, r))', 'table(ds2$word, ds2$r)')
+  Hint: Use a função table() com dois argumentos.
+
+- Class: cmd_question
+  Output: A partir de ds2, faça a tabela de frequências da variável 'store' pela variável dependente 'r' com as funções da instalação base do R. NÃO se preocupe em guardar o resultado em um objeto.
+  CorrectAnswer: with(ds2, table(store, r))
+  AnswerTests: any_of_exprs('with(ds2, table(store, r))', 'table(ds2$store, ds2$r)')
+  Hint: Use a função table() com dois argumentos.
+  
+- Class: cmd_question
+  Output: A partir de ds2, faça a tabela de frequências da variável 'store' pela variável dependente 'r' com as funções da instalação base do R, e adicione os totais das linhas e das colunas. Faça isso em uma única linha de comando!
+  CorrectAnswer: addmargins(with(ds2, table(store, r)))
+  AnswerTests: any_of_exprs('addmargins(with(ds2, table(store, r)))', 'addmargins(table(ds2$store, ds2$r))')
+  Hint: Tente de novo!
+
+- Class: cmd_question
+  Output: A partir de ds2, faça a tabela de proporções por linha da variável 'emphasis' pela variável dependente 'r'. Faça isso em uma única linha de comando.
+  CorrectAnswer: prop.table(with(ds2, table(emphasis, r)), 1)
+  AnswerTests: any_of_exprs('prop.table(table(ds2$emphasis, ds2$r), 1)', 'prop.table(table(ds2$emphasis, ds2$r), 1) * 100', 'prop.table(with(ds2, table(emphasis, r)), 1)', 'prop.table(with(ds2, table(emphasis, r)), 1) * 100')
+  Hint: Na Lição correspondente, fizemos isso em duas etapas, primeiro criando uma tabela de frequências com table() e depois aplicando a função prop.table() sobre essa tabela. Aqui, em vez de guardar a tabela num vetor, insira o comando para a criação da tabela como o primeiro argumento da função prop.table(). Não se esqueça depois do segundo argumento, que indica que se quer a proporção por linhas. 
+
+- Class: cmd_question
+  Output: A partir de ds2, faça a tabela de proporções por linha da variável 'word' pela variável dependente 'r'. Faça isso em uma única linha de comando.
+  CorrectAnswer: prop.table(with(ds2, table(word, r)), 1)
+  AnswerTests: any_of_exprs('prop.table(table(ds2$word, ds2$r), 1)', 'prop.table(table(ds2$word, ds2$r), 1) * 100', 'prop.table(with(ds2, table(word, r)), 1)', 'prop.table(with(ds2, table(word, r)), 1) * 100')
+  Hint: Na Lição correspondente, fizemos isso em duas etapas, primeiro criando uma tabela de frequências com table() e depois aplicando a função prop.table() sobre essa tabela. Insira a função table() como argumento da função prop.table, com os respectivos argumentos apropriados.
+
+- Class: cmd_question
+  Output: A partir de ds2, faça a tabela de proporções por linha da variável 'store' pela variável dependente 'r'. Faça isso em uma única linha de comando.
+  CorrectAnswer: prop.table(with(ds2, table(store, r)), 1)
+  AnswerTests: any_of_exprs('prop.table(table(ds2$store, ds2$r), 1)', 'prop.table(table(ds2$store, ds2$r), 1) * 100', 'prop.table(with(ds2, table(store, r)), 1)', 'prop.table(with(ds2, table(store, r)), 1) * 100')
+  Hint: "Faça por etapas: primeiro, crie a tabela com a função table() -- mas não pressione ENTER! Quando ela estiver pronta, aplique a função prop.table() sobre esta tabela." 
+  
+- Class: cmd_question
+  Output: A partir de ds2, crie um dataframe, chamado freq.prop.store, com as frequências e proporções da variável store por r, usando as funções do tidyverse. Nomeie a coluna com proporções como `proporcao`.
+  CorrectAnswer: freq.prop.store <- ds2 %>% count(store, r) %>% group_by(store) %>% mutate(proporcao = prop.table(n))
+  AnswerTests: omnitest(correctExpr='freq.prop.store <- ds2 %>% count(store, r) %>% group_by(store) %>% mutate(proporcao = prop.table(n))')
+  Hint: Reveja a lição, se necessário.
+  
+- Class: cmd_question
+  Output: Visualize freq.prop.store.
+  CorrectAnswer: freq.prop.store
+  AnswerTests: omnitest(correctExpr='freq.prop.store')
+  Hint: Digite freq.prop.store e pressione CTRL + ENTER.
+  
+- Class: cmd_question
+  Output: Acesse a coluna `proporcao` do dataframe freq.prop.store.
+  CorrectAnswer: freq.prop.store$proporcao
+  AnswerTests: any_of_exprs('freq.prop.store$proporcao', 'freq.prop.store[,4]')
+  Hint: Se necessário, reveja a Lição 2 para lembrar como se acessam elementos de vetores e de dataframes.
+
+- Class: cmd_question
+  Output: A partir de freq.prop.store, acesse apenas as frequências e as proporções, e somente da loja Saks. Use os colchetes [ ].
+  CorrectAnswer: freq.prop.store[5:6, 3:4]
+  AnswerTests: any_of_exprs('freq.prop.store[5:6, 3:4]', 'freq.prop.store[c(5:6), c(3:4)]', 'freq.prop.store[c(5,6), c(3,4)]')
+  Hint: Se necessário, reveja a Lição 2 para lembrar como se acessam elementos de vetores e de dataframes.
+  
+- Class: cmd_question
+  Output: A partir de freq.prop.store, acesse as frequências e as proporções somente da loja Saks, usando o pipe %>% e as funções filter() e select().
+  CorrectAnswer: freq.prop.store %>% filter(store == "Saks") %>% select(n, proporcao)
+  AnswerTests: any_of_exprs('freq.prop.store %>% filter(store == "Saks") %>% select(n, proporcao)', 'filter(freq.prop.store, store == "Saks") %>% select(n, proporcao)', 'freq.prop.store %>% select(n, proporcao) %>% filter(store == "Saks")', 'select(freq.prop.store, n, proporcao) %>% filter(store == "Saks")')
+  Hint: Pense mais um pouco! Reveja a lição, se necessário!
+    
+- Class: cmd_question
+  Output: A partir de freq.prop.store, crie um novo dataframe chamado freq.prop.store2, que contém as proporções abaixo de 60%.
+  CorrectAnswer: freq.prop.store2 <- freq.prop.store %>% filter(proporcao < 0.60)
+  AnswerTests: any_of_exprs('freq.prop.store2 <- freq.prop.store %>% filter(proporcao < 0.60)', 'freq.prop.store2 <- filter(freq.prop.store, proporcao < 0.60)')
+  Hint: Reveja a Lição 2, se necessário.
+  
+- Class: cmd_question
+  Output: A partir de freq.prop.store, crie um novo dataframe chamado freq.prop.store3, que contém as frequências acima de 90.
+  CorrectAnswer: freq.prop.store3 <- freq.prop.store %>% filter(n > 90)
+  AnswerTests: any_of_exprs('freq.prop.store3 <- freq.prop.store %>% filter(n > 90)', 'freq.prop.store3 <- filter(freq.prop.store, n > 90)')
+  Hint: Reveja a Lição 2, se necessário.
+    
+- Class: cmd_question
+  Output: Compute as frequências e as proporções de r1 e r0 por palavra (word) apenas da loja Saks, usando as funções do tidyverse. Para tanto, use o pipe %>% e as funções filter(), count(), group_by() e mutate(). Nomeie a coluna de proporções como prop.
+  CorrectAnswer: ds2 %>% filter(store == "Saks") %>% count(word, r) %>% group_by(word) %>% mutate(prop = prop.table(n))
+  AnswerTests: any_of_exprs('ds2 %>% filter(store == "Saks") %>% count(word, r) %>% group_by(word) %>% mutate(prop = prop.table(n))', 'filter(ds2, store == "Saks") %>% count(word, r) %>% group_by(word) %>% mutate(prop = prop.table(n))')
+  Hint: Pense mais um pouco! Reveja a lição, se necessário!
+    
+- Class: cmd_question
+  Output: Compute as frequências e as proporções de r1 e r0 por ênfase (emphasis), usando as funções do tidyverse. Nomeie a coluna de proporções como prop. As proporções devem aparecer como valores entre 1 e 100%.
+  CorrectAnswer: ds2 %>% count(emphasis, r) %>% group_by(emphasis) %>% mutate(prop = prop.table(n) * 100)
+  AnswerTests: any_of_exprs('ds2 %>% count(emphasis, r) %>% group_by(emphasis) %>% mutate(prop = prop.table(n) * 100)', 'count(ds2, emphasis, r) %>% group_by(emphasis) %>% mutate(prop = prop.table(n) * 100)')
+  Hint: "Dica: multiple o resultado de prop.table por 100. O sinal de multiplicação no R é *."
+  
+- Class: mult_question
+  Output: Veja o dataframe que você acabou criar com as frequências e proporções da VD r pela VI emphasis. Que tipo de variável é n?
+  AnswerChoices: int;factor;double
+  CorrectAnswer: int
+  AnswerTests: omnitest(correctVal= 'int')
+  Hint: Veja o tibble!
+
+- Class: mult_question
+  Output: Veja o dataframe que você acabou criar com as frequências e proporções da VD r pela VI emphasis. Que tipo de variável é prop?
+  AnswerChoices: double;factor;int
+  CorrectAnswer: double
+  AnswerTests: omnitest(correctVal= 'double')
+  Hint: Veja o tibble!
+    
+- Class: mult_question
+  Output: Veja o dataframe que você acabou criar com as frequências e proporções da VD r pela VI emphasis. Que tipo de variável é emphasis?
+  AnswerChoices: factor;int;double
+  CorrectAnswer: factor
+  AnswerTests: omnitest(correctVal= 'factor')
+  Hint: Veja o tibble!
+    
+- Class: text
+  Output: Este é o fim da lista de exercícios da Lição 4 - Estatística Descritiva de Variáveis Nominais - Tabelas. 
+
+- Class: mult_question
+  Output: Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em "Enviar" no link que abrir. Se não, basta fechar a janela que se abrir.
+  AnswerChoices: Sim;Não
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!

@@ -1,0 +1,163 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Estatistica_Inferencial_Regressao_Linear_Parte1
+  Author: Livia Oushiro
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.3
+
+- Class: figure
+  Output: "Nesta lista de exercícios, você vai desenvolver uma análise semelhante à que fizemos na Lição 12, mas agora sobre a vogal /o/ pretônica. As questões se encontram no script aberto em Source. As respostas desta lista de exercícios não requerem linhas de comando, mas sim os resultados de análises que você fará à parte. Suas análises devem ser feitas fora do ambiente do swirl. Lembre-se que você pode sair com o comando play() e voltar às questões desta lista com o comando nxt(). Se preferir, resolva primeiro todas as questões no script e depois volte para responder as questões aqui! Você também pode salvar o script em Source com outro nome e em outra pasta de seu computador."
+  Figure: Licao12-IEL-Exercicios-background.R
+  FigureType: new
+
+- Class: text
+  Output: "Primeiro, carregue os dados da planilha Pretonicas.csv e crie um subconjunto de dados da vogal /o/ pretônica."
+
+- Class: exact_question
+  Output: "(1) Há quantos dados de vogal /o/ pretônica na planilha Pretonicas.csv?"
+  CorrectAnswer: 639
+  AnswerTests: omnitest(correctVal=639)
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: text
+  Output: "Nos dados de /e/ pretônica, a variável CONT.SEG foi recodificada de modo a juntar os segmentos consonantais de acordo com ponto/modo de articulação -- script da Lição 12. Recodifique  os dados das variáveis CONT.PREC e CONT.SEG do conjunto de dados da vogal /o/ pretônica com os mesmos critérios empregados para a vogal /e/ pretônica."
+  
+- Class: exact_question
+  Output: "(2) Há quantos dados de vibrantes no contexto seguinte à vogal pretônica /o/?"
+  CorrectAnswer: 258
+  AnswerTests: omnitest(correctVal=258)
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: exact_question
+  Output: "(3) Há quantos dados de consoantes labiais no contexto precedente à vogal pretônica /o/?"
+  CorrectAnswer: 209
+  AnswerTests: omnitest(correctVal=209)
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: mult_question
+  Output: "(4) Crie um modelo linear para testar de há correlação entre a altura da vogal pretônica (F1.NORM) e a origem do falante (AMOSTRA). Há diferença significativa entre paraibanos e paulistanos quanto à sua realização da vogal pretônica /o/?"
+  AnswerChoices: sim;não
+  CorrectAnswer: sim
+  AnswerTests: omnitest(correctVal= 'sim')
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: mult_question
+  Output: "(5) Neste modelo, a distribuição dos resíduos segue a distribuição normal?"
+  AnswerChoices: sim;não
+  CorrectAnswer: sim
+  AnswerTests: omnitest(correctVal= 'sim')
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: mult_question
+  Output: "(6) Faça um boxplot da distribuição de F1.NORM por AMOSTRA. Se existem valores atípicos, parece adequado excluir dados cujas medidas de F1.NORM estão acima de qual ponto?"
+  AnswerChoices: 550 Hz;450 Hz;600 Hz;não há valores atípicos
+  CorrectAnswer: 550 Hz
+  AnswerTests: omnitest(correctVal= '550 Hz')
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: exact_question
+  Output: "(7) Faça um novo subconjunto de dados incluindo apenas aqueles que estão abaixo do limite estipulado na questão anterior. Quantos dados foram efetivamente excluídos?"
+  CorrectAnswer: 1
+  AnswerTests: omnitest(correctVal=1)
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: mult_question
+  Output: "(8) Refaça a análise para verificar se há correlação entre F1.NORM e AMOSTRA. A nova distribuição de resíduos segue a distribuição normal?"
+  AnswerChoices: sim;não
+  CorrectAnswer: sim
+  AnswerTests: omnitest(correctVal= 'sim')
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: mult_question
+  Output: "(9) Faça um gráfico de efeitos do modelo acima. Há sobreposição entre os níveis dos intervalos de confiança da variável AMOSTRA?"
+  AnswerChoices: não;sim
+  CorrectAnswer: não
+  AnswerTests: omnitest(correctVal= 'não')
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: mult_question
+  Output: "(10) Crie um modelo que testa se há correlação entre a altura da vogal /o/ pretônica (F1.NORM) e o contexto precedente à vogal (CONT.PREC). Entre quais níveis da variável CONT.PREC há diferença significativa?"
+  AnswerChoices: entre vibrante e labial;entre velar e palatal.sibilante;entre labial e dental.alveolar;entre palatal.sibilante e labial
+  CorrectAnswer: entre vibrante e labial
+  AnswerTests: omnitest(correctVal= 'entre vibrante e labial')
+  Hint: Faça um teste de Tukey.	
+
+- Class: exact_question
+  Output: "(11) Em quantos Hz a estimativa de F1.NORM para vibrante difere da estimativa do nível de referência?"
+  CorrectAnswer: -11.5614
+  AnswerTests: omnitest(correctVal=-11.5614)
+  Hint: Veja a estimativa para vibrante.
+
+- Class: exact_question
+  Output: "(12) Qual é a medida média de F1.NORM para a vogal /o/ quando é precedida por uma consoante vibrante?"
+  CorrectAnswer: 428.234
+  AnswerTests: omnitest(correctVal = 428.234)
+  Hint: Calcule o valor médio pelos coeficientes do modelo.
+
+- Class: mult_question
+  Output: "(13) O quanto da variação em F1.NORM é explicado pela variável CONT.PREC?"
+  AnswerChoices: 1.5%;0.8%;3.4%;27.5%;3.9%
+  CorrectAnswer: 1.5%
+  AnswerTests: omnitest(correctVal= '1.5%')
+  Hint: Refaça a Lição 11, se necessário!
+
+- Class: mult_question
+  Output: "(14) Teste se há interação entre as variáveis AMOSTRA e CONT.PREC. Neste modelo, há interação entre AMOSTRA e CONT.PREC?"
+  AnswerChoices: não;sim
+  CorrectAnswer: não
+  AnswerTests: omnitest(correctVal= 'não')
+  Hint: "Você tem 50% de chance de acertar no chute..."
+
+- Class: exact_question
+  Output: "(15) Qual é a medida média de F1.NORM para a vogal /o/ quando precedida de consoante velar na fala de paraibanos?"
+  CorrectAnswer: 441.298
+  AnswerTests: omnitest(correctVal = 441.298)
+  Hint: Calcule o valor médio pelos coeficientes do modelo.
+
+- Class: exact_question
+  Output: "(16) Qual é a medida média de F1.NORM para a vogal /o/ quando precedida de consoante labial na fala de paulistanos?"
+  CorrectAnswer: 437.532
+  AnswerTests: any_of_exprs('437.532', '434.287', '446.322 - 13.206 + 1.171 + 3.245', '446.322 - 13.206 + 1.171')
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: mult_question
+  Output: "(17) Crie um modelo para testar se há correlação entre a altura da vogal /o/ pretônica (F1.NORM) e a altura da vogal da sílaba seguinte (F1.SEG.NORM). A cada unidade de F1.SEG.NORM, em quanto se modifica a estimativa de F1.NORM?"
+  AnswerChoices: 0.20859;0.03006;0.0689;6.938
+  CorrectAnswer: 0.20859
+  AnswerTests: omnitest(correctVal= '0.20859')
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: exact_question
+  Output: "(18) Calcule a estimativa da medida de F1.NORM quando F1.SEG.NORM tem 450 Hz."
+  CorrectAnswer: 452.9496
+  AnswerTests: omnitest(correctVal = 452.9496)
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: mult_question
+  Output: "(19) Vimos três testes estatísticos que podem ser aplicados a VDs numéricas: (i) teste-t, (ii) teste de correlação e (iii) regressão linear. Às vezes podemos aplicar mais de um deles, às vezes não. Se o pesquisador quer testar se há correlação entre uma VD numérica e uma VI numérica, qual(is) teste(s) pode(m) ser aplicado(s)?"
+  AnswerChoices: (ii) e (iii);(i) e (ii);apenas (iii);apenas (i)
+  CorrectAnswer: (ii) e (iii)
+  AnswerTests: omnitest(correctVal= '(ii) e (iii)')
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: mult_question
+  Output: "(20) Considere (i) teste-t, (ii) teste de correlação e (iii) regressão linear. Se um pesquisador quer testar se há correlação entre uma VD numérica e uma VI nominal binária, qual(is) teste(s) pode(m) ser aplicado(s)?"
+  AnswerChoices: (i) e (iii);(ii) e (iii);apenas (i);apenas (iii)
+  CorrectAnswer: (i) e (iii)
+  AnswerTests: omnitest(correctVal= '(i) e (iii)')
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: mult_question
+  Output: "(21) Considere (i) teste-t, (ii) teste de correlação e (iii) regressão linear. Se um pesquisador quer testar se há correlação entre uma VD numérica, uma VI nominal com 5 fatores e uma VI numérica, qual(is) teste(s) pode(m) ser aplicado(s)?"
+  AnswerChoices: apenas (iii);(i) e (iii);(ii) e (iii);apenas (ii)
+  CorrectAnswer: apenas (iii)
+  AnswerTests: omnitest(correctVal= 'apenas (iii)')
+  Hint: Refaça as lições do curso, se necessário!
+
+- Class: mult_question
+  Output: "Este é o fim da lista de exercícios 12. Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em \"Enviar\" no link que abrir. Se não, basta fechar a janela que se abrir."
+  AnswerChoices: Yes;No
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!

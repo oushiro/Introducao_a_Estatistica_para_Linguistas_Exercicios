@@ -1,0 +1,202 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Estatistica Descritiva de Variaveis Nominais Graficos
+  Author: Livia Oushiro
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.2
+
+- Class: text
+  Output: "Para esta lição, vamos usar o arquivo de dados LabovDS.csv, com a exclusão de dados 'd'. -- sim, de novo! Você está na lição certa!"
+
+- Class: text
+  Output: "Dica: Abra o script Licao05-IEL.R (ou com outro nome que vc tenha atribuído) para fazer as tarefas dessa lição."
+
+- Class: cmd_question
+  Output: Carregue o pacote tidyverse.
+  CorrectAnswer: library(tidyverse)
+  AnswerTests: omnitest(correctExpr='library(tidyverse)')
+  Hint: Reveja as lições, se necessário.
+  
+- Class: cmd_question
+  Output: Carregue o pacote RColorBrewer.
+  CorrectAnswer: library(RColorBrewer)
+  AnswerTests: omnitest(correctExpr='library(RColorBrewer)')
+  Hint: Reveja as lições, se necessário.
+  
+- Class: cmd_question
+  Output: Defina como diretório de trabalho aquele que, em seu computador, contém a planilha LabovDS.csv.
+  CorrectAnswer: setwd("~/Dropbox/_R/swirl/Introducao_a_Estatistica_para_Linguistas/data")
+  AnswerTests: expr_uses_func('setwd')
+  Hint: Use a função setwd() com o caminho completo para o diretório. 
+
+- Class: cmd_question
+  Output: Carregue os dados da planilha em um dataframe chamado ds, especificando que todas as colunas são do tipo factor. 
+  CorrectAnswer: ds <- read_csv("LabovDS.csv", col_types = cols(.default = col_factor()))
+  AnswerTests: omnitest(correctExpr='ds <- read_csv("LabovDS.csv", col_types = cols(.default = col_factor()))')
+  Hint: Use a função read_csv().
+
+- Class: cmd_question
+  Output: Cheque o dataframe ds por meio da função str().
+  CorrectAnswer: str(ds)
+  AnswerTests: omnitest(correctExpr='str(ds)')
+  Hint: Use a função str() sobre ds.
+
+- Class: cmd_question
+  Output: "Da coluna r, exclua os dados 'd' por meio da função filter(). Guarde o novo dataframe em um objeto chamado ds2 e exclua o nível 'd' do dataframe."
+  CorrectAnswer: ds2 <- ds %>% filter(r != "d") %>% droplevels()
+  AnswerTests: omnitest(correctExpr='ds2 <- ds %>% filter(r != "d") %>% droplevels()')
+  Hint: Tente de novo.
+  
+- Class: cmd_question
+  Output: "A partir de ds2, faça a tabela de distribuição de dados da variável 'emphasis' pela variável dependente 'r' usando funções da instalação base do R. Guarde a tabela em um objeto chamado tab.emphasis."
+  CorrectAnswer: tab.emphasis <- with(ds2, table(emphasis, r))
+  AnswerTests: any_of_exprs('tab.emphasis <- with(ds2, table(emphasis, r))', 'tab.emphasis <- table(ds2$emphasis, ds2$r)')
+  Hint: Use o operador de atribuição `<-` e a função table() com dois argumentos.
+
+- Class: cmd_question
+  Output: "A partir de ds2, faça a tabela de distribuição de dados da variável 'word' pela variável dependente 'r' usando funções da instalação base do R. Guarde a tabela em um objeto chamado tab.word."
+  CorrectAnswer: tab.word <- with(ds2, table(word, r))
+  AnswerTests: any_of_exprs('tab.word <- with(ds2, table(word, r))', 'tab.word <- table(ds2$word, ds2$r)')
+  Hint: Use o operador de atribuição `<-` e a função table() com dois argumentos.
+
+- Class: cmd_question
+  Output: "A partir de ds2, faça uma tabela de proporções da variável 'emphasis' pela variável dependente 'r' usando funções da instalação base do R. Multiplique a tabela de proporções por 100 para melhor visualização dos resultados. Guarde a tabela de proporções em um objeto chamado prop.emphasis."
+  CorrectAnswer: prop.emphasis <- prop.table(tab.emphasis, 1) * 100 
+  AnswerTests: any_of_exprs('prop.emphasis <- prop.table(tab.emphasis, 1) * 100', 'prop.emphasis <- prop.table(with(ds2, table(emphasis, r)), 1) * 100', 'prop.emphasis <- prop.table(table(ds2$emphasis, ds2$r), 1) * 100')
+  Hint: Use a função prop.table() com a tabela de frequências como um dos argumentos. Use o operador de atribuição `<-` para criar o novo objeto. Não se esqueça de multiplicar por 100!
+
+- Class: cmd_question
+  Output: "A partir de ds2, faça uma tabela de proporções da variável 'word' pela variável dependente 'r' usando funções da instalação base do R. Multiplique a tabela de proporções por 100 para melhor visualização dos resultados. Guarde a tabela de proporções em um objeto chamado prop.word."
+  CorrectAnswer: prop.word <- prop.table(tab.word, 1) * 100
+  AnswerTests: any_of_exprs('prop.word <- prop.table(tab.word, 1) * 100', 'prop.word <- prop.table(with(ds2, table(word, r)), 1) * 100', 'prop.word <- prop.table(table(ds2$word, ds2$r), 1) * 100')
+  Hint: Use a função prop.table() com a tabela de frequências como um dos argumentos. Use o operador de atribuição `<-` para criar o novo objeto. Não se esqueça de multiplicar por 100!
+    
+- Class: cmd_question
+  Output: Usando funções do pacote tidyverse, faça um dataframe chamado `df.emphasis` das frequências e das proporções dos dados da variável emphasis pela VD r. Nomeie a coluna de proporções `prop`. Multiplique a tabela de proporções por 100 para melhor visualização dos resultados. 
+  CorrectAnswer: df.emphasis <- ds2 %>% count(emphasis, r) %>% group_by(emphasis) %>% mutate(prop = prop.table(n) * 100)
+  AnswerTests: omnitest(correctExpr='df.emphasis <- ds2 %>% count(emphasis, r) %>% group_by(emphasis) %>% mutate(prop = prop.table(n) * 100)')
+  Hint: Use as funções count(), group_by() e mutate().
+  
+- Class: cmd_question
+  Output: Usando funções do pacote tidyverse, faça um dataframe chamado `df.word` das frequências e das proporções dos dados da variável word pela VD r. Nomeie a coluna de proporções `prop`. Multiplique a tabela de proporções por 100 para melhor visualização dos resultados. 
+  CorrectAnswer: df.word <- ds2 %>% count(word, r) %>% group_by(word) %>% mutate(prop = prop.table(n) * 100)
+  AnswerTests: omnitest(correctExpr='df.word <- ds2 %>% count(word, r) %>% group_by(word) %>% mutate(prop = prop.table(n) * 100)')
+  Hint: Use as funções count(), group_by() e mutate().
+
+- Class: cmd_question
+  Output: Visualize o dataframe df.emphasis.
+  CorrectAnswer: df.emphasis
+  AnswerTests: omnitest(correctExpr='df.emphasis')
+  Hint: Digite df.emphasis e pressione CTRL + ENTER.
+  
+- Class: mult_question
+  Output: Para plotar um gráfico de barras das proporções de r1 e r0 por contexto, a partir de df.emphasis, qual variável deve ocupar o eixo x? 
+  AnswerChoices: emphasis;r;n;prop
+  CorrectAnswer: emphasis
+  AnswerTests: omnitest(correctVal= 'emphasis')
+  Hint: Tente de novo!
+    
+- Class: mult_question
+  Output: Para plotar um gráfico de barras das proporções de r1 e r0 por contexto, a partir de df.emphasis, qual variável deve ocupar o eixo y? 
+  AnswerChoices: emphasis;r;n;prop
+  CorrectAnswer: prop
+  AnswerTests: omnitest(correctVal= 'prop')
+  Hint: Tente de novo!
+    
+- Class: mult_question
+  Output: Em um gráfico de barras das proporções de r1 e r0 por contexto, a partir de df.emphasis, se quisermos colorir as barras das variantes com cores diferentes, qual argumento deve ser usado dentro da função de parâmetros estéticos? 
+  AnswerChoices: fill;color;linetype;group
+  CorrectAnswer: fill
+  AnswerTests: omnitest(correctVal= 'fill')
+  Hint: Tente de novo!
+  
+- Class: cmd_question
+  Output: A partir do dataframe df.emphasis, faça um gráfico de barras simples das proporções de apagamentos e realizações de r por contexto de ênfase. Use apenas as funções ggplot() e geom_bar(). Na primeira, utilize os parâmetros estéticos x, y e fill, de modo que cada barra represente um contexto de ênfase e cada variante seja representada por uma cor diferente. Na segunda função, utilize os argumentos stat = "identity" e color = "black".
+  CorrectAnswer: ggplot(df.emphasis, aes(x = emphasis, y = prop, fill = r)) + geom_bar(stat = "identity", color = "black") 
+  AnswerTests: omnitest(correctExpr='ggplot(df.emphasis, aes(x = emphasis, y = prop, fill = r)) + geom_bar(stat = "identity", color = "black")')
+  Hint: Use a função ggplot() e a geometria geom_bar().
+
+- Class: cmd_question
+  Output: "Faça um gráfico de barras mais elaborado das proporções de r1 e r0 por contexto de ênfase. Para isso, a partir da linha de comando acima, especifique, nessa ordem: (i) os parâmetros estéticos x, y e fill dentro da função ggplot(); (ii) a geometria de barras, com stat = \"identity\" e color = \"black\"; (iii) o título do gráfico como \"Proporções das variantes de /r/ pós-vocálico por contexto de ênfase\"; (iv) o rótulo das barras como \"casual\" e \"enfático\"; (v) o rótulo do eixo x como \"Contexto\"  e o rótulo do eixo y como \"Proporção\"; e (vi) o tema do gráfico como theme_minimal(). Revise a linha de comando antes de rodá-la!"
+  CorrectAnswer: ggplot(df.emphasis, aes(x = emphasis, y = prop, fill = r)) + geom_bar(stat = "identity", color = "black") + ggtitle("Proporções das variantes de /r/ pós-vocálico por contexto de ênfase") + scale_x_discrete(labels = c("casual", "enfático")) + labs(x = "Contexto", y = "Proporção") + theme_minimal()
+  AnswerTests: omnitest(correctExpr='ggplot(df.emphasis, aes(x = emphasis, y = prop, fill = r)) + geom_bar(stat = "identity", color = "black") + ggtitle("Proporções das variantes de /r/ pós-vocálico por contexto de ênfase") + scale_x_discrete(labels = c("casual", "enfático")) + labs(x = "Contexto", y = "Proporção") + theme_minimal()')
+  Hint: Leia as instruções novamente com calma, e faça passo a passo!
+
+- Class: cmd_question
+  Output: "No ggplot2, é possível plotar barras horizontais com a simples adição da função coord_flip(). Faça isso a partir da última linha de comando."
+  CorrectAnswer: ggplot(df.emphasis, aes(x = emphasis, y = prop, fill = r)) + geom_bar(stat = "identity", color = "black") + ggtitle("Proporções das variantes de /r/ pós-vocálico por contexto de ênfase") + scale_x_discrete(labels = c("casual", "enfático")) + labs(x = "Contexto", y = "Proporção") + theme_minimal() + coord_flip()
+  AnswerTests: omnitest(correctExpr='ggplot(df.emphasis, aes(x = emphasis, y = prop, fill = r)) + geom_bar(stat = "identity", color = "black") + ggtitle("Proporções das variantes de /r/ pós-vocálico por contexto de ênfase") + scale_x_discrete(labels = c("casual", "enfático")) + labs(x = "Contexto", y = "Proporção") + theme_minimal() + coord_flip()')
+  Hint: Adicione coord_flip() ao final do comando, depois de theme_minimal().
+
+- Class: cmd_question
+  Output: "Faça um gráfico de barras simples das proporções de apagamentos e realizações de r por palavra, fourth ou floor. Use apenas as funções ggplot() e geom_bar(). Utilize os parâmetros estéticos x, y e fill, de modo que cada barra represente um item lexical e cada variante seja representada por uma cor diferente. Defina a cor da borda das barras como cinza."
+  CorrectAnswer: ggplot(df.word, aes(x = word, y = prop, fill = r)) + geom_bar(stat = "identity", color = "gray") 
+  AnswerTests: any_of_exprs('ggplot(df.word, aes(x = word, y = prop, fill = r)) + geom_bar(stat = "identity", color = "gray")', 'ggplot(df.word, aes(x = word, y = prop, fill = r)) + geom_bar(stat = "identity", color = "grey")', 'ggplot(df.word) + geom_bar(aes(x = word, y = prop, fill = r), stat = "identity", color = "gray")', 'ggplot(df.word) + geom_bar(aes(x = word, y = prop, fill = r), stat = "identity", color = "grey")')
+  Hint: Use a função ggplot() e a geometria geom_bar().
+
+- Class: cmd_question
+  Output: "Faça um gráfico de barras mais elaborado das proporções de r1 e r0 por item lexical. Para isso, a partir da linha de comando acima, especifique, nessa ordem: (i) os parâmetros estéticos x, y e fill dentro da função ggplot(); (ii) a geometria de barras, com barras empilhadas e a borda das barras na cor cinza; (iii) o rótulo do eixo x como \"Item Lexical\" e do eixo y como \"Proporção\"; (iv) os rótulos das barras como \"fourth\" e \"floor\"; (v) o título do gráfico como \"Proporções das variantes de /r/ pós-vocálico por item lexical\"; (vi) a paleta de cores \"Greens\" do RColorBrewer; e (vii) o tema do gráfico como theme_classic(). Revise a digitação antes de rodar o comando!"
+  CorrectAnswer: ggplot(df.word, aes(x = word, y = prop, fill = r)) + geom_bar(stat = "identity", color = "gray") + labs(x = "Item Lexical", y = "Proporção") + scale_x_discrete(labels = c("fourth", "floor")) + ggtitle("Proporções das variantes de /r/ pós-vocálico por item lexical") + scale_fill_brewer(palette = "Greens") + theme_classic()
+  AnswerTests: any_of_exprs('ggplot(df.word, aes(x = word, y = prop, fill = r)) + geom_bar(stat = "identity", color = "gray") + labs(x = "Item Lexical", y = "Proporção") + scale_x_discrete(labels = c("fourth", "floor")) + ggtitle("Proporções das variantes de /r/ pós-vocálico por item lexical") + scale_fill_brewer(palette = "Greens") + theme_classic()', 'ggplot(df.word, aes(x = word, y = prop, fill = r)) + geom_bar(stat = "identity", color = "grey") + labs(x = "Item Lexical", y = "Proporção") + scale_x_discrete(labels = c("fourth", "floor")) + ggtitle("Proporções das variantes de /r/ pós-vocálico por item lexical") + scale_fill_brewer(palette = "Greens") + theme_classic()')
+  Hint: Leia as instruções novamente com calma, e faça passo a passo!
+    
+- Class: cmd_question
+  Output: "No ggplot2, é possível fazer gráficos de barras lado a lado, em vez de empilhadas, por meio do argumento position = \"dodge\" dentro da função geom_bar(). Inclua-o na última linha de comando e rode-a. "
+  CorrectAnswer: ggplot(df.word, aes(x = word, y = prop, fill = r)) + geom_bar(stat = "identity", color = "gray", position = "dodge") + labs(x = "Item Lexical", y = "Proporção") + scale_x_discrete(labels = c("fourth", "floor")) + ggtitle("Proporção de apagamento de /r/ pós vocálico por item lexical") + scale_fill_brewer(palette = "Greens") + theme_classic()
+  AnswerTests: any_of_exprs('ggplot(df.word, aes(x = word, y = prop, fill = r)) + geom_bar(stat = "identity", color = "gray", position = "dodge") + labs(x = "Item Lexical", y = "Proporção") + scale_x_discrete(labels = c("fourth", "floor")) + ggtitle("Proporção de apagamento de /r/ pós vocálico por item lexical") + scale_fill_brewer(palette = "Greens") + theme_classic()', 'ggplot(df.word, aes(x = word, y = prop, fill = r)) + geom_bar(stat = "identity", color = "grey", position = "dodge") + labs(x = "Item Lexical", y = "Proporção") + scale_x_discrete(labels = c("fourth", "floor")) + ggtitle("Proporção de apagamento de /r/ pós vocálico por item lexical") + scale_fill_brewer(palette = "Greens") + theme_classic()')
+  Hint: "Adicione o argumento position = \"dodge\" dentro da função geom_bar()."
+    
+- Class: figure
+  Output: "O estudo de Labov nas lojas de departamento em Nova Iorque na década de 1960 já foi replicado pelo menos duas vezes, em Fowler (1986) e Guy et al (2008). Tais estudos atestam a importância de métodos replicáveis em trabalhos científicos e nos informam sobre a continuidade de uma mudança em progresso no inglês de Nova Iorque." 
+  Figure: criarDSrealtime.R
+  FigureType: new
+
+- Class: cmd_question
+  Output: "O dataframe DS.real.time, que deixei disponível para você para esta sessão, contém os dados de realização de /r/ (r1) nas lojas Saks e Macy's para cada um dos três estudos. Inspecione esse dataframe agora."
+  CorrectAnswer: DS.real.time
+  AnswerTests: omnitest(correctExpr='DS.real.time')
+  Hint: Digite o nome do dataframe.
+
+- Class: text
+  Output: "Com esses dados, você fará um gráfico de linhas que compara a progressão da pronúncia de /r/ pós-vocálico nos três estudos. O eixo x será formado pelos estudos de Labov 1963, Fowler 1986 e Guy et al. 2008, da esquerda para a direita. O eixo y indicará as taxas de realização de /r/ (r1). Serão plotadas duas linhas, uma para cada loja. "
+  
+- Class: mult_question
+  Output: Qual variável do dataframe deve ocupar o parâmetro estético x?
+  AnswerChoices: study;r1;store
+  CorrectAnswer: study
+  AnswerTests: omnitest(correctVal= 'study')
+  Hint: Tente de novo!
+    
+- Class: mult_question
+  Output: Qual variável do dataframe deve ocupar o parâmetro estético y?
+  AnswerChoices: r1;study;store
+  CorrectAnswer: r1
+  AnswerTests: omnitest(correctVal= 'r1')
+  Hint: Tente de novo!
+    
+- Class: mult_question
+  Output: Qual parâmetro estético informa ao R que queremos plotar duas linhas distintas, uma para cada loja?
+  AnswerChoices: group;linetype;shape;color
+  CorrectAnswer: group
+  AnswerTests: omnitest(correctVal= 'group')
+  Hint: Tente de novo!
+    
+- Class: cmd_question
+  Output: "A partir do dataframe DS.real.time, plote um gráfico de linhas das proporções de realização de /r/ pós-vocálico nos três estudos em lojas de departamento em Nova Iorque, em que cada loja é representada por uma linha; cada linha será de um tipo e de uma cor diferentes. Para isso, especifique, nessa ordem: (i) os parâmetros estéticos x, y, group e color, dentro da função ggplot(); (ii) a geometria de linha, com o argumento aes(linetype = store); (iii) o título \"Proporção de realização de /r/ pós-vocálico em três estudos \\nem lojas de departamento em Nova Iorque\"; (iv) o rótulo do eixo x como \"\" (vazio, para não haver rótulo), do eixo y como \"Proporção de r1\", do tipo de linha (linetype) como \"Loja\", e da cor (color) também como \"Loja\"; (v) os rótulos de cada ponto do gráfico, da esquerda para a direita, como \"Labov 1963\", \"Fowler 1986\" e \"Guy et al 2008\"; (vi) os limites do eixo y de 0 até 70; (vii) a paleta de cores \"Dark2\", por meio da função scale_color_brewer(); e (viii) o tema do gráfico como theme_bw(). São vários passos, então faça com calma e revise a digitação antes de rodar! "
+  CorrectAnswer: ggplot(DS.real.time, aes(x = study, y = r1, group = store, color = store)) + geom_line(aes(linetype = store)) + ggtitle("Proporção de realização de /r/ pós-vocálico em três estudos \nem lojas de departamento em Nova Iorque") + labs(x = "", y = "Proporção de r1", linetype = "Loja", color = "Loja") + scale_x_discrete(labels = c("Labov 1963", "Fowler 1986", "Guy et al 2008")) + ylim(0, 70) + scale_color_brewer(palette = "Dark2") + theme_bw()
+  AnswerTests: omnitest(correctExpr='ggplot(DS.real.time, aes(x = study, y = r1, group = store, color = store)) + geom_line(aes(linetype = store)) + ggtitle("Proporção de realização de /r/ pós-vocálico em três estudos \nem lojas de departamento em Nova Iorque") + labs(x = "", y = "Proporção de r1", linetype = "Loja", color = "Loja") + scale_x_discrete(labels = c("Labov 1963", "Fowler 1986", "Guy et al 2008")) + ylim(0, 70) + scale_color_brewer(palette = "Dark2") + theme_bw()')
+  Hint: Leia as instruções com calma! Se estiver muito difícil, digite skip() para ver a resposta, mas certifique-se de que entende o que cada parte do comando está fazendo!
+
+- Class: text
+  Output: "Precisa de mais prática? A partir dos modelos de gráficos de barras e de linhas no código de aula, explore diferentes possibilidades, mudando argumentos um a um. Consulte a Ajuda para descobrir o funcionamento de novos argumentos, e procure outros modelos na Internet. Ao final da Lição 7, passarei algumas referências."
+
+- Class: text
+  Output: Este é o fim da lista de exercícios da Lição 5 - Estatística Descritiva de Variáveis Nominais - Gráficos.  
+
+- Class: mult_question
+  Output: Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em "Enviar" no link que abrir. Se não, basta fechar a janela que se abrir.
+  AnswerChoices: Sim;Não
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!

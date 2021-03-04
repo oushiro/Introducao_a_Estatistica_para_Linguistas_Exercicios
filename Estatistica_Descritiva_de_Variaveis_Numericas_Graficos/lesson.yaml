@@ -1,0 +1,120 @@
+- Class: meta
+  Course: Introducao_a_Estatistica_para_Linguistas_Exercicios
+  Lesson: Estatistica Descritiva de Variaveis Numericas Graficos
+  Author: Livia Oushiro
+  Type: Standard
+  Organization: UNICAMP
+  Version: 2.4.2
+
+- Class: text
+  Output: "O dataframe `pretonicas`, com os dados da planilha Pretonicas.csv, está disponível para você nesta sessão."
+  
+- Class: cmd_question
+  Output: Nesta lista, você vai precisar dos pacotes tidyverse e RColorBrewer. Carregue um deles.
+  CorrectAnswer: library(tidyverse)
+  AnswerTests: expr_uses_func('library')
+  Hint: Carregue um dos pacotes com a função library().
+  
+- Class: cmd_question
+  Output: E agora carregue o outro.
+  CorrectAnswer: library(RColorBrewer)
+  AnswerTests: expr_uses_func('library')
+  Hint: Carregue o outro pacote com a função library().
+  
+- Class: cmd_question
+  Output: "Na lição correspondente a esta lista, fizemos um histograma da distribuição das medições de F1 normalizado da vogal /e/ dos dados da amostra PBSP. Crie um novo histograma semelhante, mas agora com os dados de F1 (i.e., sem normalização.). Para tanto, com auxílio do pipe %>% e a partir do dataframe `pretonicas`, (i) crie um subconjunto apenas dos dados da vogal \"e\" na amostra PBSP; (ii) determine o parâmetro estético para o eixo x; (iii) use a geometria de histograma com bindwidth = 30, com barras \"lightblue\" e bordas das barras \"gray\"; (iv) nomeie o eixo x como \"F1\" e o eixo y como \"Frequência\"; (v) intitule o gráfico \"Medidas de F1 da vogal /e/ da amostra PBSP\"; e (vi) use o tema theme_minimal(). "
+  CorrectAnswer: pretonicas %>% filter(VOGAL == "e" & AMOSTRA == "PBSP") %>% ggplot(., aes(x = F1)) + geom_histogram(binwidth = 30, fill = "lightblue", color = "gray") + labs(x = "F1", y = "Frequência") + ggtitle("Medidas de F1 da vogal /e/ da amostra PBSP") + theme_minimal()
+  AnswerTests: omnitest(correctExpr='pretonicas %>% filter(VOGAL == "e" & AMOSTRA == "PBSP") %>% ggplot(., aes(x = F1)) + geom_histogram(binwidth = 30, fill = "lightblue", color = "gray") + labs(x = "F1", y = "Frequência") + ggtitle("Medidas de F1 da vogal /e/ da amostra PBSP") + theme_minimal()')
+  Hint: Crie o comando com funções na mesma ordem em que são apresentadas no enunciado. Use os códigos da lição como modelos.
+  
+- Class: cmd_question
+  Output: Reproduza o gráfico acima para a vogal /o/ dos paraibanos. Modifique apenas o estritamente necessário!
+  CorrectAnswer: pretonicas %>% filter(VOGAL == "o" & AMOSTRA == "PBSP") %>% ggplot(., aes(x = F1)) + geom_histogram(binwidth = 30, fill = "lightblue", color = "gray") + labs(x = "F1", y = "Frequência") + ggtitle("Medidas de F1 da vogal /o/ da amostra PBSP") + theme_minimal() 
+  AnswerTests: omnitest(correctExpr='pretonicas %>% filter(VOGAL == "o" & AMOSTRA == "PBSP") %>% ggplot(., aes(x = F1)) + geom_histogram(binwidth = 30, fill = "lightblue", color = "gray") + labs(x = "F1", y = "Frequência") + ggtitle("Medidas de F1 da vogal /o/ da amostra PBSP") + theme_minimal()')
+  Hint: Você deve modificar duas ocorrências de 'e' para 'o'.
+  
+- Class: mult_question
+  Output: Compare os dois gráficos que acabou de plotar. Você pode voltar a gráficos anteriores ou posteriores clicando sobre a flecha para a esquerda e para a direita no topo da aba Plots. Pelo histograma, qual das vogais deve ter maiores valores de média e mediana?
+  AnswerChoices: /o/;/e/;Não sei!
+  CorrectAnswer: /o/
+  AnswerTests: omnitest(correctVal= '/o/')
+  Hint: Examine os gráficos!
+    
+- Class: cmd_question
+  Output: Determine os valores de média e mediana das vogais /e/ e /o/ dos paraibanos. Para tanto, com auxílio do pipe e a partir do dataframe `pretonicas`, (i) crie um subconjunto dos dados das vogais "e" e "o" na amostra "PBSP"; (ii) agrupe os dados por VOGAL; e (iii) calcule as medidas de média e de mediana, nomeando as colunas `media_F1` e `mediana_F1` respectivamente.
+  CorrectAnswer: pretonicas %>% filter(VOGAL == "e" | VOGAL == "o" & AMOSTRA == "PBSP") %>% group_by(VOGAL) %>% summarize(media_F1 = mean(F1), mediana_F1 = median(F1))
+  AnswerTests: omnitest(correctExpr='pretonicas %>% filter(VOGAL == "e" | VOGAL == "o" & AMOSTRA == "PBSP") %>% group_by(VOGAL) %>% summarize(media_F1 = mean(F1), mediana_F1 = median(F1))')
+  Hint: Crie o comando com funções na mesma ordem em que são apresentadas no enunciado. Use os códigos da lição como modelos.
+  
+- Class: cmd_question
+  Output: Crie dois histogramas da distribuição dos dados da vogal /e/, uma para cada amostra (PBSP e SP2010), cada qual com uma cor diferente. Para tanto, com auxílio do pipe e a partir do dataframe pretonicas, (i) crie um subconjunto dos dados da vogal /e/; (ii) defina os parâmetros gráficos para x e para fill dentro da função ggplot(); (iii) use a geometria de histograma com binwidth = 20 e alpha = 0.4; (iv) nomeie o eixo x como "F1" e o eixo y como "Frequência"; (v) use a função facet_grid() para que os histogramas de cada amostra sejam dispostos um sobre o outro; (vi) use a paleta "Pastel2" do RColorBrewer; e (vii) aplique o tema theme_minimal().
+  CorrectAnswer: pretonicas %>% filter(VOGAL == "e") %>% ggplot(., aes(x = F1, fill = AMOSTRA)) + geom_histogram(binwidth = 20, alpha = 0.4) + labs(x = "F1", y = "Frequência") + facet_grid(AMOSTRA ~ .) + scale_fill_brewer(palette = "Pastel2") + theme_minimal() 
+  AnswerTests: omnitest(correctExpr='pretonicas %>% filter(VOGAL == "e") %>% ggplot(., aes(x = F1, fill = AMOSTRA)) + geom_histogram(binwidth = 20, alpha = 0.4) + labs(x = "F1", y = "Frequência") + facet_grid(AMOSTRA ~ .) + scale_fill_brewer(palette = "Pastel2") + theme_minimal()')
+  Hint: Crie o comando com funções na mesma ordem em que são apresentadas no enunciado. Use os códigos da lição como modelos.
+  
+- Class: cmd_question
+  Output: Faça boxplots dos dados de F1 da vogal /e/ por PARTICIPANTE, diferenciando os falantes da amostra PBSP e SP2010 com cores distintas. Para tanto, com auxílio do pipe e a partir do dataframe `pretonicas`, (i) crie um subconjunto de dados da vogal "e"; (ii) defina os parâmetros gráficos x, y e color dentro da função ggplot(); (iii) use a geometria para boxplots sem o notch; (iv) inverta a escala dos valores do eixo y (para que os valores de F1 sejam representados do modo fonético convencional); (v) nomeie o eixo x como "Falante", o eixo y como "F1", e a variável da legenda como "Amostra"; (vi) intitule o gráfico como "Medidas de F1 da vogal /e/ por falantes das amostras PBSP e SP2010"; e (vii) use o tema theme_light().
+  CorrectAnswer: pretonicas %>% filter(VOGAL == "e") %>% ggplot(., aes(x = PARTICIPANTE, y = F1, color = AMOSTRA)) + geom_boxplot(notch = FALSE) + scale_y_reverse() + labs(x = "Falante", y = "F1", color = "Amostra") + ggtitle("Medidas de F1 da vogal /e/ por falantes das amostras PBSP e SP2010") + theme_light()
+  AnswerTests: any_of_exprs('pretonicas %>% filter(VOGAL == "e") %>% ggplot(., aes(x = PARTICIPANTE, y = F1, color = AMOSTRA)) + geom_boxplot(notch = FALSE) + scale_y_reverse() + labs(x = "Falante", y = "F1", color = "Amostra") + ggtitle("Medidas de F1 da vogal /e/ por falantes das amostras PBSP e SP2010") + theme_light()', 'pretonicas %>% filter(VOGAL == "e") %>% ggplot(., aes(x = PARTICIPANTE, y = F1, color = AMOSTRA)) + geom_boxplot() + scale_y_reverse() + labs(x = "Falante", y = "F1", color = "Amostra") + ggtitle("Medidas de F1 da vogal /e/ por falantes das amostras PBSP e SP2010") + theme_light()')
+  Hint: Crie o comando com funções na mesma ordem em que são apresentadas no enunciado. Use os códigos da lição como modelos.
+  
+- Class: text
+  Output: "Nota: se você achou que os nomes dos falantes não estão bem dispostos na figura, veja-a com Zoom, pois os nomes não estão de fato encavalados!"
+  
+- Class: cmd_question
+  Output: Para comparar, reproduza o mesmo gráfico acima para os dados de F1 da vogal /e/ com normalização (F1.NORM). Faça modificações (i) no parâmetro estético relevante; (ii) no rótulo do eixo y, de "F1" para "F1 normalizado"; e (iii) no título do gráfico, trocando igualmente "F1" por "F1 normalizado". 
+  CorrectAnswer: pretonicas %>% filter(VOGAL == "e") %>% ggplot(., aes(x = PARTICIPANTE, y = F1.NORM, color = AMOSTRA)) + geom_boxplot(notch = FALSE) + scale_y_reverse() + labs(x = "Falante", y = "F1 normalizado", color = "Amostra") + ggtitle("Medidas de F1 normalizado da vogal /e/ por falantes das amostras PBSP e SP2010") + theme_light()
+  AnswerTests: any_of_exprs('pretonicas %>% filter(VOGAL == "e") %>% ggplot(., aes(x = PARTICIPANTE, y = F1.NORM, color = AMOSTRA)) + geom_boxplot(notch = FALSE) + scale_y_reverse() + labs(x = "Falante", y = "F1 normalizado", color = "Amostra") + ggtitle("Medidas de F1 normalizado da vogal /e/ por falantes das amostras PBSP e SP2010") + theme_light()', 'pretonicas %>% filter(VOGAL == "e") %>% ggplot(., aes(x = PARTICIPANTE, y = F1.NORM, color = AMOSTRA)) + geom_boxplot() + scale_y_reverse() + labs(x = "Falante", y = "F1 normalizado", color = "Amostra") + ggtitle("Medidas de F1 normalizado da vogal /e/ por falantes das amostras PBSP e SP2010") + theme_light()')
+  Hint: Crie o comando com funções na mesma ordem em que são apresentadas no enunciado. Use os códigos da lição como modelos.
+  
+- Class: mult_question
+  Output: Comparando os gráficos, em qual deles há maior dispersão das medições da altura da vogal /e/?
+  AnswerChoices: com F1;com F1.NORM;Não sei!
+  CorrectAnswer: com F1
+  AnswerTests: omnitest(correctVal= 'com F1')
+  Hint: Tente de novo!
+    
+- Class: cmd_question
+  Output: Determine a diferença da dispersão das medidas da altura da vogal /e/ numericamente. Para tanto, com auxílio do pipe e a partir do dataframe `pretonicas`, (i) crie um subconjunto de dados da vogal "e"; e (ii) compute as médias de desvio padrão de F1 e de F1.NORM, nomeando as colunas como `sd_F1` e `sd_F1.NORM` respectivamente.
+  CorrectAnswer: pretonicas %>% filter(VOGAL == "e") %>% summarize(sd_F1 = sd(F1), sd_F1.NORM = sd(F1.NORM))
+  AnswerTests: omnitest(correctExpr='pretonicas %>% filter(VOGAL == "e") %>% summarize(sd_F1 = sd(F1), sd_F1.NORM = sd(F1.NORM))')
+  Hint: Crie o comando com funções na mesma ordem em que são apresentadas no enunciado. Use os códigos da lição como modelos.
+  
+- Class: cmd_question
+  Output: Na lição correspondente a esta lista de exercícios, plotamos um gráfico de dispersão que representa todas as vogais "i", "e", "a", "o" e "u" de paraibanos migrantes e paulistanos, e em que cada vogal é identificada por pontos de cores distintas. No ggplot2, também é possível representar cada ponto por um caractere específico -- p.ex., as próprias vogais -- por meio da geometria geom_text(). Façamos então um tal gráfico. Para tanto, com auxílio do pipe e a partir do dataframe `pretonicas`, (i) defina os parâmetros gráficos x, y e color dentro da função ggplot(), de modo que o eixo x represente o traço [+- anterior] de vogais normalizadas, o eixo y represente o traço [+- alto] de vogais normalizadas e cada vogal tenha uma cor diferente; (ii) use a geometria geom_text() com o argumento aes(label = VOGAL); (iii/iv) inverta a escala dos eixos x e y, de modo que a representação do espaço vocálico siga a convenção fonética; (v) use a função facet_grid() de modo que sejam plotados os espaços vocálicos separados por AMOSTRA, dispostas lado a lado; (vi) intitule o gráfico "Dispersão das medidas de F1 e F2 normalizados nas amostras PBSP e SP2010"; (vii) nomeie o eixo x como "F2 normalizado" e o eixo y como "F1 normalizado"; e (viii) adicione theme(legend.position = "none") ao final, para que não seja plotada a legenda, que agora não é mais necessária.
+  CorrectAnswer: ggplot(pretonicas, aes(x = F2.NORM, y = F1.NORM, color = VOGAL)) + geom_text(aes(label = VOGAL)) + scale_x_reverse() + scale_y_reverse() + facet_grid(. ~ AMOSTRA) + ggtitle("Dispersão das medidas de F1 e F2 normalizados nas amostras PBSP e SP2010") + labs(x = "F2 normalizado", y = "F1 normalizado") + theme(legend.position = "none") 
+  AnswerTests: any_of_exprs('ggplot(pretonicas, aes(x = F2.NORM, y = F1.NORM, color = VOGAL)) + geom_text(aes(label = VOGAL)) + scale_x_reverse() + scale_y_reverse() + facet_grid(. ~ AMOSTRA) + ggtitle("Dispersão das medidas de F1 e F2 normalizados nas amostras PBSP e SP2010") + labs(x = "F2 normalizado", y = "F1 normalizado") + theme(legend.position = "none")', 'pretonicas %>% ggplot(., aes(x = F2.NORM, y = F1.NORM, color = VOGAL)) + geom_text(aes(label = VOGAL)) + scale_x_reverse() + scale_y_reverse() + facet_grid(. ~ AMOSTRA) + ggtitle("Dispersão das medidas de F1 e F2 normalizados nas amostras PBSP e SP2010") + labs(x = "F2 normalizado", y = "F1 normalizado") + theme(legend.position = "none")')
+  Hint: Crie o comando com funções na mesma ordem em que são apresentadas no enunciado. Use os códigos da lição como modelos.
+  
+- Class: cmd_question
+  Output: "Na lição correspondente a esta lista, fizemos um gráfico de linhas que representa os espaços vocálicos de paraibanos migrantes e paulistanos, com as médias de F1 e F2 normalizados. Você vai fazer agora um gráfico semelhante, mas com as medidas das vogais de F1 e F2 não normalizados. Para tanto, faça primeiro, com auxílio do pipe e a partir do dataframe `pretonicas`, um dataframe que computa as médias de F1 e de F2 para cada vogal e para cada amostra: (i) guarde o resultado em dataframe chamado `medias`; (ii) agrupe os dados por VOGAL e AMOSTRA; (iii) calcule as médias de F1 e de F2, nomeando as colunas como `media_F1` e `media_F2` respectivamente; (iv) visualize o resultado em tela com print(). "
+  CorrectAnswer: medias <- pretonicas %>% group_by(VOGAL, AMOSTRA) %>% summarize(media_F1 = mean(F1), media_F2 = mean(F2)) %>% print()
+  AnswerTests: any_of_exprs('medias <- pretonicas %>% group_by(VOGAL, AMOSTRA) %>% summarize(media_F1 = mean(F1), media_F2 = mean(F2)) %>% print()', 'medias <- group_by(pretonicas, VOGAL, AMOSTRA) %>% summarize(media_F1 = mean(F1), media_F2 = mean(F2)) %>% print()')
+  Hint: Crie o comando com funções na mesma ordem em que são apresentadas no enunciado. Use os códigos da lição como modelos.
+  
+- Class: cmd_question
+  Output: Com auxílio do pipe e a partir do dataframe `medias`, (i) defina os parâmetros x, y, color e label dentro da função ggplot(); (ii/iii) empregue as geometrias de linha e de rótulo (label); (iv/v) inverta as escalas dos eixos x e y, de modo que os espaços vocálicos sejam representados da maneira convencional em fonética; (vi) intitule o gráfico como "Valores médios de F1 e F2 nas amostras PBSP e SP2010"; (vii) nomeie o eixo x como "F2 (Hz)", o eixo y como "F1 (Hz)" e a variável da legenda como "Amostra"; (viii) use a paleta "Paired" do pacote RColorBrewer na função scale_color_brewer(); e (ix) use o tema theme_classic().  
+  CorrectAnswer: ggplot(medias, aes(x = media_F2, y = media_F1, color = AMOSTRA, label = VOGAL)) + geom_line() + geom_label() + scale_x_reverse() + scale_y_reverse() + ggtitle("Valores médios de F1 e F2 nas amostras PBSP e SP2010") + labs(x = "F2 (Hz)", y = "F1 (Hz)", color = "Amostra") + scale_color_brewer(palette = "Paired") + theme_classic()
+  AnswerTests: omnitest(correctExpr='ggplot(medias, aes(x = media_F2, y = media_F1, color = AMOSTRA, label = VOGAL)) + geom_line() + geom_label() + scale_x_reverse() + scale_y_reverse() + ggtitle("Valores médios de F1 e F2 nas amostras PBSP e SP2010") + labs(x = "F2 (Hz)", y = "F1 (Hz)", color = "Amostra") + scale_color_brewer(palette = "Paired") + theme_classic()')
+  Hint: Crie o comando com funções na mesma ordem em que são apresentadas no enunciado. Use os códigos da lição como modelos.
+  
+- Class: cmd_question
+  Output: "A próxima questão é opcional. Trata-se de um desafio: reproduzir o gráfico de uma figura. Vou fazer a cópia de uma imagem .png em seu computador. Para isso, por favor, defina um novo diretório de trabalho, onde a figura será salva."
+  CorrectAnswer: setwd("~/Dropbox/_R/swirl/arquivosDados")
+  AnswerTests: expr_uses_func('setwd')
+  Hint: Defina um novo diretório de trabalho.
+
+- Class: figure
+  Output: "Reproduza o gráfico no arquivo figDesafio.png, que foi feito a partir dos dados de `pretonicas`. Ele consiste nos espaços vocálicos de cada um dos sete falantes paraibanos, separados por seu gênero. Atente-se a todos os detalhes (nomes de eixos, cores, título, tema etc.). Como mencionado na lição, um bom modo de aprimorar a representação gráfica de dados é tentar reproduzir gráficos vistos em outras fontes, ou mesmo visualizar um gráfico em sua mente e tentar fazê-lo no ggplot2. Faça tudo isso num script à parte. Envie o arquivo do script para o email da Livia (oushiro@unicamp.br) com linha de assunto \"Desafio: espaços vocálicos!\"."
+  Figure: copiarFiguraPretonicas.R
+  FigureType: new
+
+- Class: text
+  Output: "Este é o fim da lista de exercícios da Lição 7 - Estatística Descritiva de Variáveis Numéricas - Gráficos. Se quiser praticar mais, crie novos gráficos de linhas, de dispersão, boxplots e histogramas com base nos exemplos desta aula. Recomendo também que estude as referências indicadas na lição correspondente a esta lista de exercícios." 
+
+- Class: mult_question
+  Output: Você gostaria de enviar agora suas respostas à Livia, para que ela possa avaliar seu progresso? Se sim, clique em "Enviar" no link que abrir. Se não, basta fechar a janela que se abrir.
+  AnswerChoices: Sim;Não
+  CorrectAnswer: NULL
+  AnswerTests: submit_log()
+  Hint: Escolha uma das opções!
