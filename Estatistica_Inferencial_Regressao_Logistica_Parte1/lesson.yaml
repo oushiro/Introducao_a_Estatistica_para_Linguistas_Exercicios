@@ -25,7 +25,7 @@
   Output: "(2) A qual nível de POSICAO.R se refere o coeficiente linear (Intercept)?"
   AnswerChoices: posição medial;posição final
   CorrectAnswer: posição medial
-  AnswerTests: any_of_exprs('posição final', 'posição medial')
+  AnswerTests: omnitest(correctVal= 'posição medial')
   Hint: Refaça a lição, se necessário!
 
 - Class: mult_question
@@ -78,7 +78,7 @@
 - Class: cmd_question
   Output: "(10) Transforme o valor de logodds calculado na questão (9) para um valor de probabilidade."
   CorrectAnswer: 0.2682805
-  AnswerTests: any_of_exprs('0.2682805', 'ilogit(-1.003364)', 'ilogit(-0.151114 + (50 * -0.017045))')
+  AnswerTests: omnitest(correctVal=0.2682805)
   Hint: Coloque a resposta em número decimal, com ponto para representar as casa decimais.
 
 - Class: mult_question
@@ -103,7 +103,7 @@
 - Class: cmd_question
   Output: "(14) Transforme esta última medida de logodds em probabilidade."
   CorrectAnswer: 0.4578835
-  AnswerTests: any_of_exprs('0.4578835', 'ilogit(-0.168866)')
+  AnswerTests: omnitest(correctVal = 0.4578835)
   Hint: Coloque a resposta em número decimal, com ponto para representar as casa decimais.
 
 - Class: mult_question
