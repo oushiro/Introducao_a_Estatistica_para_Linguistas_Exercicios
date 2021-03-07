@@ -7,7 +7,7 @@
   Version: 2.4.3
 
 - Class: figure
-  Output: "Nesta lista de exercícios, você vai desenvolver uma análise semelhante à que fizemos na Lição 14, mas agora com outras variáveis previsoras. As questões se encontram no script aberto em Source. As respostas desta lista de exercícios não requerem linhas de comando, mas sim os resultados de análises que você fará à parte. Suas análises devem ser feitas fora do ambiente do swirl. Lembre-se que você pode sair com o comando play() e voltar às questões desta lista com o comando nxt(). Se preferir, resolva primeiro todas as questões no script e depois volte para responder as questões aqui! Você também pode salvar o script em Source com outro nome e em outra pasta de seu computador."
+  Output: "Nesta lista de exercícios, você vai desenvolver uma análise semelhante à que fizemos na Lição 14, mas agora com outras variáveis previsoras. As questões se encontram no script aberto em Source. As respostas desta lista de exercícios não requerem linhas de comando, mas sim os resultados de análises que você fará à parte. Suas análises devem ser feitas fora do ambiente do swirl. Lembre-se que você pode sair com o comando play() e voltar às questões desta lista com o comando nxt(). Se preferir, resolva primeiro todas as questões no script e depois volte para responder as questões aqui! Atenção: é uma boa ideia salvar o script em Source em outra pasta de seu computador."
   Figure: Licao14-IEL-Exercicios-background.R
   FigureType: new
 
@@ -76,7 +76,7 @@
   Hint: Refaça a lição, se necessário!
 
 - Class: cmd_question
-  Output: "(10) Tranforme o valor de logodds calculado em (9) para um valor de probabilidade."
+  Output: "(10) Transforme o valor de logodds calculado na questão (9) para um valor de probabilidade."
   CorrectAnswer: 0.2682805
   AnswerTests: any_of_exprs('0.2682805', 'ilogit(-1.003364)', 'ilogit(-0.151114 + (50 * -0.017045))')
   Hint: Coloque a resposta em número decimal, com ponto para representar as casa decimais.

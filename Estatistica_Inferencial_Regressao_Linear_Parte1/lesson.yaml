@@ -7,7 +7,7 @@
   Version: 2.4.3
 
 - Class: figure
-  Output: "Nesta lista de exercícios, você vai desenvolver uma análise semelhante à que fizemos na Lição 12, mas agora sobre a vogal /o/ pretônica. As questões se encontram no script aberto em Source. As respostas desta lista de exercícios não requerem linhas de comando, mas sim os resultados de análises que você fará à parte. Suas análises devem ser feitas fora do ambiente do swirl. Lembre-se que você pode sair com o comando play() e voltar às questões desta lista com o comando nxt(). Se preferir, resolva primeiro todas as questões no script e depois volte para responder as questões aqui! Você também pode salvar o script em Source com outro nome e em outra pasta de seu computador."
+  Output: "Nesta lista de exercícios, você vai desenvolver uma análise semelhante à que fizemos na Lição 12, mas agora sobre a vogal /o/ pretônica. As questões se encontram no script aberto em Source. As respostas desta lista de exercícios não requerem linhas de comando, mas sim os resultados de análises que você fará à parte. Suas análises devem ser feitas fora do ambiente do swirl. Lembre-se que você pode sair com o comando play() e voltar às questões desta lista com o comando nxt(). Se preferir, resolva primeiro todas as questões no script e depois volte para responder as questões aqui! Atenção: é uma boa ideia salvar o script em Source em outra pasta de seu computador."
   Figure: Licao12-IEL-Exercicios-background.R
   FigureType: new
 
@@ -131,7 +131,7 @@
 - Class: exact_question
   Output: "(18) Calcule a estimativa da medida de F1.NORM quando F1.SEG.NORM tem 450 Hz."
   CorrectAnswer: 452.9496
-  AnswerTests: omnitest(correctVal = 452.9496)
+  AnswerTests: any_of_exprs('452.9496', '359.08408 + (0.20859 * 450)')
   Hint: Refaça as lições do curso, se necessário!
 
 - Class: mult_question

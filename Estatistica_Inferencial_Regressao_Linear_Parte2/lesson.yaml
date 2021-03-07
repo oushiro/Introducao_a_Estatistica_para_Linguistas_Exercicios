@@ -7,7 +7,7 @@
   Version: 2.4.3
 
 - Class: figure
-  Output: "Nesta lista de exercícios, você vai desenvolver uma análise semelhante à que fizemos na Lição 13, mas agora sobre a vogal /o/ pretônica. As questões se encontram no script aberto em Source. As respostas desta lista de exercícios não requerem linhas de comando, mas sim os resultados de análises que você fará à parte. Suas análises devem ser feitas fora do ambiente do swirl. Lembre-se que você pode sair com o comando play() e voltar às questões desta lista com o comando nxt(). Se preferir, resolva primeiro todas as questões no script e depois volte para responder as questões aqui! Você também pode salvar o script em Source com outro nome e em outra pasta de seu computador."
+  Output: "Nesta lista de exercícios, você vai desenvolver uma análise semelhante à que fizemos na Lição 13, mas agora sobre a vogal /o/ pretônica. As questões se encontram no script aberto em Source. As respostas desta lista de exercícios não requerem linhas de comando, mas sim os resultados de análises que você fará à parte. Suas análises devem ser feitas fora do ambiente do swirl. Lembre-se que você pode sair com o comando play() e voltar às questões desta lista com o comando nxt(). Se preferir, resolva primeiro todas as questões no script e depois volte para responder as questões aqui! Atenção: é uma boa ideia salvar o script em Source em outra pasta de seu computador."
   Figure: Licao13-IEL-Exercicios-background.R
   FigureType: new
 
@@ -46,7 +46,7 @@
   Hint: Leia a tabela de coeficientes gerada no modelo.
 
 - Class: exact_question
-  Output: "(5) Calcule a estimativa de F1.NORM na fala de paraibanas quando a vogal /o/ pretônica é precedida de consoante velar e seguida de consoante palatal-sibilante (p.ex., no item lexical 'gostaria'."
+  Output: "(5) Calcule a estimativa de F1.NORM na fala de paraibanas quando a vogal /o/ pretônica é precedida de consoante velar e seguida de consoante palatal-sibilante (p.ex., no item lexical 'gostaria')."
   CorrectAnswer: 328.0931
   AnswerTests: any_of_exprs=c('328.0931', '337.53078 + 20.64567 -9.14278 -20.94054')
   Hint: Calcule a estimativa a partir dos coeficientes reportados na tabela.
@@ -59,7 +59,7 @@
   Hint: Aplique as funções step() e drop1() ao modelo.
 
 - Class: mult_question
-  Output: "(7) Os testes 'forward', 'backward' e 'both' concordam quanto às variáveis que devem ser mantidas?" 
+  Output: "(7) Os testes 'forward', 'backward' e 'both' de step() concordam quanto às variáveis que devem ser mantidas?" 
   AnswerChoices: sim;não
   CorrectAnswer: sim
   AnswerTests: omnitest(correctVal= 'sim')
@@ -89,7 +89,7 @@
   Hint: Leia e interprete a tabela de coeficientes.
 
 - Class: exact_question
-  Output: "(10) Calcule a estimativa da altura da vogal /o/ pretônica (F1.NORM) quando o F1 da vogal da sílaba seguinte é 450 Hz. "
+  Output: "(10) A partir do modelo de efeitos mistos, calcule a estimativa da altura da vogal /o/ pretônica (F1.NORM) quando o F1 da vogal da sílaba seguinte é 450 Hz. "
   CorrectAnswer: 445.8873
   AnswerTests: any_of_exprs=c('445.8873', '337.21676 + (450*0.24149)')
   Hint: Calcule a estimativa a partir dos coeficientes reportados na tabela.

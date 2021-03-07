@@ -2,10 +2,10 @@
 
 lesson_dir <- file.path(path.package("swirl"), "Courses",
                         "Introducao_a_Estatistica_para_Linguistas", "data")
-origem <- file.path(lesson_dir, "DadosRT-Percepcao.csv")
+origem <- file.path(lesson_dir, "DadosRT-percepcao.csv")
 
 new_dir<-getwd()
-destino <- file.path(new_dir, "DadosRT-Percepcao.csv") 
+destino <- file.path(new_dir, "DadosRT-percepcao.csv") 
 
 file.copy(origem, destino, overwrite = T)
 

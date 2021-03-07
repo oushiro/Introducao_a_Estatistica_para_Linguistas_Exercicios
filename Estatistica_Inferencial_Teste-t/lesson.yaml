@@ -13,7 +13,7 @@
   Hint: Use a função setwd().
   
 - Class: figure
-  Output: O arquivo DadosRT-Percepcao.csv foi copiado para o atual diretório de trabalho. 
+  Output: O arquivo DadosRT-percepcao.csv foi copiado para o atual diretório de trabalho. 
   Figure: copiarDadosPercepcao.R
   FigureType: new
 
@@ -57,9 +57,9 @@
   Hint: Veja o resultado de str() e View() e, se necessário, refaça a Lição 2.
 
 - Class: cmd_question
-  Output: "Faça um gráfico com dois histogramas da distribuição de \"graus de paulistanidade\" (PAULISTANIDADE) atribuídos aos falantes quando se ouviu o retroflexo e quando se ouviu o tepe. Para tanto, a partir do dataframe `dados`, (i) defina o parâmetro estético para x; (ii) use a geometria para histogramas com bindwidth = 1, alpha = 0.7 e cor das bordas das barras \"gray\"; e (iii) use facet_grid(), de modo que um histograma fique em cima do outro."
+  Output: "Faça um gráfico com dois histogramas da distribuição de \"graus de paulistanidade\" (PAULISTANIDADE) atribuídos aos falantes quando se ouviu o retroflexo e quando se ouviu o tepe. Para tanto, a partir do dataframe `dados`, (i) defina o parâmetro estético para x; (ii) use a geometria para histogramas com binwidth = 1, alpha = 0.7 e cor das bordas das barras \"gray\"; e (iii) use facet_grid(), de modo que um histograma fique em cima do outro."
   CorrectAnswer: ggplot(dados, aes(x = PAULISTANIDADE)) + geom_histogram(binwidth = 1, alpha = 0.7, color = "gray") + facet_grid(VARIANTE.OUVIDA ~ .)
-  AnswerTests: omnitest(correctExpr='ggplot(dados, aes(x = PAULISTANIDADE)) + geom_histogram(binwidth = 1, alpha = 0.7, color = "gray") + facet_grid(VARIANTE.OUVIDA ~ .)')
+  AnswerTests: any_of_exprs('ggplot(dados, aes(x = PAULISTANIDADE)) + geom_histogram(binwidth = 1, alpha = 0.7, color = "gray") + facet_grid(VARIANTE.OUVIDA ~ .)', 'dados %>% ggplot(., aes(x = PAULISTANIDADE)) + geom_histogram(binwidth = 1, alpha = 0.7, color = "gray") + facet_grid(VARIANTE.OUVIDA ~ .)')
   Hint: Refaça a Lição 7, se necessário, para lembrar como se plota um histograma.
 
 - Class: mult_question
@@ -141,7 +141,7 @@
   Hint: Refaça a lição correspondente, se necessário.
 
 - Class: cmd_question
-  Output: "Com ggplot(), faça boxplots da distribuição das notas atribuídas ao grau de SOTAQUE por VARIANTE.OUVIDA e FALANTE. Para tanto, (i) escolha o dataframe apropriado; (ii) defina os parâmetros gráficos x e y; (iii) use a geometria de boxplots com notch = T; e (iv) use facet_grid() de modo que os falantes apareçam em facetas lado a lado no gráfico."
+  Output: "Com ggplot(), faça boxplots da distribuição das notas atribuídas ao grau de SOTAQUE por VARIANTE.OUVIDA. Para tanto, (i) escolha o dataframe apropriado; (ii) defina os parâmetros gráficos x e y; (iii) use a geometria de boxplots com notch = T; e (iv) use facet_grid() de modo que os falantes apareçam em facetas lado a lado no gráfico."
   CorrectAnswer: ggplot(dados, aes(x = VARIANTE.OUVIDA, y = SOTAQUE)) + geom_boxplot(notch = T) + facet_grid(. ~ FALANTE)
   AnswerTests: any_of_exprs('ggplot(dados, aes(x = VARIANTE.OUVIDA, y = SOTAQUE)) + geom_boxplot(notch = T) + facet_grid(. ~ FALANTE)', 'ggplot(dados, aes(x = VARIANTE.OUVIDA, y = SOTAQUE)) + geom_boxplot(notch = T) + facet_grid( ~ FALANTE)')
   Hint: Refaça a lição correspondente, se necessário. Use apenas os argumentos especificados.

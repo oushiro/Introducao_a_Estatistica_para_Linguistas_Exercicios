@@ -67,7 +67,7 @@
   Hint: Refaça a Lição 2, se necessário!
 
 - Class: mult_question
-  Output: "O abaixamento de vogais médias pretônicas, em palavras como \"relógio\" e \"romã\", é descrito como um fenômeno de harmonia vocálica: a vogal pretônica abaixa quando a vogal da sílaba seguinte é baixa [\u025B, a, \u0254]. Você tem interesse em testar a hipótese de que a altura da vogal /o/, de acordo com a medida de F1 normalizada (a variável F1.NORM), correlaciona-se com a altura da vogal da sílaba seguinte (a variável F1.SEG.NORM). O primeiro passo é plotar o gráfico de dispersão. Qual das duas variáveis deve ser colocada no eixo x?"
+  Output: "O abaixamento de vogais médias pretônicas, em palavras como \"relógio\" e \"romã\", é descrito como um fenômeno de harmonia vocálica: a vogal pretônica abaixa quando a vogal da sílaba seguinte é baixa [\u025B, a, \u0254]. Você tem interesse em testar a hipótese de que a altura da vogal /o/, de acordo com a medida de F1 normalizada (a variável F1.NORM), correlaciona-se com a altura da vogal da sílaba seguinte (a variável F1.SEG.NORM). O primeiro passo é plotar o gráfico de dispersão. Qual das duas variáveis deve ser colocada no eixo x (i.e., qual é a variável independente)?"
   AnswerChoices: F1.SEG.NORM;F1.NORM;tanto faz!
   CorrectAnswer: F1.SEG.NORM
   AnswerTests: omnitest(correctVal= 'F1.SEG.NORM')
@@ -76,7 +76,7 @@
 - Class: cmd_question
   Output: "Plote um gráfico simples de dispersão das medidas de F1.NORM e F1.SEG.NORM da vogal /o/ na fala de paraibanos com os eixos x e y devidamente especificados. Adicione a função geom_smooth(), com argumento method = \"lm\", para já plotar uma linha de regressão. "
   CorrectAnswer: ggplot(PBSP_o, aes(x = F1.SEG.NORM, y = F1.NORM)) + geom_point() + geom_smooth(method = "lm")
-  AnswerTests: any_of_exprs('ggplot(PBSP_o, aes(x = F1.SEG.NORM, y = F1.NORM)) + geom_point() + geom_smooth(method = "lm")', 'PBSP_o %>% ggplot(., aes(x = F1.SEG.NORM, y = F1.NORM)) + geom_point() + geom_smooth(method = "lm")')
+  AnswerTests: any_of_exprs('ggplot(PBSP_o, aes(x = F1.SEG.NORM, y = F1.NORM)) + geom_point() + geom_smooth(method = "lm")', 'PBSP_o %>% ggplot(., aes(x = F1.SEG.NORM, y = F1.NORM)) + geom_point() + geom_smooth(method = "lm")', 'ggplot(PBSP_o, aes(x = F1.SEG.NORM, y = F1.NORM)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "lightgrey")', 'PBSP_o %>% ggplot(., aes(x = F1.SEG.NORM, y = F1.NORM)) + geom_point() + geom_smooth(method = "lm", se = FALSE, color = "lightgrey")')
   Hint: Refaça a lição correspondente, se necessário! Não inclua nada que não seja requerido no exercício.
 
 - Class: mult_question
