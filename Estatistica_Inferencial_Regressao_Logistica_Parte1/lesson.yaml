@@ -35,7 +35,7 @@
   AnswerTests: omnitest(correctVal= 'menor do que quando está no final da palavra')
   Hint: Refaça a lição, se necessário!
 
-- Class: cmd_question
+- Class: exact_question
   Output: "(4) Qual é o valor de índice C do modelo VD ~ POSICAO.R?"
   CorrectAnswer: 0.540
   AnswerTests: omnitest(correctVal=0.540)
@@ -69,16 +69,16 @@
   AnswerTests: omnitest(correctVal= '21.9%')
   Hint: Calcule a estimativa pelos coeficientes e aplique a função ilogit().
 
-- Class: cmd_question
+- Class: exact_question
   Output: "(9) Faça um modelo para testar se há correlação entre a pronúncia variável de /r/ em coda (VD) e a IDADE do falante. A partir dele, calcule a estimativa, em logodds, de um falante com 50 anos de idade empregar o retroflexo."
   CorrectAnswer: -1.003364
   AnswerTests: omnitest(correctVal=-1.003364)
   Hint: Refaça a lição, se necessário!
 
-- Class: cmd_question
+- Class: exact_question
   Output: "(10) Transforme o valor de logodds calculado na questão (9) para um valor de probabilidade."
   CorrectAnswer: 0.2682805
-  AnswerTests: omnitest(correctVal=0.2682805)
+  AnswerTests: omnitest(correctVal = 0.2682805)
   Hint: Coloque a resposta em número decimal, com ponto para representar as casa decimais.
 
 - Class: mult_question
@@ -88,19 +88,19 @@
   AnswerTests: omnitest(correctVal= 'sim')
   Hint: Refaça a lição, se necessário!
 
-- Class: cmd_question
+- Class: exact_question
   Output: "(12) Calcule a probabilidade, em logodds, de um falante de 30 anos que mora na região central empregar o retroflexo."
   CorrectAnswer: -1.345464
   AnswerTests: omnitest(correctVal = -1.345464)
   Hint: Refaça a lição, se necessário!
 
-- Class: cmd_question
+- Class: exact_question
   Output: "(13) Calcule a probabilidade, em logodds, de um falante de 30 anos que mora na região periférica empregar o retroflexo."
   CorrectAnswer: -0.168866
   AnswerTests: omnitest(correctVal = -0.168866)
   Hint: Coloque todos os coeficientes pertinentes na função define o modelo!
 
-- Class: cmd_question
+- Class: exact_question
   Output: "(14) Transforme esta última medida de logodds em probabilidade."
   CorrectAnswer: 0.4578835
   AnswerTests: omnitest(correctVal = 0.4578835)
