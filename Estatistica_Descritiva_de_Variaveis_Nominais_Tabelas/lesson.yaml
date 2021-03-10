@@ -148,7 +148,7 @@
   Hint: "Dica: multiple o resultado de prop.table por 100. O sinal de multiplicação no R é *."
   
 - Class: mult_question
-  Output: Veja o dataframe que você acabou criar com as frequências e proporções da VD r pela VI emphasis. Que tipo de variável é n?
+  Output: Veja o dataframe que você acabou de criar com as frequências e proporções da VD r pela VI emphasis. Que tipo de variável é n?
   AnswerChoices: int;factor;double
   CorrectAnswer: int
   AnswerTests: omnitest(correctVal= 'int')

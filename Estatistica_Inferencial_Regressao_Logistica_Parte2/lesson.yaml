@@ -12,10 +12,10 @@
   FigureType: new
 
 - Class: text
-  Output: "Primeiro, carregue os dados da planilha LabovDS.csv. Se você não tiver uma cópia, refaça a Lição 4 do curso Introducao a Estatistica para Linguistas. Após carregar o dataframe, cheque sua estrutura, como de praxe. Exclua os dados de `d` da variável `r`. Certifique-se de que o nível de referência é r1 -- para que os resultados de regressão logística sejam lidos em referência ao apagamento de /r/ (r0). Reorganize os níveis da variável store de acordo com o prestígio das lojas: Klein, Macys e Saks."
+  Output: "Primeiro, carregue os dados da planilha LabovDS.csv. Se você não tiver uma cópia, refaça a Lição 4 do curso Introducao a Estatistica para Linguistas. Após carregar o dataframe, cheque sua estrutura, como de praxe. Exclua os dados de `d` da variável `r`. Certifique-se de que o nível de referência é r1 -- para que os resultados de regressão logística sejam lidos em referência ao apagamento de /r/ (r0). Reorganize os níveis das variáveis store, word e emphasis em ordem alfabética."
 
 - Class: text
-  Output: "Essa planilha contém os dados da realização de /r/ (r0 - apagado; r1 - realizado) por parte de funcionários de três lojas de departamento em Nova Iorque. As variáveis previsoras são store (Kleins, Macy's, Saks), emphasis (casual ou emphasic) e word (fourth ou floor). Verifique se há interações entre essas três variáveis em modelos simples de regressão logística, que incluem apenas uma interação."
+  Output: "Essa planilha contém os dados da realização de /r/ (r0 - apagado; r1 - realizado) por parte de funcionários de três lojas de departamento em Nova Iorque. As variáveis previsoras são store (Klein, Macy's, Saks), emphasis (casual ou emphasic) e word (fourth ou floor). Verifique se há interações entre essas três variáveis em modelos simples de regressão logística, que incluem apenas uma interação."
 
 - Class: mult_question
   Output: "(1) Entre qual par de variáveis há interação?"
@@ -52,9 +52,9 @@
 
 - Class: mult_question
   Output: "(6) Os funcionários de qual loja mais favorecem o apagamento de /r/?"
-  AnswerChoices: Kleins;Macy's;Saks
-  CorrectAnswer: Kleins
-  AnswerTests: omnitest(correctVal= 'Kleins')
+  AnswerChoices: Klein;Macy's;Saks
+  CorrectAnswer: Klein
+  AnswerTests: omnitest(correctVal= 'Klein')
   Hint: Interprete os resultados da tabela de coeficientes.
 
 - Class: mult_question
