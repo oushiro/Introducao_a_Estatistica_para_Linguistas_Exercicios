@@ -133,7 +133,7 @@
   Hint: "Use o operador de indexação para vetores [ ] e a função c()"
 
 - Class: cmd_question
-  Output: Acesse o intervalo do 5o. ao 10. elementos do vetor tonicidade20.
+  Output: Acesse o intervalo do 5o. ao 10o. elementos do vetor tonicidade20.
   CorrectAnswer: tonicidade20[5:10]
   AnswerTests: any_of_exprs('tonicidade20[5:10]', 'tonicidade20[c(5:10)]')
   Hint: Use o símbolo `:` para indicar o intervalo.
