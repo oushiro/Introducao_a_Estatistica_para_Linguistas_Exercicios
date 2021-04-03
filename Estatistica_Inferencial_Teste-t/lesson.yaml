@@ -163,13 +163,13 @@
 - Class: exact_question
   Output: "Calcule qual deve ser o valor-p para repetir o teste quatro vezes."
   CorrectAnswer: 0.05/4
-  AnswerTests: omnitest(correctVal=0.0125)
+  AnswerTests: omnitest(correctExpr=0.0125)
   Hint: Refaça a Lição 8, se necessário. Use o ponto final para indicar casa decimais.
 
 - Class: exact_question
   Output: "De acordo o valor-p determinado acima, qual deve ser o nível de confiança?"
   CorrectAnswer: 1 - 0.0125
-  AnswerTests: omnitest(correctVal=0.9875)
+  AnswerTests: omnitest(correctExpr=0.9875)
   Hint: Refaça a Lição 8, se necessário. Use o ponto final para indicar casa decimais.
 
 - Class: cmd_question

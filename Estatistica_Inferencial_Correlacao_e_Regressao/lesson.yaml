@@ -21,19 +21,19 @@
 - Class: exact_question
   Output: "Qual é o coeficiente angular da figura (b)?"
   CorrectAnswer: 3
-  AnswerTests: omnitest(correctVal=3)
+  AnswerTests: omnitest(correctExpr=3)
   Hint: Interprete a figura (b)!
 
 - Class: exact_question
   Output: "Qual é o coeficiente angular da figura (c)?"
   CorrectAnswer: -0.5
-  AnswerTests: omnitest(correctVal=-0.5)
+  AnswerTests: omnitest(correctExpr=-0.5)
   Hint: Interprete a figura (c)!
 
 - Class: exact_question
   Output: "Qual é o coeficiente linear da figura (d)? "
   CorrectAnswer: 4
-  AnswerTests: omnitest(correctVal=4)
+  AnswerTests: omnitest(correctExpr=4)
   Hint: Interprete a figura (d)!
     
 - Class: cmd_question
@@ -140,13 +140,13 @@
 - Class: cmd_question
   Output: Qual é o valor do coeficiente linear nesse modelo?
   CorrectAnswer: 355.86578
-  AnswerTests: omnitest(correctVal=355.86578)
+  AnswerTests: omnitest(correctExpr=355.86578)
   Hint: Interprete e extraia os dados do resultado de summary(modelo.)
 
 - Class: cmd_question
   Output: Qual é o valor do coeficiente angular nesse modelo?
   CorrectAnswer: 0.23362
-  AnswerTests: omnitest(correctVal=0.23362)
+  AnswerTests: omnitest(correctExpr=0.23362)
   Hint: Interprete e extraia os dados do resultado de summary(modelo.)
 
 - Class: mult_question

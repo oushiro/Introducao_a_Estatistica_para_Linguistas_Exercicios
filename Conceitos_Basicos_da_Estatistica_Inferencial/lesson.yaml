@@ -37,13 +37,13 @@
 - Class: cmd_question
   Output: "Numa rolada de dado, qual é a probabilidade de se ter o número 5, considerando-se que o dado não é viciado?"
   CorrectAnswer: 1/6
-  AnswerTests: omnitest(correctVal=1/6)
+  AnswerTests: omnitest(correctExpr=1/6)
   Hint: Para a moeda, a probabilidade é 1/2 = 0.5. O dado tem 6 faces.
 
 - Class: cmd_question
   Output: "Numa rolada de dado, qual é a probabilidade de se ter um número ímpar, considerando-se que o dado não é viciado?"
   CorrectAnswer: 3/6
-  AnswerTests: omnitest(correctVal=3/6)
+  AnswerTests: omnitest(correctExpr=3/6)
   Hint: Some todas as possibilidades de resultado ímpar, e divida pelo total de resultados possíveis.
 
 - Class: mult_question
@@ -75,13 +75,13 @@
 - Class: cmd_question
   Output: "Qual é a notação decimal para o número em notação `e` 2e+05?"
   CorrectAnswer: 200000
-  AnswerTests: omnitest(correctVal=200000)
+  AnswerTests: omnitest(correctExpr=200000)
   Hint: Refaça a aula correspondente, se necessário!
 
 - Class: cmd_question
   Output: "Qual é a notação decimal para o número em notação `e` 1.45e-03?"
   CorrectAnswer: 0.00145
-  AnswerTests: omnitest(correctVal=0.00145)
+  AnswerTests: omnitest(correctExpr=0.00145)
   Hint: Use o ponto final para indicar os decimais.
   
 - Class: mult_question

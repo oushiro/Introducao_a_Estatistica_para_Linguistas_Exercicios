@@ -38,7 +38,7 @@
 - Class: exact_question
   Output: "(4) Qual é o valor de índice C do modelo VD ~ POSICAO.R?"
   CorrectAnswer: 0.540
-  AnswerTests: omnitest(correctVal=0.540)
+  AnswerTests: omnitest(correctExpr=0.540)
   Hint: Refaça a lição, se necessário!
 
 - Class: mult_question
@@ -72,7 +72,7 @@
 - Class: exact_question
   Output: "(9) Faça um modelo para testar se há correlação entre a pronúncia variável de /r/ em coda (VD) e a IDADE do falante. A partir dele, calcule a estimativa, em logodds, de um falante com 50 anos de idade empregar o retroflexo."
   CorrectAnswer: -1.003364
-  AnswerTests: omnitest(correctVal=-1.003364)
+  AnswerTests: omnitest(correctExpr=-1.003364)
   Hint: Refaça a lição, se necessário!
 
 - Class: exact_question
