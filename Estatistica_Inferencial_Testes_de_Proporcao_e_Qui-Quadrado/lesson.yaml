@@ -14,7 +14,7 @@
   
 - Class: cmd_question
   Output: Defina como diretório de trabalho aquele que contém a planilha DadosRT.csv. Caso não tenha uma cópia, refaça a Lição 1 do curso Introducao a Estatistica para Linguistas.
-  CorrectAnswer: setwd("~/Dropbox/_R/swirl/arquivosDados")
+  CorrectAnswer: setwd(".")
   AnswerTests: expr_uses_func('setwd')
   Hint: Use a função setwd().
 
@@ -99,7 +99,7 @@
 - Class: cmd_question
   Output: "Qual é o valor de qui-quadrado?"
   CorrectAnswer: 89.292
-  AnswerTests: omnitest(correctVal=89.292)
+  AnswerTests: omnitest(correctExpr=89.292)
   Hint: "Digite o valor de qui-quadrado fornecido no teste."
 
 - Class: mult_question
@@ -132,7 +132,7 @@
 - Class: cmd_question
   Output: "Nesta distribuição, há quantos graus de liberdade?"
   CorrectAnswer: 4
-  AnswerTests: omnitest(correctVal=4)
+  AnswerTests: omnitest(correctExpr=4)
   Hint: Refaça a lição correspondente, se necessário.
 
 - Class: cmd_question

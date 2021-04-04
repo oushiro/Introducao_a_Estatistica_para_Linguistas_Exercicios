@@ -8,7 +8,7 @@
 
 - Class: cmd_question
   Output: "Para estes exercícios, vou fazer uma cópia de uma nova planilha em seu computador. Defina uma pasta de sua escolha para ser o diretório de trabalho. Se preferir, crie uma nova pasta antes."
-  CorrectAnswer: setwd("~/Dropbox/_R/swirl/arquivosDados")
+  CorrectAnswer: setwd(".")
   AnswerTests: expr_uses_func('setwd')
   Hint: Use a função setwd().
   
@@ -163,13 +163,13 @@
 - Class: exact_question
   Output: "Calcule qual deve ser o valor-p para repetir o teste quatro vezes."
   CorrectAnswer: 0.05/4
-  AnswerTests: omnitest(correctVal=0.0125)
+  AnswerTests: omnitest(correctExpr=0.0125)
   Hint: Refaça a Lição 8, se necessário. Use o ponto final para indicar casa decimais.
 
 - Class: exact_question
   Output: "De acordo o valor-p determinado acima, qual deve ser o nível de confiança?"
   CorrectAnswer: 1 - 0.0125
-  AnswerTests: omnitest(correctVal=0.9875)
+  AnswerTests: omnitest(correctExpr=0.9875)
   Hint: Refaça a Lição 8, se necessário. Use o ponto final para indicar casa decimais.
 
 - Class: cmd_question

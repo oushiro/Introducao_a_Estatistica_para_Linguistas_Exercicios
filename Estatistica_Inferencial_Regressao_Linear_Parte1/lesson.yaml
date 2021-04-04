@@ -17,7 +17,7 @@
 - Class: exact_question
   Output: "(1) Há quantos dados de vogal /o/ pretônica na planilha Pretonicas.csv?"
   CorrectAnswer: 639
-  AnswerTests: omnitest(correctVal=639)
+  AnswerTests: omnitest(correctExpr=639)
   Hint: Refaça as lições do curso, se necessário!
 
 - Class: text
@@ -26,13 +26,13 @@
 - Class: exact_question
   Output: "(2) Há quantos dados de vibrantes no contexto seguinte à vogal pretônica /o/?"
   CorrectAnswer: 258
-  AnswerTests: omnitest(correctVal=258)
+  AnswerTests: omnitest(correctExpr=258)
   Hint: Refaça as lições do curso, se necessário!
 
 - Class: exact_question
   Output: "(3) Há quantos dados de consoantes labiais no contexto precedente à vogal pretônica /o/?"
   CorrectAnswer: 209
-  AnswerTests: omnitest(correctVal=209)
+  AnswerTests: omnitest(correctExpr=209)
   Hint: Refaça as lições do curso, se necessário!
 
 - Class: mult_question
@@ -59,7 +59,7 @@
 - Class: exact_question
   Output: "(7) Faça um novo subconjunto de dados incluindo apenas aqueles que estão abaixo do limite estipulado na questão anterior. Quantos dados foram efetivamente excluídos?"
   CorrectAnswer: 1
-  AnswerTests: omnitest(correctVal=1)
+  AnswerTests: omnitest(correctExpr=1)
   Hint: Refaça as lições do curso, se necessário!
 
 - Class: mult_question
@@ -86,7 +86,7 @@
 - Class: exact_question
   Output: "(11) Em quantos Hz a estimativa de F1.NORM para vibrante difere da estimativa do nível de referência?"
   CorrectAnswer: -11.5614
-  AnswerTests: omnitest(correctVal=-11.5614)
+  AnswerTests: omnitest(correctExpr=-11.5614)
   Hint: Veja a estimativa para vibrante.
 
 - Class: exact_question

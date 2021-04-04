@@ -17,7 +17,7 @@
     
 - Class: cmd_question
   Output: Defina como diretório de trabalho aquele que, em seu computador, contém a planilha Pretonicas.csv.
-  CorrectAnswer: setwd("~/Dropbox/_R/swirl/arquivosDados")
+  CorrectAnswer: setwd(".")
   AnswerTests: expr_uses_func('setwd')
   Hint: Use a função setwd().
   
