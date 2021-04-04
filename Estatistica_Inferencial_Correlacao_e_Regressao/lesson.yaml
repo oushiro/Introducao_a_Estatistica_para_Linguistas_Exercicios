@@ -44,7 +44,7 @@
 
 - Class: cmd_question
   Output: "As próximas questões se baseiam nos dados de vogais médias pretônicas. Defina como diretório de trabalho a pasta que, em seu computador, tem o arquivo Pretonicas.csv. Caso não tenha este arquivo, refaça a Lição 6 do curso Introducao a Estatistica para Linguistas."
-  CorrectAnswer: setwd("~/Dropbox/_R/swirl/arquivosDados")
+  CorrectAnswer: setwd(".")
   AnswerTests: expr_uses_func('setwd')
   Hint: Use a função setwd().
 

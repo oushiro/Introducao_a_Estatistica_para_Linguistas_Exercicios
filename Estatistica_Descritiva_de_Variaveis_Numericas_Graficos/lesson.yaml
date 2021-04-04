@@ -100,7 +100,7 @@
   
 - Class: cmd_question
   Output: "A próxima questão é opcional. Trata-se de um desafio: reproduzir o gráfico de uma figura. Vou fazer a cópia de uma imagem .png em seu computador. Para isso, por favor, defina um novo diretório de trabalho, onde a figura será salva."
-  CorrectAnswer: setwd("~/Dropbox/_R/swirl/arquivosDados")
+  CorrectAnswer: setwd(".")
   AnswerTests: expr_uses_func('setwd')
   Hint: Defina um novo diretório de trabalho.
 

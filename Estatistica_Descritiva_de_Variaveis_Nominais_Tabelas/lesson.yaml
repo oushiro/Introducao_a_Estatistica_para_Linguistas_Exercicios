@@ -11,7 +11,7 @@
 
 - Class: cmd_question
   Output: Defina como diretório de trabalho aquele que, em seu computador, contém a planilha LabovDS.csv.
-  CorrectAnswer: setwd("~/Dropbox/_R/swirl/Introducao_a_Estatistica_para_Linguistas/data")
+  CorrectAnswer: setwd(".")
   AnswerTests: expr_uses_func('setwd')
   Hint: Use a função setwd() com o caminho completo para o diretório. 
   

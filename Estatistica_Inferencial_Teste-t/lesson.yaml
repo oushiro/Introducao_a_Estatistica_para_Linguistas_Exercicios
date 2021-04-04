@@ -8,7 +8,7 @@
 
 - Class: cmd_question
   Output: "Para estes exercícios, vou fazer uma cópia de uma nova planilha em seu computador. Defina uma pasta de sua escolha para ser o diretório de trabalho. Se preferir, crie uma nova pasta antes."
-  CorrectAnswer: setwd("~/Dropbox/_R/swirl/arquivosDados")
+  CorrectAnswer: setwd(".")
   AnswerTests: expr_uses_func('setwd')
   Hint: Use a função setwd().
   

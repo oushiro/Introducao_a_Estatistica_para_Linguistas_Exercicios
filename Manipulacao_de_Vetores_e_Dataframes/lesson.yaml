@@ -17,7 +17,7 @@
 
 - Class: cmd_question
   Output: Defina o diretório de trabalho como aquele em que se encontra a planilha DadosRT.csv.
-  CorrectAnswer: setwd("~/Dropbox/_R/swirl/Introducao_a_Estatistica_para_Linguistas-v2.0/data")
+  CorrectAnswer: setwd(".")
   AnswerTests: expr_uses_func('setwd')
   Hint: Use a função setwd() com o caminho completo para o diretório, ou use os botões na aba Files. 
 

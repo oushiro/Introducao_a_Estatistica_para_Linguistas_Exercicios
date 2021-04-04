@@ -38,7 +38,7 @@
 
 - Class: cmd_question
   Output: Defina como diretório de trabalho a pasta em que se localiza a planilha DadosRT.csv. 
-  CorrectAnswer: setwd("~/Dropbox/_R/swirl/testes")
+  CorrectAnswer: setwd(".")
   AnswerTests: expr_uses_func('setwd')
   Hint: Use a função setwd().
 
