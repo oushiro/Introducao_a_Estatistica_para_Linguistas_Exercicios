@@ -114,7 +114,7 @@
 - Class: cmd_question
   Output: A partir de freq.prop.store, acesse apenas as frequências e as proporções, e somente da loja Saks. Use os colchetes [ ].
   CorrectAnswer: freq.prop.store[5:6, 3:4]
-  AnswerTests: any_of_exprs('freq.prop.store[5:6, 3:4]', 'freq.prop.store[c(5:6), c(3:4)]', 'freq.prop.store[c(5,6), c(3,4)]')
+  AnswerTests: any_of_exprs('freq.prop.store[5:6, 3:4]', 'freq.prop.store[c(5:6), c(3:4)]', 'freq.prop.store[c(5,6), c(3,4)]', 'freq.prop.store[c(5,6), c("n", "proporcao")]')
   Hint: Se necessário, reveja a Lição 2 para lembrar como se acessam elementos de vetores e de dataframes.
   
 - Class: cmd_question

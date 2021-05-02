@@ -17,7 +17,7 @@
 
 - Class: cmd_question
   Output: Defina o diretório de trabalho como aquele em que se encontra a planilha DadosRT.csv.
-  CorrectAnswer: setwd("~/Dropbox/_R/swirl/Introducao_a_Estatistica_para_Linguistas-v2.0/data")
+  CorrectAnswer: setwd("~/Dropbox/_R/swirl/Introducao_a_Estatistica_para_Linguistas/data")
   AnswerTests: expr_uses_func('setwd')
   Hint: Use a função setwd() com o caminho completo para o diretório, ou use os botões na aba Files. 
 
@@ -62,7 +62,7 @@
 - Class: cmd_question
   Output: As três últimas colunas de `dadosR` mostram a ocorrência da palavra com /r/ em coda com algumas palavras do contexto precedente e seguinte. Elas servem como base para a codificação das demais colunas, mas não são variáveis em si. Crie um novo dataframe, chamado `dadosR2`, com a exclusão dessas três colunas.
   CorrectAnswer: dadosR2 <- dadosR[, -c(18:20)]
-  AnswerTests: any_of_exprs('dadosR2 <- dadosR[, -c(18:20)]', 'dadosR2<-dadosR[,c(1:17)]', 'dadosR2 <- dadosR[,-c(18,19,20)]', 'dadosR2 <- select(dadosR, VD:ITEM.LEXICAL)', 'dadosR2 <- select(dadosR, VD, INFORMANTE, SEXO.GENERO, IDADE, FAIXA.ETARIA, ESCOLARIDADE, REGIAO, INDICE.SOCIO, ORIGEM.PAIS, CONT.FON.PREC, CONT.FON.SEG, TONICIDADE, POSICAO.R, CLASSE.MORFOLOGICA, FREQUENCIA, ESTILO, ITEM.LEXICAL)', 'dadosR2 <- dadosR %>% select(VD, INFORMANTE, SEXO.GENERO, IDADE, FAIXA.ETARIA, ESCOLARIDADE, REGIAO, INDICE.SOCIO, ORIGEM.PAIS, CONT.FON.PREC, CONT.FON.SEG, TONICIDADE, POSICAO.R, CLASSE.MORFOLOGICA, FREQUENCIA, ESTILO, ITEM.LEXICAL)', 'dadosR2 <- dadosR %>% select(VD:ITEM.LEXICAL)')
+  AnswerTests: any_of_exprs('dadosR2 <- dadosR[, -c(18:20)]', 'dadosR2<-dadosR[,c(1:17)]', 'dadosR2 <- dadosR[,-c(18,19,20)]', 'dadosR2 <- select(dadosR, VD:ITEM.LEXICAL)', 'dadosR2 <- dadosR %>% select(VD:ITEM.LEXICAL)', 'dadosR2 <- select(dadosR, VD, INFORMANTE, SEXO.GENERO, IDADE, FAIXA.ETARIA, ESCOLARIDADE, REGIAO, INDICE.SOCIO, ORIGEM.PAIS, CONT.FON.PREC, CONT.FON.SEG, TONICIDADE, POSICAO.R, CLASSE.MORFOLOGICA, FREQUENCIA, ESTILO, ITEM.LEXICAL)', 'dadosR2 <- dadosR %>% select(VD, INFORMANTE, SEXO.GENERO, IDADE, FAIXA.ETARIA, ESCOLARIDADE, REGIAO, INDICE.SOCIO, ORIGEM.PAIS, CONT.FON.PREC, CONT.FON.SEG, TONICIDADE, POSICAO.R, CLASSE.MORFOLOGICA, FREQUENCIA, ESTILO, ITEM.LEXICAL)', 'dadosR2 <- dadosR %>% select(VD:ITEM.LEXICAL)', 'dadosR2 <- select(dadosR, -c(cont.precedente, ocorrencia, cont.seguinte))', 'dadosR2 <- dadosR %>% select(-c(cont.precedente, ocorrencia, cont.seguinte))')
   Hint: Há várias maneiras de responder esta questão!
 
 - Class: cmd_question
@@ -160,7 +160,7 @@
 - Class: cmd_question
   Output: Crie um subconjunto de dados chamado `dados_1a2a` que contém todos os dados dos falantes de 1a. e 2a. faixa etária. Use um operador lógico nessa linha de comando.
   CorrectAnswer: dados_1a2a <- filter(dadosR2, FAIXA.ETARIA == "1a" | FAIXA.ETARIA == "2a")
-  AnswerTests: any_of_exprs('dados_1a2a <- filter(dadosR2, FAIXA.ETARIA %in% c("1a", "2a"))', 'dados_1a2a <- filter(dadosR2, FAIXA.ETARIA == "1a" | FAIXA.ETARIA == "2a")', 'dados_1a2a <- dadosR2 %>% filter(FAIXA.ETARIA %in% c("1a", "2a"))', 'dados_1a2a <- dadosR2 %>% filter(FAIXA.ETARIA == "1a" | FAIXA.ETARIA == "2a")')
+  AnswerTests: any_of_exprs('dados_1a2a <- filter(dadosR2, FAIXA.ETARIA %in% c("1a", "2a"))', 'dados_1a2a <- filter(dadosR2, FAIXA.ETARIA == "1a" | FAIXA.ETARIA == "2a")', 'dados_1a2a <- dadosR2 %>% filter(FAIXA.ETARIA %in% c("1a", "2a"))', 'dados_1a2a <- dadosR2 %>% filter(FAIXA.ETARIA == "1a" | FAIXA.ETARIA == "2a")', 'dados_1a2a <- filter(dadosR2, FAIXA.ETARIA != "3a")', 'dados_1a2a <- dadosR2 %>% filter(FAIXA.ETARIA != "3a")')
   Hint: Esta é uma linha de comando longa. Preste atenção nos detalhes.
 
 - Class: cmd_question
