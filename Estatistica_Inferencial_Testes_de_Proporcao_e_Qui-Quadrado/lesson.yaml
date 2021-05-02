@@ -99,7 +99,7 @@
 - Class: cmd_question
   Output: "Qual é o valor de qui-quadrado?"
   CorrectAnswer: 89.292
-  AnswerTests: omnitest(correctVal=89.292)
+  AnswerTests: any_of_exprs('89.292')
   Hint: "Digite o valor de qui-quadrado fornecido no teste."
 
 - Class: mult_question
@@ -132,7 +132,7 @@
 - Class: cmd_question
   Output: "Nesta distribuição, há quantos graus de liberdade?"
   CorrectAnswer: 4
-  AnswerTests: omnitest(correctVal=4)
+  AnswerTests: any_of_exprs('4')
   Hint: Refaça a lição correspondente, se necessário.
 
 - Class: cmd_question

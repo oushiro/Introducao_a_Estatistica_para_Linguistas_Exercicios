@@ -34,13 +34,13 @@
 - Class: exact_question
   Output: "(3) Qual é o índice C deste modelo?"
   CorrectAnswer: 0.742
-  AnswerTests: omnitest(correctVal=0.742)
+  AnswerTests: any_of_exprs('0.742')
   Hint: Digite o número e use o ponto final para indicar casas decimais.
 
 - Class: exact_question
   Output: "(4) Qual é o valor de R^2 deste modelo?"
   CorrectAnswer: 0.212
-  AnswerTests: omnitest(correctVal=0.212)
+  AnswerTests: any_of_exprs('0.212')
   Hint: Digite o número e use o ponto final para indicar casas decimais.
 
 - Class: mult_question

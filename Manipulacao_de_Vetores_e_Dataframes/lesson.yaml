@@ -36,13 +36,13 @@
 - Class: exact_question
   Output: A função str() fornece uma visão global das propriedades de um dataframe e, como tal, permite checar rapidamente se um conjunto de dados foi corretamente carregado e se sua planilha não tem problemas. Qual é o número de linhas no dataframe `dadosR`?
   CorrectAnswer: 9226
-  AnswerTests: omnitest(correctVal=9226)
+  AnswerTests: any_of_exprs('9226', 'nrow(dadosR)')
   Hint: Veja o número de observações.
 
 - Class: exact_question
   Output: Qual é o número de colunas no dataframe `dadosR`?
   CorrectAnswer: 20
-  AnswerTests: omnitest(correctVal=20)
+  AnswerTests: any_of_exprs('20', 'ncol(dadosR)')
   Hint: Veja o número de variáveis.
 
 - Class: mult_question

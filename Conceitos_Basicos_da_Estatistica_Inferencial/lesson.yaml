@@ -37,13 +37,13 @@
 - Class: cmd_question
   Output: "Numa rolada de dado, qual é a probabilidade de se ter o número 5, considerando-se que o dado não é viciado?"
   CorrectAnswer: 1/6
-  AnswerTests: omnitest(correctVal=1/6)
+  AnswerTests: any_of_exprs('1/6', '0.1666667')
   Hint: Para a moeda, a probabilidade é 1/2 = 0.5. O dado tem 6 faces.
 
 - Class: cmd_question
   Output: "Numa rolada de dado, qual é a probabilidade de se ter um número ímpar, considerando-se que o dado não é viciado?"
   CorrectAnswer: 3/6
-  AnswerTests: omnitest(correctVal=3/6)
+  AnswerTests: any_of_exprs('3/6', '1/2', '0.5')
   Hint: Some todas as possibilidades de resultado ímpar, e divida pelo total de resultados possíveis.
 
 - Class: mult_question
